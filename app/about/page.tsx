@@ -22,6 +22,8 @@ markdown = `
 
 Welcome to **Poodeek!**, the unique Thai language learning app designed to bolster your linguistic capabilities one phrase at a time. Delve into the richness of the Thai language with our daily phrases and utilize the power of repetition to embed them deeply into your memory.
 
+In Thai, Poodeek! means "Say it again!". This is the core principle of our app: repetition. We believe that repetition is the key to learning a language. Our app is designed to help you internalize the phrases you learn, ensuring that they become second nature.
+
 **How Does Poodeek! Work?**
 
 **Step 1: Familiarize Yourself**: Begin by acquainting yourself with our handpicked phrase of the day. Listen to its genuine pronunciation with the help of our embedded audio controls. Aim for a deeper comprehension as you delve into the nuances of each phrase.
