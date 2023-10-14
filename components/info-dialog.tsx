@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import ReactMarkdown from "react-markdown";
-import explanations from "@/data/french-phrase-explanations.json";
+import explanations from "@/data/thai-phrase-explanations.json";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
 export function InfoDialog({ phrase }: { phrase: any }) {
@@ -31,7 +31,8 @@ export function InfoDialog({ phrase }: { phrase: any }) {
             <span className="text-2xl">Phrase Breakdown</span>
           </DialogTitle>
           <DialogDescription>
-            <span className="text-base">{phrase.phrase}</span>
+            <div className="text-base">{phrase.translation}</div>
+            <div className="text-base">{phrase.transliteration}</div>
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4 text-xl">

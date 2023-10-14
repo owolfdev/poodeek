@@ -169,7 +169,7 @@ const PhraseDisplay: React.FC<{}> = () => {
             {/* <Button onClick={handleGetInfo} variant="outline">
               Info
             </Button> */}
-            {/* <InfoDialog phrase={phrase} /> */}
+            <InfoDialog phrase={phrase} />
             <div className="flex gap-2">
               <Button onClick={handlePreviousPhrase} variant="outline">
                 Previous
