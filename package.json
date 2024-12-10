@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google-cloud/text-to-speech": "^5.6.0",
     "@hookform/resolvers": "^3.9.1",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
@@ -28,6 +29,7 @@
     "@types/mdx": "^2.0.13",
     "@types/react-google-recaptcha": "^2.1.9",
     "autoprefixer": "10.4.17",
+    "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^2.28.0",
@@ -57,6 +59,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/canvas-confetti": "^1.6.4",
     "@types/lodash": "^4.17.13",
     "@types/node": "20.10.6",
     "@types/react": "18.2.46",

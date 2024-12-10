@@ -15,8 +15,11 @@ import ReactMarkdown from "react-markdown";
 import explanations from "@/data/thai-phrase-explanations.json";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export function InfoDialog({ phrase }: { phrase: any }) {
+export function InfoDialog({
+  phrase,
+}: {
+  phrase: { id: string; translation: string; transliteration: string };
+}) {
   const explanation = explanations.find((item) => item.id === phrase.id);
 
   return (
