@@ -59,7 +59,7 @@ function NavComponent() {
       </Sheet>
 
       <div className="flex items-center ">
-        <h1 className="text-3xl sm:text-4xl font-bold mr-6">
+        <h1 className="text-4xl sm:text-4xl font-bold mr-6">
           <Link href="/">
             <span className="text-primary">Poodeek!</span>
           </Link>
