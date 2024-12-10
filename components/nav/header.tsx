@@ -8,7 +8,7 @@ import Image from "next/image";
 function Header() {
   return (
     <header className="sticky top-0 z-40 w-full bg-[#f55751]">
-      <div className="sm:px-12 px-6 flex items-center h-16 py-2  space-x-0 justify-between sm:space-x-0">
+      <div className="sm:px-12 px-6 flex items-center h-20 py-2  space-x-0 justify-between sm:space-x-0">
         <NavComponent />
         <div className="flex items-center gap-4">
           <AdminButtons />
