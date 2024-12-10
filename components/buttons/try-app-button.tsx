@@ -8,7 +8,7 @@ function TryAppButton() {
       {" "}
       <Link href="/app">
         <Button size="lg" className="py-8 px-10">
-          <span className="text-4xl">Try App</span>
+          <span className="text-4xl">Try The App</span>
         </Button>
       </Link>
     </div>

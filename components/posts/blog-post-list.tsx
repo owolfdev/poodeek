@@ -32,7 +32,7 @@ const BlogPostList = ({ blogs, trimDescription }: BlogPostListProps) => {
                   Likes: {blog.likes}
                 </p>
               </div>
-              <p className="font-light">{trimDescription(blog.description)}</p>
+              <p className="">{trimDescription(blog.description)}</p>
             </div>
           </Link>
         </li>

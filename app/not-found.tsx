@@ -50,7 +50,7 @@ export default async function NotFoundPage() {
 
   return (
     <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
-      <XCircle className="w-24 h-24 mx-auto text-muted-foreground" />
+      <XCircle className="w-24 h-24 mx-auto text-muted-foreground text-primary" />
       <h1 className="text-6xl font-black text-center">404</h1>
       <h2 className="text-4xl font-bold text-center">{metadata.title}</h2>
       {/* Add the prose class here */}
