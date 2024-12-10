@@ -14,6 +14,7 @@ import {
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
 const navItems = [
+  { href: "/", label: "Home" },
   { href: "/app", label: "App" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
