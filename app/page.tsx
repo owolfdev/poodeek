@@ -54,7 +54,9 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
       <div>
-        <h1 className="text-8xl font-black text-center">{metadata.title}</h1>
+        <h1 className="text-6xl sm:text-8xl font-black text-center">
+          {metadata.title}
+        </h1>
         <p className="text-center text-2xl pt-4">{metadata.description}</p>
       </div>
       {isDevMode() && (

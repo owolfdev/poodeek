@@ -14,6 +14,7 @@ import {
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
 const navItems = [
+  { href: "/app", label: "App" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -36,13 +37,15 @@ function NavComponent() {
         </SheetTrigger>
 
         <SheetContent side="left">
-          <SheetTitle>Menu</SheetTitle>
+          <SheetTitle>
+            <span className="text-3xl">Menu</span>
+          </SheetTitle>
           <nav className="flex flex-col space-y-4 mt-6">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-lg ${
+                className={`text-2xl ${
                   isActive(item.href) ? "font-semibold" : ""
                 }`}
               >

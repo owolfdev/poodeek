@@ -95,20 +95,24 @@ const PhraseDisplay: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 p-2 pt-6">
+    <div className="flex flex-col gap-4">
       <Card className="w-full">
         <CardContent>
-          <div className="pt-12 pb-6 px-4">
+          <div className="sm:py-6 sm:px-4 py-4">
+            <div className="text-sm text-muted-foreground pb-4">
+              Phrase {phraseIndex + 1} of {phrases.length}
+            </div>
+
             <p className="sm:text-3xl text-2xl font-semibold">
               {phrase.transliteration}
             </p>
           </div>
-          <div className="sm:p-6 p-4">
+          <div className="sm:px-4 px-0 py-4">
             <p className="text-xl text-muted-foreground">
               {phrase.translation}
             </p>
           </div>
-          <div className="pt-6 pb-6 px-4">
+          <div className="pt-4 pb-8 sm:px-4 px-0">
             <p className="sm:text-3xl text-2xl font-semibold">
               {phrase.phrase}
             </p>
@@ -116,10 +120,6 @@ const PhraseDisplay: React.FC = () => {
           {currentAudioFile.file && (
             <AudioPlayer currentAudioFile={currentAudioFile} />
           )}
-
-          <div className="px-4 text-sm text-muted-foreground">
-            Phrase {phraseIndex + 1} of {phrases.length}
-          </div>
         </CardContent>
         <CardFooter className="flex gap-4">
           <Button onClick={handlePreviousPhrase} variant="outline">
