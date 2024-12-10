@@ -4,6 +4,8 @@ import EditPageButton from "@/components/page/edit-page-button";
 import OpenInCursor from "@/components/page/open-page-in-cursor-button";
 import { isDevMode } from "@/lib/utils/is-dev-mode";
 import Image from "next/image";
+
+//
 interface MdxModule {
   default: React.ComponentType;
   metadata: {
@@ -52,7 +54,7 @@ export default async function HomePage() {
   const { default: Content, metadata } = mdxModule;
 
   return (
-    <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
+    <div className="flex flex-col max-w-3xl w-full gap-8 pt-6 sm:pt-10">
       <div>
         <h1 className="text-6xl sm:text-8xl font-black text-center">
           {metadata.title}

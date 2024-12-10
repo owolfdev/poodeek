@@ -100,105 +100,121 @@ export function ContactForm() {
   };
 
   return (
-    <div className="flex flex-col items-center max-w-3xl gap-8 pt-12">
+    <div className="flex flex-col items-center max-w-3xl gap-8 pt-8">
       <form
-        className="flex-1 flex flex-col sm:w-[600px] w-full gap-4"
+        className="flex flex-col sm:w-[600px] w-full gap-4"
         onSubmit={handleSubmit}
       >
         <p className="text-sm text-foreground">
           Have a question or feedback? Use the form below to get in touch with
           us.
         </p>
-        <div className="flex flex-col gap-2 [&>input]:mb-3 [&>textarea]:mb-3 mt-8">
-          <Label htmlFor="type">Message Type</Label>
-          <Select name="type" required>
-            <SelectTrigger className="text-lg bg-white">
-              <SelectValue placeholder="Select message type" />
-            </SelectTrigger>
-            <SelectContent>
-              {messageTypes.map((option) => (
-                <SelectItem
-                  key={option.value}
-                  value={option.value}
-                  className=""
-                >
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {formErrors.type && (
-            <div className="text-red-500 text-sm mt-1">{formErrors.type}</div>
-          )}
+        <div className="flex flex-col gap-4 [&>input]:mb-3 [&>textarea]:mb-3 mt-6">
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="type">Message Type</Label>
+            <Select name="type" required>
+              <SelectTrigger className="text-lg bg-white">
+                <SelectValue placeholder="Select message type" />
+              </SelectTrigger>
+              <SelectContent>
+                {messageTypes.map((option) => (
+                  <SelectItem
+                    key={option.value}
+                    value={option.value}
+                    className=""
+                  >
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {formErrors.type && (
+              <div className="text-red-500 text-sm mt-1">{formErrors.type}</div>
+            )}
+          </div>
 
-          <Label htmlFor="subject">Subject</Label>
-          <Input
-            name="subject"
-            placeholder="Subject"
-            required
-            className="text-lg"
-            value="Poodeek!Language Learning App"
-          />
-          {formErrors.subject && (
-            <div className="text-red-500 text-sm mt-1">
-              {formErrors.subject}
-            </div>
-          )}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="subject">Subject</Label>
+            <Input
+              name="subject"
+              placeholder="Subject"
+              required
+              className="text-lg"
+              value="Poodeek!Language Learning App"
+            />
+            {formErrors.subject && (
+              <div className="text-red-500 text-sm mt-1">
+                {formErrors.subject}
+              </div>
+            )}
+          </div>
 
-          <Label htmlFor="name">Name</Label>
-          <Input
-            name="name"
-            placeholder="Your name"
-            required
-            className="text-lg"
-          />
-          {formErrors.name && (
-            <div className="text-red-500 text-sm mt-1">{formErrors.name}</div>
-          )}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="name">Name</Label>
+            <Input
+              name="name"
+              placeholder="Your name"
+              required
+              className="text-lg"
+            />
+            {formErrors.name && (
+              <div className="text-red-500 text-sm mt-1">{formErrors.name}</div>
+            )}
+          </div>
 
-          <Label htmlFor="email">Email</Label>
-          <Input
-            name="email"
-            type="email"
-            placeholder="you@example.com"
-            required
-            className="text-lg"
-          />
-          {formErrors.email && (
-            <div className="text-red-500 text-sm mt-1">{formErrors.email}</div>
-          )}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              required
+              className="text-lg"
+            />
+            {formErrors.email && (
+              <div className="text-red-500 text-sm mt-1">
+                {formErrors.email}
+              </div>
+            )}
+          </div>
 
-          <Label htmlFor="message">Message</Label>
-          <Textarea
-            name="message"
-            placeholder="Your message"
-            required
-            className="min-h-[100px] text-lg bg-white"
-          />
-          {formErrors.message && (
-            <div className="text-red-500 text-sm mt-1">
-              {formErrors.message}
-            </div>
-          )}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="message">Message</Label>
+            <Textarea
+              name="message"
+              placeholder="Your message"
+              required
+              className="min-h-[100px] text-lg bg-white"
+            />
+            {formErrors.message && (
+              <div className="text-red-500 text-sm mt-1">
+                {formErrors.message}
+              </div>
+            )}
+          </div>
 
-          {recaptchaSiteKey && (
-            <div className="mb-4">
-              <ReCAPTCHA
-                sitekey={recaptchaSiteKey}
-                onChange={handleRecaptchaChange}
-              />
-            </div>
-          )}
+          <div className="flex flex-col gap-4 pt-4">
+            {recaptchaSiteKey && (
+              <div className="mb-4">
+                <ReCAPTCHA
+                  sitekey={recaptchaSiteKey}
+                  onChange={handleRecaptchaChange}
+                />
+              </div>
+            )}
 
-          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+            {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+          </div>
 
-          <button
-            type="submit"
-            disabled={isSubmitting || !isRecaptchaVerified}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-lg disabled:opacity-50"
-          >
-            {isSubmitting ? "Sending..." : "Send Message"}
-          </button>
+          <div>
+            <button
+              type="submit"
+              disabled={isSubmitting || !isRecaptchaVerified}
+              className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-lg disabled:opacity-50"
+            >
+              {isSubmitting ? "Sending..." : "Send Message"}
+            </button>
+          </div>
         </div>
       </form>
     </div>

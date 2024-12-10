@@ -8,7 +8,7 @@ function Loading() {
       <div>
         <div className="h-1/2 pt-[200px]">
           <BarLoader
-            color="primary"
+            color="secondary"
             loading={true}
             width={200}
             aria-label="Loading Spinner"

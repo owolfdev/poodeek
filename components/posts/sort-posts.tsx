@@ -75,7 +75,7 @@ function SortPosts({
       )}
       <div className="w-full">
         <Select value={sortBy} onValueChange={handleChangeSort}>
-          <SelectTrigger>
+          <SelectTrigger className="bg-secondary">
             <SelectValue placeholder="Sort By" />
           </SelectTrigger>
           <SelectContent>

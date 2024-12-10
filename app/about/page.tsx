@@ -52,7 +52,7 @@ export default async function AboutPage() {
   const { default: Content, metadata } = mdxModule;
 
   return (
-    <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
+    <div className="flex flex-col max-w-3xl w-full gap-8 pt-6 sm:pt-10">
       <h1 className="text-6xl font-black">{metadata.title}</h1>
       {isDevMode() && (
         <div className="flex gap-3">

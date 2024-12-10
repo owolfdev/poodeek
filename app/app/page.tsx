@@ -36,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
 // Render the About page using the dynamically imported content
 export default async function AboutPage() {
   return (
-    <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
+    <div className="flex flex-col max-w-3xl w-full gap-8 pt-6 sm:pt-10">
       <PhraseDisplay />
     </div>
   );
