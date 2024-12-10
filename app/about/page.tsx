@@ -1,43 +1,68 @@
-// "use client";
+import type React from "react";
+import type { Metadata } from "next";
+import EditPageButton from "@/components/page/edit-page-button";
+import OpenInCursor from "@/components/page/open-page-in-cursor-button";
+import { isDevMode } from "@/lib/utils/is-dev-mode";
 
-import React from "react";
-import ReactMarkdown from "react-markdown";
+interface MdxModule {
+  default: React.ComponentType;
+  metadata: {
+    title: string;
+    description: string;
+    slug?: string;
+  };
+}
 
-let markdown = ``;
+// Dynamically import the MDX file to access metadata and content
+async function loadMdxFile(): Promise<MdxModule | null> {
+  try {
+    const mdxModule: MdxModule = await import("@/content/pages/about.mdx");
+    return mdxModule;
+  } catch (error) {
+    console.error("Failed to load MDX file:", error);
+    return null;
+  }
+}
 
-function About() {
+// Generate metadata using the imported metadata from the MDX file
+export async function generateMetadata(): Promise<Metadata> {
+  const mdxModule = await loadMdxFile();
+  if (!mdxModule) {
+    return {
+      title: "About Thriving Expat",
+      description: "Learn more about Thriving Expat",
+    };
+  }
+  const { metadata } = mdxModule;
+
+  return {
+    title: metadata.title,
+    description: metadata.description,
+  };
+}
+
+// Render the About page using the dynamically imported content
+export default async function AboutPage() {
+  const mdxModule = await loadMdxFile();
+
+  if (!mdxModule) {
+    return <p>Page not found</p>; // Handle the case where the MDX file is not found
+  }
+
+  const { default: Content, metadata } = mdxModule;
+
   return (
-    <div className="flex flex-col sm:gap-4 gap-6 max-w-3xl w-full pt-10 pb-24 px-4">
-      <h1 className="text-3xl font-bold">About Poodeek!</h1>
-      <ReactMarkdown className="text-lg sm:text-base flex flex-col sm:gap-4 gap-6">
-        {markdown}
-      </ReactMarkdown>
+    <div className="flex flex-col max-w-3xl w-full gap-8 pt-10">
+      <h1 className="text-6xl font-black">{metadata.title}</h1>
+      {isDevMode() && (
+        <div className="flex gap-3">
+          <EditPageButton slug={metadata.slug ?? "default-slug"} />
+          <OpenInCursor path={metadata.slug ?? "default-path"} />
+        </div>
+      )}
+      <article className="prose prose-lg mx-auto w-full">
+        <Content />
+      </article>
     </div>
   );
 }
-
-export default About;
-
-markdown = `
-
-Welcome to **Poodeek!**, the unique Thai language learning app designed to bolster your linguistic capabilities one phrase at a time. Delve into the richness of the Thai language with our daily phrases and utilize the power of repetition to embed them deeply into your memory.
-
-In Thai, **poodeek!** means "Say it again!". This is the core principle of our app: repetition. We believe that repetition is the key to learning a language. Our app is designed to help you internalize the phrases you learn, ensuring that they become second nature.
-
-**How Does Poodeek! Work?**
-
-**Step 1: Familiarize Yourself**: Begin by acquainting yourself with our handpicked phrase of the day. Listen to its genuine pronunciation with the help of our embedded audio controls. Aim for a deeper comprehension as you delve into the nuances of each phrase.
-
-**Step 2: Embrace Repetition**: Proceed by repeating the phrase, ensuring that each repetition reinforces the meaning and aids in mastering the pronunciation. The objective is not merely to repeat but to grasp and comprehend the essence of each word.
-
-**Step 3: Commit to the Challenge**: We challenge you to pronounce the phrase in succession at least 50 times. This might seem demanding, but this repetition roots the phrase in your mind, enabling effortless recall. Use the built-in counter to monitor your progress and keep yourself motivated.
-
-**Why Repetition?**  
-
-Repetition is more than just a simple exercise; it's a scientifically proven method for effective learning. Research has consistently demonstrated that repetition is crucial in transitioning information from short-term to long-term memory, a process known as the 'spacing effect'. Revisiting and repeating information fortifies neural pathways in the brain, leading to enhanced retention and recall. *Poodeek!* taps into this cognitive principle, ensuring that you not just learn but genuinely internalize a phrase.
-
-**Support Poodeek!** 
-
-We are fervently committed to delivering a transformative learning journey for our users. If Poodeek has enriched your language learning, please consider backing our vision. Donations can be made to our PayPal at oliverwolfson@gmail.com. Every contribution, regardless of its size, helps us hone and augment our offerings, guaranteeing we continue to provide the pinnacle of language education.
-
-*Happy Learning!* 🇹🇭`;

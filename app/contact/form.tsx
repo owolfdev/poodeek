@@ -2,234 +2,205 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-
-import ReCAPTCHA from "react-google-recaptcha";
-
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
+import { z } from "zod";
 import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form"; // <-- Add this import
-
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import ReCAPTCHA from "react-google-recaptcha";
+import { sendContactMessage } from "./actions";
 
-import { createClient } from "@supabase/supabase-js";
+// Define constants
+const ORIGIN = "Language Learning";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string; // Supabase project URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string; // Supabase project anon key
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-const formSchema = z.object({
-  email: z.string().email().min(2, {}),
-  name: z.string().min(2, {
-    message: "Your name must be at least 2 characters.",
-  }),
-  message: z.string().min(20, {
-    message: "Your message must be at least 20 characters.",
-  }),
-  type: z.string().min(2, {
-    message: "Select a type.",
-  }),
-  // recaptcha: z
-  //   .string()
-  //   .min(1, { message: "Please complete the reCAPTCHA challenge." }),
+// Define Zod schema for validation
+const contactFormSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  name: z.string().min(1, "Name is required"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+  type: z.string().min(1, "Message type is required"),
+  subject: z.string().min(1, "Subject is required"),
 });
 
-const optionsForSelectType = [
-  { label: "Bug Report", value: "Bug Report" },
-  { label: "Support Query", value: "Support Query" },
+type ContactFormValues = z.infer<typeof contactFormSchema>;
+
+const messageTypes = [
   { label: "Correspondence", value: "Correspondence" },
+  { label: "Support Query", value: "Support Query" },
+  { label: "Bug Report", value: "Bug Report" },
 ];
 
-const NEXT_PUBLIC_RECAPTCHA_SITE_KEY =
-  process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-
 export function ContactForm() {
-  const [recaptchaSiteKey] = React.useState<string>(
-    process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+  const [formErrors, setFormErrors] = React.useState<Record<string, string>>(
+    {}
   );
+  const [isRecaptchaVerified, setIsRecaptchaVerified] = React.useState(false);
 
-  const [isRecaptchaVerified, setIsRecaptchaVerified] =
-    React.useState<boolean>(false);
-
-  const router = useRouter();
-
-  // 1. Define your form.
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      name: "",
-      message: "",
-      type: "",
-    },
-  });
-
-  // 2. Handle form submission.
-  // const handleSubmit = form.handleSubmit((values) => {
-  //   alert(JSON.stringify(values, null, 2));
-  // });
+  const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
 
   const handleRecaptchaChange = (token: string | null) => {
     setIsRecaptchaVerified(token !== null);
   };
 
-  // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    if (!isRecaptchaVerified) {
-      alert("Please verify that you are not a robot.");
-      return;
-    }
+  const router = useRouter();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
+    setFormErrors({});
+
     try {
-      // Save the form values to the Supabase table
-      const { data, error } = await supabase
-        .from("contacts_from_poodeek_app")
-        .insert([values]);
+      const formData = new FormData(event.currentTarget);
 
-      if (error) throw error;
+      const values: ContactFormValues = {
+        email: formData.get("email") as string,
+        name: formData.get("name") as string,
+        message: formData.get("message") as string,
+        type: formData.get("type") as string,
+        subject: formData.get("subject") as string,
+      };
 
-      console.log("Saved to Supabase:", data);
+      // Validate form data with Zod
+      const parsedData = contactFormSchema.parse(values);
+
+      // Send the data to the server action, including the hardcoded origin
+      await sendContactMessage({
+        ...parsedData,
+        origin: ORIGIN,
+        receivedDate: new Date().toISOString(), // Add the current date
+      });
+
       router.push("/contact/thank-you");
-      // alert("Form submitted successfully!");
-    } catch (error) {
-      console.error("Error saving to Supabase:", error);
-      alert("Error submitting form. Please try again.");
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        // Collect Zod validation errors
+        const errors: Record<string, string> = {};
+        for (const e of err.errors) {
+          if (e.path[0]) {
+            errors[e.path[0].toString()] = e.message;
+          }
+        }
+        setFormErrors(errors);
+      } else {
+        // Handle other errors
+        setError(err instanceof Error ? err.message : "An error occurred");
+      }
+    } finally {
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
-    <Form {...form}>
+    <div className="flex flex-col items-center max-w-3xl gap-8 pt-12">
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 text-lg"
+        className="flex-1 flex flex-col sm:w-[600px] w-full gap-4"
+        onSubmit={handleSubmit}
       >
-        <FormField
-          control={form.control}
-          name="type"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Message Type</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select message type" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {optionsForSelectType.map((option) => (
-                    <SelectItem
-                      className="input-no-zoom text-lg sm:text-base"
-                      value={option.value}
-                      key={option.value}
-                    >
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormDescription></FormDescription>
-              <FormMessage />
-            </FormItem>
+        <p className="text-sm text-foreground">
+          Have a question or feedback? Use the form below to get in touch with
+          us.
+        </p>
+        <div className="flex flex-col gap-2 [&>input]:mb-3 [&>textarea]:mb-3 mt-8">
+          <Label htmlFor="type">Message Type</Label>
+          <Select name="type" required>
+            <SelectTrigger className="text-lg bg-white">
+              <SelectValue placeholder="Select message type" />
+            </SelectTrigger>
+            <SelectContent>
+              {messageTypes.map((option) => (
+                <SelectItem
+                  key={option.value}
+                  value={option.value}
+                  className=""
+                >
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {formErrors.type && (
+            <div className="text-red-500 text-sm mt-1">{formErrors.type}</div>
           )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  className="input-no-zoom text-lg sm:text-base"
-                  placeholder="Your email"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>
-                {/* <span className="text-black">
-                  This is your public display name.
-                </span> */}
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input
-                  className="input-no-zoom text-lg sm:text-base"
-                  placeholder="Your name"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>
-                {/* <span className="text-black">
-                  This is your public display name.
-                </span> */}
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="message"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Message</FormLabel>
-              <FormControl>
-                <Textarea
-                  className="input-no-zoom text-lg sm:text-base"
-                  placeholder="Your message"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>
-                {/* <span className="text-black">
-                  This is your public display name.
-                </span> */}
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
 
-        <div className="pt-4">
+          <Label htmlFor="subject">Subject</Label>
+          <Input
+            name="subject"
+            placeholder="Subject"
+            required
+            className="text-lg"
+            value="Poodeek!Language Learning App"
+          />
+          {formErrors.subject && (
+            <div className="text-red-500 text-sm mt-1">
+              {formErrors.subject}
+            </div>
+          )}
+
+          <Label htmlFor="name">Name</Label>
+          <Input
+            name="name"
+            placeholder="Your name"
+            required
+            className="text-lg"
+          />
+          {formErrors.name && (
+            <div className="text-red-500 text-sm mt-1">{formErrors.name}</div>
+          )}
+
+          <Label htmlFor="email">Email</Label>
+          <Input
+            name="email"
+            type="email"
+            placeholder="you@example.com"
+            required
+            className="text-lg"
+          />
+          {formErrors.email && (
+            <div className="text-red-500 text-sm mt-1">{formErrors.email}</div>
+          )}
+
+          <Label htmlFor="message">Message</Label>
+          <Textarea
+            name="message"
+            placeholder="Your message"
+            required
+            className="min-h-[100px] text-lg bg-white"
+          />
+          {formErrors.message && (
+            <div className="text-red-500 text-sm mt-1">
+              {formErrors.message}
+            </div>
+          )}
+
           {recaptchaSiteKey && (
-            <ReCAPTCHA
-              sitekey={recaptchaSiteKey}
-              onChange={handleRecaptchaChange}
-            />
+            <div className="mb-4">
+              <ReCAPTCHA
+                sitekey={recaptchaSiteKey}
+                onChange={handleRecaptchaChange}
+              />
+            </div>
           )}
-        </div>
 
-        <Button type="submit">Submit</Button>
+          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+
+          <button
+            type="submit"
+            disabled={isSubmitting || !isRecaptchaVerified}
+            className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-lg disabled:opacity-50"
+          >
+            {isSubmitting ? "Sending..." : "Send Message"}
+          </button>
+        </div>
       </form>
-    </Form>
+    </div>
   );
 }

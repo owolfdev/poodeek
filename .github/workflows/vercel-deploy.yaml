@@ -1,0 +1,14 @@
+name: Trigger Vercel Deployment
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # Runs at 12 AM UTC every day
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Deployment
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d '{}' https://api.vercel.com/v1/integrations/deploy/prj_HXRweLYLhhiT7vifHpL1Pdr8gDF1/zGCu0VCoWM

@@ -10,9 +10,9 @@ function CookieConsentComponent() {
       <CookieConsent
         location="bottom"
         buttonText="I understand"
-        cookieName="repeter_cookie_consent"
+        cookieName="mdx_blog_cookie_consent"
         style={{ background: "#2B373B" }}
-        buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
+        buttonStyle={{ color: "#4e503b", background: "#fff", fontSize: "13px" }}
         expires={150} // This is in days. You can adjust as needed.
       >
         This web app may use cookies to enhance the user experience.{" "}

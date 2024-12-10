@@ -1,13 +1,26 @@
+// import DeployButton from "@/components/deploy-button";
+// import { EnvVarWarning } from "@/components/env-var-warning";
+// import HeaderAuth from "@/components/header-auth";
+// import { ThemeSwitcher } from "@/components/theme-switcher";
+// import { hasEnvVars } from "@/utils/supabase/check-env-vars";
+// import { GeistSans } from "geist/font/sans";
+import { ThemeProvider } from "next-themes";
+import Header from "@/components/nav/header";
+import Footer from "@/components/nav/footer";
+// import Link from "next/link";
 import "./globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import Navigation from "@/components/navigation";
-import Link from "next/link";
+import { Inter, Source_Code_Pro } from "next/font/google";
 import CookieConsentComponent from "@/components/cookie-consent";
 
 const inter = Inter({ subsets: ["latin"] });
+const sourceCodePro = Source_Code_Pro({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
+const defaultUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : "http://localhost:3000";
+
+export const metadata = {
+  metadataBase: new URL(defaultUrl),
   title: "Poodeek!",
   description: "Thai phrase repetition app",
 };
@@ -18,28 +31,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <main className="flex min-h-screen flex-col items-center justify-between sm:px-8 p-2 bg-[#f55751] font-mono text-sm">
-          <Navigation />
-          {children}
-          <footer className="flex flex-col items-center p-8 gap-4">
-            <div className=" text-black text-sm flex gap-2 sm:flex-row flex-col items-center">
-              <div>Poodeek</div> <div>- Thai language learning app -</div>
-              <div>
-                <Link target="_blank" href="http://owolf.com">
-                  Built by O Wolf
-                </Link>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <Link href="/">Home</Link> <Link href="/about">About</Link>{" "}
-              <Link href="/contact">Contact</Link>{" "}
-              <Link href="/privacy">Privacy</Link>
-            </div>
+    <html
+      lang="en"
+      className={sourceCodePro.className}
+      suppressHydrationWarning
+    >
+      <body className="bg-[#f55751]">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <main className="flex flex-col items-center justify-between px-6 py-4 sm:px-10 sm:py-8 min-h-[calc(100vh-13rem)]">
+            {children}
             <CookieConsentComponent />
-          </footer>
-        </main>
+          </main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
