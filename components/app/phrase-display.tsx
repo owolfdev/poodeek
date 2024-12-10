@@ -113,7 +113,7 @@ const PhraseDisplay: React.FC = () => {
             </p>
           </div>
           <div className="pt-4 pb-8 sm:px-4 px-0">
-            <p className="sm:text-3xl text-2xl font-semibold">
+            <p className="sm:text-3xl text-3xl font-semibold">
               {phrase.phrase}
             </p>
           </div>
