@@ -3,6 +3,7 @@ import AuthComponent from "./auth-component";
 import NavComponent from "./nav-component";
 import { AdminButtons } from "./admin-component";
 import { isDevMode } from "@/lib/utils/is-dev-mode";
+import Image from "next/image";
 
 function Header() {
   return (
@@ -12,6 +13,14 @@ function Header() {
         <div className="flex items-center gap-4">
           <AdminButtons />
           {isDevMode() && <AuthComponent />}
+          <div className="">
+            <Image
+              src="/logos/app-logo.png"
+              alt="logo"
+              width={60}
+              height={60}
+            />
+          </div>
         </div>
       </div>
     </header>
