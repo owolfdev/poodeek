@@ -130,7 +130,7 @@ const PhraseDisplay: React.FC = () => {
           </Button>
         </CardFooter>
       </Card>
-      <div className="flex flex-col gap-2">{phrase.id}</div>
+      {/* <div className="flex flex-col gap-2">{phrase.id}</div> */}
     </div>
   );
 };
