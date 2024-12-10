@@ -116,7 +116,7 @@ export function CreatePostForm() {
               <FormLabel>Author</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger className="w-[180px] input-no-zoom text-lg sm:text-sm border-border dark:border-white dark:border-opacity-70 placeholder-gray-500 dark:placeholder-white dark:placeholder-opacity-50 focus:ring-0 focus:ring-offset-0 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
+                  <SelectTrigger className="w-[180px] input-no-zoom text-lg sm:text-sm border-border dark:border-white dark:border-opacity-70 placeholder-gray-500 dark:placeholder-white dark:placeholder-opacity-50 focus:ring-0 focus:ring-offset-0 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-secondary">
                     <SelectValue placeholder="Select author" />
                   </SelectTrigger>
                 </FormControl>
@@ -142,7 +142,7 @@ export function CreatePostForm() {
               <FormLabel>Post Type</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger className="w-[180px] input-no-zoom text-lg sm:text-sm border-border dark:border-white dark:border-opacity-70 placeholder-gray-500 dark:placeholder-white dark:placeholder-opacity-50 focus:ring-0 focus:ring-offset-0 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
+                  <SelectTrigger className="w-[180px] input-no-zoom text-lg sm:text-sm border-border dark:border-white dark:border-opacity-70 placeholder-gray-500 dark:placeholder-white dark:placeholder-opacity-50 focus:ring-0 focus:ring-offset-0 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-secondary">
                     <SelectValue placeholder="Select post type" />
                   </SelectTrigger>
                 </FormControl>
@@ -180,7 +180,7 @@ export function CreatePostForm() {
                 <Input
                   placeholder="Title"
                   {...field}
-                  className="input-no-zoom text-lg sm:text-sm border-border dark:border-white dark:border-opacity-70 placeholder-gray-500 dark:placeholder-white dark:placeholder-opacity-50 dark:focus:ring-black"
+                  className="input-no-zoom text-lg sm:text-sm border-border dark:border-white dark:border-opacity-70 placeholder-gray-500 dark:placeholder-white dark:placeholder-opacity-50 dark:focus:ring-black bg-secondary"
                 />
               </FormControl>
               <FormMessage />
@@ -199,7 +199,7 @@ export function CreatePostForm() {
                 <Textarea
                   placeholder="Description"
                   {...field}
-                  className="input-no-zoom text-lg sm:text-sm border-border dark:border-white dark:border-opacity-70 placeholder-gray-500 dark:placeholder-white dark:placeholder-opacity-50 dark:focus:ring-black"
+                  className="input-no-zoom text-lg sm:text-sm border-border dark:border-white dark:border-opacity-70 placeholder-gray-500 dark:placeholder-white dark:placeholder-opacity-50 dark:focus:ring-black bg-secondary"
                 />
               </FormControl>
               <FormMessage />
@@ -217,7 +217,7 @@ export function CreatePostForm() {
               <FormControl>
                 <Textarea
                   id="content"
-                  className="h-[300px] input-no-zoom text-lg sm:text-sm border-border dark:border-white dark:border-opacity-70 placeholder-gray-500 dark:placeholder-white dark:placeholder-opacity-50 dark:focus:ring-black"
+                  className="h-[300px] input-no-zoom text-lg sm:text-sm border-border dark:border-white dark:border-opacity-70 placeholder-gray-500 dark:placeholder-white dark:placeholder-opacity-50 dark:focus:ring-black bg-secondary"
                   placeholder="Content"
                   {...field}
                 />
@@ -338,9 +338,7 @@ export function CreatePostForm() {
               </FormControl>
               <FormLabel className="pl-2 pb-1">
                 Save as Draft{" "}
-                <span className=" opacity-50">
-                  (draft will not be published)
-                </span>
+                <span className="">(draft will not be published)</span>
               </FormLabel>
             </FormItem>
           )}

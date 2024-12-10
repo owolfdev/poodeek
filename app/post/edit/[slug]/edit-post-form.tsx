@@ -198,7 +198,7 @@ export function EditPostForm({ postData }: { postData: Post }) {
                   defaultValue={field.value}
                 >
                   <FormControl>
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className="w-[180px] bg-secondary">
                       <SelectValue placeholder="Select author" />
                     </SelectTrigger>
                   </FormControl>
@@ -224,7 +224,7 @@ export function EditPostForm({ postData }: { postData: Post }) {
                 <FormLabel>Post Type</FormLabel>
                 <Select value={field.value} onValueChange={field.onChange}>
                   <FormControl>
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className="w-[180px] bg-secondary">
                       <SelectValue placeholder="Select post type" />
                     </SelectTrigger>
                   </FormControl>
@@ -274,7 +274,11 @@ export function EditPostForm({ postData }: { postData: Post }) {
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Description" {...field} />
+                  <Textarea
+                    className="bg-secondary"
+                    placeholder="Description"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -291,7 +295,7 @@ export function EditPostForm({ postData }: { postData: Post }) {
                 <FormControl>
                   <Textarea
                     id="content"
-                    className="h-[300px]"
+                    className="h-[300px] bg-secondary"
                     placeholder="Content"
                     {...field}
                   />
@@ -408,9 +412,7 @@ export function EditPostForm({ postData }: { postData: Post }) {
                 </FormControl>
                 <FormLabel className="pl-2 pb-1">
                   Save as Draft{" "}
-                  <span className="text-muted-foreground">
-                    (draft will not be published)
-                  </span>
+                  <span className="">(draft will not be published)</span>
                 </FormLabel>
               </FormItem>
             )}
