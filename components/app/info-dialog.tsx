@@ -29,7 +29,7 @@ export function InfoDialog({
           <AiOutlineInfoCircle className="text-xl" /> Info
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] max-h-screen overflow-scroll">
+      <DialogContent className="sm:max-w-[600px] max-h-screen overflow-scroll sm:py-4 py-24">
         <DialogHeader>
           <DialogTitle>
             <span className="text-2xl">Phrase Breakdown</span>
