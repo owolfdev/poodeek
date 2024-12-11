@@ -5,7 +5,7 @@ import phrases from "@/data/phrases.json";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import AudioPlayer from "./audio-player";
-
+import { InfoDialog } from "./info-dialog";
 const getCurrentDate = () => new Date().toISOString().split("T")[0];
 
 const PhraseDisplay: React.FC = () => {
@@ -95,43 +95,38 @@ const PhraseDisplay: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <Card className="w-full">
-        <CardContent>
-          <div className="sm:py-6 sm:px-4 py-4">
-            <div className="text-sm text-muted-foreground pb-4">
-              Phrase {phraseIndex + 1} of {phrases.length}
+    <Card className="w-full">
+      <CardContent>
+        <div className="sm:py-6 sm:px-4 py-4">
+          <div className="flex gap-4 items-center pb-4">
+            <Button onClick={handlePreviousPhrase} variant="outline">
+              Previous
+            </Button>
+            <Button onClick={handleNextPhrase} variant="outline">
+              Next
+            </Button>
+            <div className="text-sm text-muted-foreground">
+              {phraseIndex + 1} of {phrases.length}
             </div>
-
-            <p className="sm:text-3xl text-2xl font-semibold">
-              {phrase.transliteration}
-            </p>
           </div>
-          <div className="sm:px-4 px-0 py-4">
-            <p className="text-xl text-muted-foreground">
-              {phrase.translation}
-            </p>
-          </div>
-          <div className="pt-4 pb-8 sm:px-4 px-0">
-            <p className="sm:text-3xl text-3xl font-semibold">
-              {phrase.phrase}
-            </p>
-          </div>
-          {currentAudioFile.file && (
-            <AudioPlayer currentAudioFile={currentAudioFile} />
-          )}
-        </CardContent>
-        <CardFooter className="flex gap-4">
-          <Button onClick={handlePreviousPhrase} variant="outline">
-            Previous
-          </Button>
-          <Button onClick={handleNextPhrase} variant="outline">
-            Next
-          </Button>
-        </CardFooter>
-      </Card>
-      {/* <div className="flex flex-col gap-2">{phrase.id}</div> */}
-    </div>
+          <p className="sm:text-3xl text-2xl font-semibold">
+            {phrase.transliteration}
+          </p>
+        </div>
+        <div className="sm:px-4 px-0 py-4">
+          <p className="text-xl text-muted-foreground">{phrase.translation}</p>
+        </div>
+        <div className="pt-4 pb-8 sm:px-4 px-0">
+          <p className="sm:text-3xl text-3xl font-semibold">{phrase.phrase}</p>
+        </div>
+        {currentAudioFile.file && (
+          <AudioPlayer currentAudioFile={currentAudioFile} />
+        )}
+      </CardContent>
+      <CardFooter className="flex gap-4">
+        <InfoDialog phrase={phrase} />
+      </CardFooter>
+    </Card>
   );
 };
 

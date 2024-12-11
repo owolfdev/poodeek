@@ -4,6 +4,7 @@ import EditPageButton from "@/components/page/edit-page-button";
 import OpenInCursor from "@/components/page/open-page-in-cursor-button";
 import PhraseDisplay from "@/components/app/phrase-display";
 import { isDevMode } from "@/lib/utils/is-dev-mode";
+import { InfoDialog } from "@/components/app/info-dialog";
 
 interface MdxModule {
   default: React.ComponentType;
