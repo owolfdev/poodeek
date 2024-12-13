@@ -29,8 +29,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const mdxModule = await loadMdxFile();
   if (!mdxModule) {
     return {
-      title: "About Thriving Expat",
-      description: "Learn more about Thriving Expat",
+      title: "About Poodeek!",
+      description: "Learn more about Poodeek!",
     };
   }
   const { metadata } = mdxModule;
