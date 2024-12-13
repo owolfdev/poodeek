@@ -9,6 +9,7 @@ import Image from "@/components/mdx/image"; // Adjust the import path as needed
 import CustomLink from "@/components/mdx/custom-link"; // Adjust the import path as needed
 import PopularPosts from "@/components/posts/popular-posts";
 import { Button } from "@/components/ui/button";
+import Audio from "@/components/mdx/audio";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -68,5 +69,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         </CustomLink>
       );
     },
+    Audio: ({ src }: { src: string }) => src && <Audio src={src} />,
   };
 }
