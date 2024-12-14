@@ -9,6 +9,7 @@ import {
   isPostLikedByUser, // New action
 } from "@/app/actions/like-actions";
 // import { buttonVariants } from "@/components/ui/button";
+import { config } from "@/lib/config/config";
 
 interface LikeButtonProps {
   postId: string; // postId is a string (UUID)
@@ -20,14 +21,15 @@ function LikeButton({ postId }: LikeButtonProps) {
   const [totalLikes, setTotalLikes] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [likeActionInProgress, setLikeActionInProgress] = useState(false); // New state for like action
+  const userIdForLikes = config.userIdForLikes;
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const fetchUserId = async () => {
-      let storedUserId = localStorage.getItem("userIdForPoodeek");
+      let storedUserId = localStorage.getItem(userIdForLikes);
       if (!storedUserId) {
         storedUserId = uuidv4(); // For testing purposes, otherwise get it from your auth system.
-        localStorage.setItem("userIdForPoodeek", storedUserId);
+        localStorage.setItem(userIdForLikes, storedUserId);
       }
       setUserId(storedUserId);
     };
