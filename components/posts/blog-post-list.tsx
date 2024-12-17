@@ -22,7 +22,7 @@ const BlogPostList = ({ blogs, trimDescription }: BlogPostListProps) => {
   return (
     <ul className="flex flex-col gap-8">
       {blogs.map((blog) => (
-        <li key={blog.slug} className="border-none sm:border rounded-lg py-4 ">
+        <li key={blog.slug} className="border-none sm:border rounded-lg">
           <Link href={`/blog/${blog.slug}`}>
             <div className="flex flex-col gap-0">
               <h3 className="font-black text-4xl sm:text-5xl">{blog.title}</h3>
@@ -35,6 +35,7 @@ const BlogPostList = ({ blogs, trimDescription }: BlogPostListProps) => {
               <p className="">{trimDescription(blog.description)}</p>
             </div>
           </Link>
+          <div className="pt-8 border-b border-primary w-full" />
         </li>
       ))}
     </ul>
