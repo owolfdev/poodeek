@@ -4,7 +4,7 @@ const path = require("node:path");
 
 /** @type {import('next-sitemap').IConfig} */
 const config = {
-  siteUrl: process.env.SITE_URL || "https://www.thrivingexpat.com/",
+  siteUrl: process.env.SITE_URL || "https://poodeek.vercel.app/",
   generateRobotsTxt: true,
   generateIndexSitemap: true,
   exclude: [
