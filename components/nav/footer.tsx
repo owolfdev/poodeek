@@ -7,7 +7,7 @@ function Footer() {
       <div className="sm:px-8 px-4 flex flex-col  items-center h-32 space-y-4 sm:space-y-4 ">
         <div className="flex gap-6 items-center pt-5">
           <div className="">&copy; {new Date().getFullYear()} website.com</div>
-          <ThemeSwitcher />
+          {/* <ThemeSwitcher /> */}
         </div>
         <nav className="flex gap-4 items-center">
           <Link href="/">Home</Link>
