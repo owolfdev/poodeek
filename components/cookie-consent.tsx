@@ -10,7 +10,7 @@ function CookieConsentComponent() {
       <CookieConsent
         location="bottom"
         buttonText="I understand"
-        cookieName="mdx_blog_cookie_consent"
+        cookieName="poodeek_blog_cookie_consent"
         style={{ background: "#2B373B" }}
         buttonStyle={{ color: "#4e503b", background: "#fff", fontSize: "13px" }}
         expires={150} // This is in days. You can adjust as needed.
