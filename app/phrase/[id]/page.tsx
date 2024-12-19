@@ -20,12 +20,22 @@ interface MdxModule {
 }
 
 // Generate metadata using the imported metadata from the MDX file
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
   return {
-    title: "Poodeek!",
+    title: `Poodeek! - Phrase ${id}`,
     description: "Poodeek is a tool for learning Thai",
   };
 }
+
+// export async function generateStaticParams(): Promise<{ id: string }[]> {
+//   const loadPhrases = async () => {
+//     const phrases = await import("@/data/indexed-phrases.json");
+//     return phrases;
+//   };
+//   const phrases = await loadPhrases();
+//   return phrases.map((phrase) => ({ id: phrase.id.toString() }));
+// }
 
 // Render the About page using the dynamically imported content
 export default async function Page({ params }: Props) {
