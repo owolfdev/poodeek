@@ -35,7 +35,7 @@ export async function generateStaticParams() {
     // Access the default export explicitly
     const phrases = phrasesModule.default;
 
-    console.log("Loaded phrases:", phrases);
+    // console.log("Loaded phrases:", phrases);
 
     // Ensure phrases is an array
     if (!Array.isArray(phrases)) {
