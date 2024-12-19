@@ -10,7 +10,7 @@ Disallow: /page/create/*
 Disallow: /page/edit/*
 
 # Host
-Host: https://www.thrivingexpat.com/
+Host: https://poodeek.vercel.app/
 
 # Sitemaps
-Sitemap: https://www.thrivingexpat.com/sitemap.xml
+Sitemap: https://poodeek.vercel.app/sitemap.xml

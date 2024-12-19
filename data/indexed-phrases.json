@@ -1,0 +1,1115 @@
+[
+  {
+    "id": "1a2b3c4d",
+    "phrase": "การทำงานเกินหนึ่งเดือนไปแล้ว",
+    "transliteration": "kaan tham ngaan gooen nueng duean pai laaeo",
+    "translation": "I have been working for over a month.",
+    "index": 1
+  },
+  {
+    "id": "5e6f7g8h",
+    "phrase": "คุณคิดอย่างไรเกี่ยวกับเรื่องนั้น",
+    "transliteration": "khun khid yaang rai giaow gap rueang nan",
+    "translation": "What do you think about that matter?",
+    "index": 2
+  },
+  {
+    "id": "9i0j1k2l",
+    "phrase": "ฉันต้องการข้อมูลที่ถูกต้องและแม่นยำ",
+    "transliteration": "chan dtong gaan khor-moon thee took dtong lae maen yam",
+    "translation": "I need accurate and precise information.",
+    "index": 3
+  },
+  {
+    "id": "3m4n5o6p",
+    "phrase": "ปัญหานี้ต้องได้รับการแก้ไขอย่างเร่งด่วน",
+    "transliteration": "pan-haa nee dtong dai rap kaan gae-kai yaang reng duan",
+    "translation": "This issue needs to be resolved urgently.",
+    "index": 4
+  },
+  {
+    "id": "7q8r9s0t",
+    "phrase": "การเรียนออนไลน์มีความท้าทายในหลายเรื่อง",
+    "transliteration": "kaan riian on-line mee khwaam tha-thaai nai laai rueang",
+    "translation": "Online learning has challenges in many aspects.",
+    "index": 5
+  },
+  {
+    "id": "1u2v3w4x",
+    "phrase": "ฉันรู้สึกว่าตัวเองปรับตัวได้ยาก",
+    "transliteration": "chan roo-seuk waa dtua aeng prab dtua dai yaak",
+    "translation": "I feel that I have difficulty adapting.",
+    "index": 6
+  },
+  {
+    "id": "5y6z7a8b",
+    "phrase": "ความสัมพันธ์ของเรายังมีอะไรที่ควรปรับปรุง",
+    "transliteration": "khwaam sam-phan kong rao yang mee a-rai thee khuan prab-prung",
+    "translation": "Our relationship still has things that need improvement.",
+    "index": 7
+  },
+  {
+    "id": "9c0d1e2f",
+    "phrase": "นี่คือเหตุผลที่ฉันเลือกอยู่ที่นี่",
+    "transliteration": "nee keu het-pon thee chan leuak yuu thee nee",
+    "translation": "This is the reason I chose to stay here.",
+    "index": 8
+  },
+  {
+    "id": "3g4h5i6j",
+    "phrase": "การตัดสินใจในเรื่องนี้ไม่ง่ายเลย",
+    "transliteration": "kaan dtat sin jai nai rueang nee mai ngaai loey",
+    "translation": "Making a decision on this matter is not easy at all.",
+    "index": 9
+  },
+  {
+    "id": "7k8l9m0n",
+    "phrase": "ฉันไม่แน่ใจว่าเราควรทำอย่างไร",
+    "transliteration": "chan mai nae jai waa rao khuan tham yaang rai",
+    "translation": "I'm not sure what we should do.",
+    "index": 10
+  },
+  {
+    "id": "e90f91g92",
+    "phrase": "เราไม่ควรพลาดโอกาสดีๆ นี้",
+    "transliteration": "rao mai khuan phlaad o-kaas dee-dee nee",
+    "translation": "We shouldn't miss this great opportunity.",
+    "index": 11
+  },
+  {
+    "id": "h93i94j95",
+    "phrase": "การเปลี่ยนแปลงเกิดขึ้นได้ทุกวัน",
+    "transliteration": "kaan plian plaeng geerd kheun dai thuk wan",
+    "translation": "Changes happen every day.",
+    "index": 12
+  },
+  {
+    "id": "k96l97m98",
+    "phrase": "ฉันรู้สึกโล่งใจเมื่อทำงานเสร็จ",
+    "transliteration": "chan roo-seuk long jai meuua tham ngaan set",
+    "translation": "I feel relieved after finishing the work.",
+    "index": 13
+  },
+  {
+    "id": "n99o00p01",
+    "phrase": "การท่องเที่ยวช่วยเสริมสร้างประสบการณ์",
+    "transliteration": "kaan thong thiao chuay se-rim saang pra-sap kaan",
+    "translation": "Traveling enhances experiences.",
+    "index": 14
+  },
+  {
+    "id": "q02r03s04",
+    "phrase": "ความจริงมักแตกต่างจากความคาดหวัง",
+    "transliteration": "khwaam jing mak dtaek dtaang jaak khwaam kaat hwang",
+    "translation": "Reality often differs from expectations.",
+    "index": 15
+  },
+  {
+    "id": "a123b456",
+    "phrase": "เมื่อวานฉันไปสวนสัตว์",
+    "transliteration": "meua waan chan pai suan sat",
+    "translation": "Yesterday, I went to the zoo.",
+    "index": 16
+  },
+  {
+    "id": "c789d012",
+    "phrase": "ทุกวันเช้าฉันดื่มกาแฟ",
+    "transliteration": "thuk wan chao chan deum gaa-fae",
+    "translation": "Every morning, I drink coffee.",
+    "index": 17
+  },
+  {
+    "id": "e345f678",
+    "phrase": "ฉันชอบฟังเพลงก่อนนอน",
+    "transliteration": "chan chawp fang pleeng gaawn naawn",
+    "translation": "I like to listen to music before bedtime.",
+    "index": 18
+  },
+  {
+    "id": "g901h234",
+    "phrase": "ปีนี้ฉันต้องการเรียนภาษาใหม่",
+    "transliteration": "pee nee chan dtong gaan riian phaasaa mai",
+    "translation": "This year, I want to learn a new language.",
+    "index": 19
+  },
+  {
+    "id": "i567j890",
+    "phrase": "เขาบอกว่าอากาศจะร้อน",
+    "transliteration": "khao bawk waa aa-gaat ja raawn",
+    "translation": "He said the weather would be hot.",
+    "index": 20
+  },
+  {
+    "id": "k123l456",
+    "phrase": "ความสุขมาจากใจ",
+    "transliteration": "khwaam suk maa jaak jai",
+    "translation": "Happiness comes from the heart.",
+    "index": 21
+  },
+  {
+    "id": "m789n012",
+    "phrase": "เดินทางด้วยรถไฟเป็นประสบการณ์ที่ดี",
+    "transliteration": "dein thaang duay rot fai pen pra-sap-kaan thee dee",
+    "translation": "Traveling by train is a good experience.",
+    "index": 22
+  },
+  {
+    "id": "o345p678",
+    "phrase": "ฉันจะประหยัดเงินเพื่อซื้อบ้าน",
+    "transliteration": "chan ja pra-yat ngern pheu seue baan",
+    "translation": "I will save money to buy a house.",
+    "index": 23
+  },
+  {
+    "id": "q901r234",
+    "phrase": "อาหารไทยมีรสชาติที่เปรี้ยว, หวาน, และเผ็ด",
+    "transliteration": "aa-haarn thai mee rost chaat thee priao, waan, lae phet",
+    "translation": "Thai food has sour, sweet, and spicy flavors.",
+    "index": 24
+  },
+  {
+    "id": "s567t890",
+    "phrase": "การอ่านหนังสือช่วยในการขยายมุมมอง",
+    "transliteration": "kaan aan nang-seue chuay nai kaan khayai mum mong",
+    "translation": "Reading books helps in broadening perspective.",
+    "index": 25
+  },
+  {
+    "id": "u123v456",
+    "phrase": "หมายเลขโทรศัพท์ของคุณคืออะไร?",
+    "transliteration": "maai lek thoor-sapth khong khun kheu a-rai?",
+    "translation": "What is your phone number?",
+    "index": 26
+  },
+  {
+    "id": "w789x012",
+    "phrase": "เราควรกินผักมากขึ้น",
+    "transliteration": "rao khuan gin pak maak kheun",
+    "translation": "We should eat more vegetables.",
+    "index": 27
+  },
+  {
+    "id": "y345z678",
+    "phrase": "ฉันไม่พบกระเป๋าของฉัน",
+    "transliteration": "chan mai phob gra-peaao khong chan",
+    "translation": "I can't find my bag.",
+    "index": 28
+  },
+  {
+    "id": "a901b234",
+    "phrase": "ภาพยนตร์เรื่องนี้น่าสนใจ",
+    "transliteration": "phaaph yon-tra rueang nee naa son-jai",
+    "translation": "This movie is interesting.",
+    "index": 29
+  },
+  {
+    "id": "c567d890",
+    "phrase": "ขับรถในเวลาเร่งด่วนเป็นความท้าทาย",
+    "transliteration": "khub rot nai welaa reng duan pen khwaam tha-thaai",
+    "translation": "Driving during rush hour is challenging.",
+    "index": 30
+  },
+  {
+    "id": "e123f456",
+    "phrase": "เวลามีความสำคัญกับการตัดสินใจในชีวิต",
+    "transliteration": "welaa mee khwaam sam-khan gap kaan dtat sin jai nai chee-wit",
+    "translation": "Time is crucial for making decisions in life.",
+    "index": 31
+  },
+  {
+    "id": "g789h012",
+    "phrase": "การศึกษาไม่ได้จำกัดอยู่เฉพาะในห้องเรียน",
+    "transliteration": "kaan seuk-saa mai dai jam-kad yuu cha-phaw nai hong riian",
+    "translation": "Education is not limited to the classroom.",
+    "index": 32
+  },
+  {
+    "id": "i345j678",
+    "phrase": "ความรู้สึกของคุณทำให้ฉันรู้จักตัวเองมากขึ้น",
+    "transliteration": "khwaam roo-seuk kong khun tham hai chan roo jak dtua aeng maak kheun",
+    "translation": "Your feelings make me understand myself better.",
+    "index": 33
+  },
+  {
+    "id": "k901l234",
+    "phrase": "ความฝันของเราเป็นแรงจูงใจให้เรายังมีความหวัง",
+    "transliteration": "khwaam fun kong rao pen raeng jueng jai hai rao yang mee khwaam hwang",
+    "translation": "Our dreams are the motivation that keeps our hopes alive.",
+    "index": 34
+  },
+  {
+    "id": "m567n890",
+    "phrase": "ความเสียหายที่เกิดขึ้นไม่สามารถนำกลับมาเหมือนเดิมได้",
+    "transliteration": "khwaam siia haai thee geerd kheun mai saa-maat naam glab maa meuan deerm dai",
+    "translation": "The damage done cannot be reverted to its original state.",
+    "index": 35
+  },
+  {
+    "id": "o123p456",
+    "phrase": "ฉันต้องการความชัดเจนก่อนที่ฉันจะตัดสินใจ",
+    "transliteration": "chan dtong gaan khwaam chat jen gaawn thee chan ja dtat sin jai",
+    "translation": "I need clarity before I make a decision.",
+    "index": 36
+  },
+  {
+    "id": "q789r012",
+    "phrase": "การทำความเข้าใจตนเองเป็นเรื่องที่ยาก",
+    "transliteration": "kaan tham khwaam khao jai dtua aeng pen rueang thee yaak",
+    "translation": "Understanding oneself is a difficult thing.",
+    "index": 37
+  },
+  {
+    "id": "s345t678",
+    "phrase": "บางครั้งความจริงอาจไม่เป็นดังที่เราคิด",
+    "transliteration": "baang khrang khwaam jing aatj mai pen dung thee rao khid",
+    "translation": "Sometimes, the truth might not be as we think.",
+    "index": 38
+  },
+  {
+    "id": "u901v234",
+    "phrase": "สิ่งแวดล้อมมีผลกระทบต่อสุขภาพของเรา",
+    "transliteration": "sing waed-lom mee phon kra-thop tor suk-khaphaap kong rao",
+    "translation": "The environment affects our health.",
+    "index": 39
+  },
+  {
+    "id": "w567x890",
+    "phrase": "ชีวิตนี้มีความหมายเมื่อเราทำประโยชน์แก่ผู้อื่น",
+    "transliteration": "chee-wit nee mee khwaam maai meuua rao tham pra-yotn gae phu aeuun",
+    "translation": "Life is meaningful when we benefit others.",
+    "index": 40
+  },
+  {
+    "id": "y123z456",
+    "phrase": "ความผูกพันในครอบครัวเป็นสิ่งที่สำคัญ",
+    "transliteration": "khwaam phook-phan nai khrop-khrua pen sing thee sam-khan",
+    "translation": "Family commitment is important.",
+    "index": 41
+  },
+  {
+    "id": "a789b012",
+    "phrase": "การฟังเป็นสิ่งที่สำคัญในการสื่อสาร",
+    "transliteration": "kaan fang pen sing thee sam-khan nai kaan seue-saarn",
+    "translation": "Listening is crucial in communication.",
+    "index": 42
+  },
+  {
+    "id": "c345d678",
+    "phrase": "ความคิดเห็นของคุณมีความสำคัญต่อฉัน",
+    "transliteration": "khwaam khid hen kong khun mee khwaam sam-khan tor chan",
+    "translation": "Your opinion matters to me.",
+    "index": 43
+  },
+  {
+    "id": "e901f234",
+    "phrase": "การเปลี่ยนแปลงต้องเริ่มต้นจากตัวเอง",
+    "transliteration": "kaan pliian plaeng dtong reerm dton jaak dtua aeng",
+    "translation": "Change starts with oneself.",
+    "index": 44
+  },
+  {
+    "id": "g567h890",
+    "phrase": "การฝึกฝนเป็นสิ่งที่ขาดไม่ได้ในการสร้างความสำเร็จ",
+    "transliteration": "kaan feuk fon pen sing thee khaat mai dai nai kaan sraang khwaam sam-ret",
+    "translation": "Practice is indispensable in achieving success.",
+    "index": 45
+  },
+  {
+    "id": "i123j456",
+    "phrase": "มนุษย์มีความสามารถในการเรียนรู้ตลอดชีวิต",
+    "transliteration": "ma-noots mee khwaam saa-maat nai kaan riian roo talod chee-wit",
+    "translation": "Humans have the ability to learn throughout their lives.",
+    "index": 46
+  },
+  {
+    "id": "k789l012",
+    "phrase": "ปัญหาสิ่งแวดล้อมเป็นปัญหาทั่วโลก",
+    "transliteration": "pan-haa sing waed-lom pen pan-haa thua look",
+    "translation": "Environmental issues are global problems.",
+    "index": 47
+  },
+  {
+    "id": "m345n678",
+    "phrase": "ความสุขไม่ได้ขึ้นอยู่กับความมั่งคั่ง",
+    "transliteration": "khwaam suk mai dai kheun yuu gap khwaam mang-khang",
+    "translation": "Happiness doesn't depend on wealth.",
+    "index": 48
+  },
+  {
+    "id": "o901p234",
+    "phrase": "ศิลปะเป็นการแสดงความรู้สึกและความคิด",
+    "transliteration": "sin-laa pen kaan sa-daeng khwaam roo-seuk lae khwaam khid",
+    "translation": "Art is an expression of feelings and thoughts.",
+    "index": 49
+  },
+  {
+    "id": "q567r890",
+    "phrase": "เทคโนโลยีเปลี่ยนแปลงวิธีการใช้ชีวิตของเรา",
+    "transliteration": "tek-no-lo-yee pliian plaeng wi-thi kaan chai chee-wit kong rao",
+    "translation": "Technology changes the way we live our lives.",
+    "index": 50
+  },
+  {
+    "id": "s123t456",
+    "phrase": "ความเข้าใจในวัฒนธรรมต่างประเทศเป็นสิ่งสำคัญ",
+    "transliteration": "khwaam khao-jai nai wat-tha-na-tham taang pra-thet pen sing sam-khan",
+    "translation": "Understanding foreign cultures is important.",
+    "index": 51
+  },
+  {
+    "id": "u789v012",
+    "phrase": "มนุษย์ต้องรู้จักประคับประคองกับธรรมชาติ",
+    "transliteration": "ma-noots dtong roo-jak pra-khap pra-khong gap tham-ma-chat",
+    "translation": "Humans must coexist with nature.",
+    "index": 52
+  },
+  {
+    "id": "w345x678",
+    "phrase": "เสรีภาพของการแสดงความคิดเห็นเป็นสิทธิพื้นฐาน",
+    "transliteration": "sa-ree-paap kong kaan sa-daeng khwaam khid hen pen sit-thi pheun-than",
+    "translation": "The freedom of expression is a fundamental right.",
+    "index": 53
+  },
+  {
+    "id": "y901z234",
+    "phrase": "การศึกษาช่วยในการพัฒนาสังคมที่ดีขึ้น",
+    "transliteration": "kaan seuk-saa chuay nai kaan pat-tha-naa sang-khom thee dee kheun",
+    "translation": "Education aids in the development of a better society.",
+    "index": 54
+  },
+  {
+    "id": "a567b890",
+    "phrase": "ความต่างและความหลากหลายเป็นแรงขับเคลื่อนของสังคม",
+    "transliteration": "khwaam taang lae khwaam laak laai pen raeng khup kleuan kong sang-khom",
+    "translation": "Diversity is a driving force of society.",
+    "index": 55
+  },
+  {
+    "id": "a112b334",
+    "phrase": "ข้าวที่ฉันทำเย็นนี้อร่อยมาก",
+    "transliteration": "khao thee chan tham yen nee aroi maak",
+    "translation": "The rice I cooked tonight is very delicious.",
+    "index": 56
+  },
+  {
+    "id": "c556d778",
+    "phrase": "ร้านกาแฟใกล้บ้านมีบรรยากาศที่ดี",
+    "transliteration": "raan gaa-fae glai baan mee ban-ya-kaat thee dee",
+    "translation": "The coffee shop near my house has a good atmosphere.",
+    "index": 57
+  },
+  {
+    "id": "e990f112",
+    "phrase": "หนังสือที่ฉันอ่านเดือนที่แล้วน่าสนใจ",
+    "transliteration": "nang-seu thee chan aan deuan thee laeo naa son-jai",
+    "translation": "The book I read last month was interesting.",
+    "index": 58
+  },
+  {
+    "id": "g334h556",
+    "phrase": "เสื้อผ้าวันนี้ทำให้ฉันรู้สึกสบาย",
+    "transliteration": "seua phaa wan nee tham hai chan roo-seuk sa-baai",
+    "translation": "Today's clothes make me feel comfortable.",
+    "index": 59
+  },
+  {
+    "id": "i778j990",
+    "phrase": "ฉันชอบฟังเพลงเมื่อฉันเดินทาง",
+    "transliteration": "chan chawp fang pleeng meuua chan deern thaang",
+    "translation": "I like to listen to music when I travel.",
+    "index": 60
+  },
+  {
+    "id": "k112l334",
+    "phrase": "ที่สวนสาธารณะมีเด็กๆ กำลังเล่น",
+    "transliteration": "thee suan saa-thaa-ruh-nah mee dek-dek gam-lang len",
+    "translation": "There are children playing in the public park.",
+    "index": 61
+  },
+  {
+    "id": "m556n778",
+    "phrase": "ฉันชอบดื่มน้ำผึ้งในตอนเช้า",
+    "transliteration": "chan chawp deum naam-pheung nai dton chao",
+    "translation": "I like to drink honey water in the morning.",
+    "index": 62
+  },
+  {
+    "id": "o990p112",
+    "phrase": "ร้านขายดอกไม้ในตลาดมีดอกไม้สวยๆ",
+    "transliteration": "raan khaai dok-mai nai dtalad mee dok-mai suay-suay",
+    "translation": "The flower shop in the market has beautiful flowers.",
+    "index": 63
+  },
+  {
+    "id": "q334r556",
+    "phrase": "แมวของฉันชอบนอนบนโซฟา",
+    "transliteration": "maew kong chan chawp non bon so-faa",
+    "translation": "My cat likes to sleep on the sofa.",
+    "index": 64
+  },
+  {
+    "id": "s778t990",
+    "phrase": "ฉันต้องซื้อแปรงสีฟันใหม่",
+    "transliteration": "chan dtong sue prang-see-fan mai",
+    "translation": "I need to buy a new toothbrush.",
+    "index": 65
+  },
+  {
+    "id": "u112v334",
+    "phrase": "น้ำฝนที่ตกเมื่อคืนช่วยให้ต้นไม้เขียวขึ้น",
+    "transliteration": "nam fon thee dtohk meuua keun chuay hai dton-mai khiao kheun",
+    "translation": "The rain that fell last night made the trees greener.",
+    "index": 66
+  },
+  {
+    "id": "w556x778",
+    "phrase": "ฉันชอบกินไอศครีมชอคโกแลต",
+    "transliteration": "chan chawp gin ai-skreem chok-go-laet",
+    "translation": "I like to eat chocolate ice cream.",
+    "index": 67
+  },
+  {
+    "id": "y990z112",
+    "phrase": "บ้านของฉันอยู่ใกล้โรงเรียน",
+    "transliteration": "baan kong chan yuu glai roong-riian",
+    "translation": "My house is near the school.",
+    "index": 68
+  },
+  {
+    "id": "a334b556",
+    "phrase": "ตลาดนัดวันอาทิตย์มีของขวัญมากมาย",
+    "transliteration": "dtalad nad wan aa-thit mee kong-kwan maak maai",
+    "translation": "The Sunday market has many souvenirs.",
+    "index": 69
+  },
+  {
+    "id": "c778d990",
+    "phrase": "ฉันชอบดูซีรีส์ทางโทรทัศน์",
+    "transliteration": "chan chawp du see-rees thaang thor-tat",
+    "translation": "I like watching TV series.",
+    "index": 70
+  },
+  {
+    "id": "e112f334",
+    "phrase": "แมวของเราชอบเล่นกับลูกแมวยาง",
+    "transliteration": "maew kong rao chawp len gap look maew yaang",
+    "translation": "Our cat likes to play with rubber mouse toys.",
+    "index": 71
+  },
+  {
+    "id": "g556h778",
+    "phrase": "ฉันชอบแกงส้มชะอมกับกุ้ง",
+    "transliteration": "chan chawp gaeng som cha-om gap goong",
+    "translation": "I like sour soup with acacia and shrimp.",
+    "index": 72
+  },
+  {
+    "id": "i990j112",
+    "phrase": "ห้องน้ำในบ้านของฉันมีฝักบัวสีน้ำเงิน",
+    "transliteration": "hong nam nai baan kong chan mee fak bua see nam-ngern",
+    "translation": "My bathroom has a blue shower head.",
+    "index": 73
+  },
+  {
+    "id": "k334l556",
+    "phrase": "ครัวของเราติดกับห้องนั่งเล่น",
+    "transliteration": "khrua kong rao dtit gap hong nung len",
+    "translation": "Our kitchen is next to the living room.",
+    "index": 74
+  },
+  {
+    "id": "m778n990",
+    "phrase": "ขนมปังโฮลวีตทาเนยเป็นของว่างโปรดของฉัน",
+    "transliteration": "kha-nom pang hole-wheat thaa neoy pen kong waang proad kong chan",
+    "translation": "Whole wheat bread with butter is my favorite snack.",
+    "index": 75
+  },
+  {
+    "id": "o112p334",
+    "phrase": "ฉันชอบปลูกต้นไม้ในสวนข้างบ้าน",
+    "transliteration": "chan chawp plook dton-mai nai suan khaang baan",
+    "translation": "I like to plant trees in the garden next to my house.",
+    "index": 76
+  },
+  {
+    "id": "q556r778",
+    "phrase": "อาหารเย็นวันนี้เป็นสปาเก็ตตี้",
+    "transliteration": "aa-haan yen wan nee pen spa-get-tee",
+    "translation": "Tonight's dinner is spaghetti.",
+    "index": 77
+  },
+  {
+    "id": "s990t112",
+    "phrase": "ฉันมักซื้อผลไม้ที่ตลาดสด",
+    "transliteration": "chan mak sue phal-mai thee dtalad sod",
+    "translation": "I usually buy fruits at the fresh market.",
+    "index": 78
+  },
+  {
+    "id": "u334v556",
+    "phrase": "วันหยุดฉันชอบไปเดินเล่นที่สวนสาธารณะ",
+    "transliteration": "wan yut chan chawp pai deern len thee suan saa-thaa-ruh-nah",
+    "translation": "On holidays, I like to go for a walk in the public park.",
+    "index": 79
+  },
+  {
+    "id": "w778x990",
+    "phrase": "ฉันชอบซื้อรองเท้าสีดำเพราะเข้ากับทุกเสื้อผ้า",
+    "transliteration": "chan chawp sue rong-thao see dam pror khao gap took seua phaa",
+    "translation": "I like to buy black shoes because they match every outfit.",
+    "index": 80
+  },
+  {
+    "id": "y112z334",
+    "phrase": "ปลาที่ฉันซื้อวันนี้สดและอร่อย",
+    "transliteration": "plaa thee chan sue wan nee sod lae aroi",
+    "translation": "The fish I bought today is fresh and tasty.",
+    "index": 81
+  },
+  {
+    "id": "a556b778",
+    "phrase": "คืนนี้ฟ้ามืดและมีฝนตก",
+    "transliteration": "keun nee faa meud lae mee fon dtohk",
+    "translation": "Tonight, the sky is dark and it's raining.",
+    "index": 82
+  },
+  {
+    "id": "c990d112",
+    "phrase": "ฉันชอบดื่มชาเขียวกับขนมปังโฮลวีต",
+    "transliteration": "chan chawp deum chaa khiao gap kha-nom pang hole-wheat",
+    "translation": "I like to drink green tea with whole wheat bread.",
+    "index": 83
+  },
+  {
+    "id": "e334f556",
+    "phrase": "อากาศวันนี้ร้อนเกินไป",
+    "transliteration": "aa-gaat wan nee rawn geern pai",
+    "translation": "The weather today is too hot.",
+    "index": 84
+  },
+  {
+    "id": "g778h990",
+    "phrase": "ฉันชอบทำขนมไทยเมื่อว่าง",
+    "transliteration": "chan chawp tham kha-nom thai meuua waang",
+    "translation": "I like to make Thai desserts when I'm free.",
+    "index": 85
+  },
+  {
+    "id": "i112j334",
+    "phrase": "เมื่อสัปดาห์ที่แล้วครอบครัวของฉันไปเที่ยวทะเลทางภาคใต้",
+    "transliteration": "meuua sap-daah thee laeo khroap-khrua kong chan pai thiao tha-le thaang phaak dtai",
+    "translation": "Last week, my family went to the sea in the southern region.",
+    "index": 86
+  },
+  {
+    "id": "k556l778",
+    "phrase": "ธุรกิจของพี่ชายฉันเน้นเรื่องการส่งออกผลิตภัณฑ์เกษตร",
+    "transliteration": "thu-ra-git kong phee chai chan nen rueang gaan song ok pha-lit-phanth thoo ga-sat",
+    "translation": "My elder brother's business focuses on exporting agricultural products.",
+    "index": 87
+  },
+  {
+    "id": "m990n112",
+    "phrase": "หนังรักแนวโรแมนติกเป็นประเภทที่ฉันชอบดูเมื่อว่าง",
+    "transliteration": "nang rak naew ro-man-tik pen pra-phayt thee chan chawp du meuua waang",
+    "translation": "Romantic movies are the genre I like to watch in my free time.",
+    "index": 88
+  },
+  {
+    "id": "o334p556",
+    "phrase": "การศึกษาในประเทศไทยเน้นคุณธรรมและวิชาการ",
+    "transliteration": "kaan suek-saa nai pra-thet Thai nen khun-tham lae wi-chaa-gaan",
+    "translation": "Education in Thailand emphasizes morality and academics.",
+    "index": 89
+  },
+  {
+    "id": "q778r990",
+    "phrase": "เมื่อปีที่แล้วฉันได้โอกาสเดินทางไปยุโรปเพื่อศึกษาวัฒนธรรม",
+    "transliteration": "meuua pee thee laeo chan dai o-gaat deern thaang pai Yu-roop pheua suek-saa wat-tha-na-tham",
+    "translation": "Last year, I had the opportunity to travel to Europe to study the culture.",
+    "index": 90
+  },
+  {
+    "id": "s112t334",
+    "phrase": "ปัญหาทางเศรษฐกิจส่งผลกระทบต่อการดำเนินธุรกิจของเรา",
+    "transliteration": "pan-haa thaang sae-sat-kit song phol kra-thop dtor gaan dam-nein thu-ra-git kong rao",
+    "translation": "Economic issues have impacted the way we conduct our business.",
+    "index": 91
+  },
+  {
+    "id": "u556v778",
+    "phrase": "การเล่นเครื่องดนตรีช่วยเสริมสร้างความสามารถทางสมอง",
+    "transliteration": "kaan len khreuaang don-tree chuay serm-saang khwaam saa-maarng thaang sa-morng",
+    "translation": "Playing musical instruments helps to enhance brain capacity.",
+    "index": 92
+  },
+  {
+    "id": "w990x112",
+    "phrase": "ฉันได้เรียนรู้เรื่องการบริหารธุรกิจจากมหาวิทยาลัยชั้นนำ",
+    "transliteration": "chan dai rian roo rueang gaan bo-ri-haan thu-ra-git jaak ma-haa-wit-tha-ya-lai chan-nam",
+    "translation": "I learned about business administration from a leading university.",
+    "index": 93
+  },
+  {
+    "id": "y334z556",
+    "phrase": "ครอบครัวเป็นแกนหลักที่ส่งเสริมความสุขในชีวิตประจำวัน",
+    "transliteration": "khroap-khrua pen gaen lak thee song serm khwaam suk nai chee-wit pra-jam wan",
+    "translation": "Family is the mainstay that promotes happiness in everyday life.",
+    "index": 94
+  },
+  {
+    "id": "a778b990",
+    "phrase": "การท่องเที่ยวช่วยให้เราเข้าใจวัฒนธรรมและวิถีชีวิตของประชากร",
+    "transliteration": "kaan thong thiao chuay hai rao khao jai wat-tha-na-tham lae wi-thee chee-wit kong pra-cha-kon",
+    "translation": "Traveling helps us understand the culture and lifestyle of the population.",
+    "index": 95
+  },
+  {
+    "id": "c112d334",
+    "phrase": "การพัฒนาเทคโนโลยีส่งผลต่อวิถีชีวิตของคนสมัยใหม่",
+    "transliteration": "kaan pat-naa tek-no-lo-yee song phol dtor wi-thee chee-wit kong khon sa-mai mai",
+    "translation": "Technological development affects the lifestyle of modern people.",
+    "index": 96
+  },
+  {
+    "id": "e556f778",
+    "phrase": "ในธุรกิจควรมีการจัดการที่ดีเพื่อให้บริษัทรุ่งเรือง",
+    "transliteration": "nai thu-ra-git khuan mee kaan jad gaan thee dee pheua hai bri-sat roong rueang",
+    "translation": "In business, there should be good management for the company to prosper.",
+    "index": 97
+  },
+  {
+    "id": "g990h112",
+    "phrase": "ความรู้ในวิชาคณิตศาสตร์เป็นสิ่งที่ฉันชอบเรียนตั้งแต่เด็ก",
+    "transliteration": "khwaam roo nai wi-chaa kha-nit-saas-tra pen sing thee chan chawp rian dtang dtae dek",
+    "translation": "Knowledge in mathematics is something I have liked to study since childhood.",
+    "index": 98
+  },
+  {
+    "id": "i334j556",
+    "phrase": "วันหยุดฉันมักจะหากิจกรรมสนุกๆเพื่อผ่อนคลายกับครอบครัว",
+    "transliteration": "wan yut chan mak ja haa git-kra-rom sonuk-sonuk pheua phawn klaai gap khroap-khrua",
+    "translation": "On holidays, I often look for fun activities to relax with my family.",
+    "index": 99
+  },
+  {
+    "id": "k778l990",
+    "phrase": "ศึกษาต่อต่างประเทศเป็นโอกาสที่ดีในการขยายขอบข่ายความรู้",
+    "transliteration": "suek-saa dtor dtang pra-thet pen o-gaat thee dee nai kaan kha-yai khob-khai khwaam roo",
+    "translation": "Studying abroad is a great opportunity to expand one's knowledge.",
+    "index": 100
+  },
+  {
+    "id": "m112n334",
+    "phrase": "การสื่อสารที่มีประสิทธิภาพเป็นสิ่งสำคัญในการดำเนินธุรกิจ",
+    "transliteration": "kaan suea-saan thee mee pra-sit-thi-phaap pen sing sam-khan nai kaan dam-nein thu-ra-git",
+    "translation": "Effective communication is crucial in conducting business.",
+    "index": 101
+  },
+  {
+    "id": "o556p778",
+    "phrase": "เมืองหลวงของประเทศไทยมีความหลากหลายทางวัฒนธรรม",
+    "transliteration": "mueang luang kong pra-thet Thai mee khwaam laak-laai thaang wat-tha-na-tham",
+    "translation": "The capital city of Thailand is culturally diverse.",
+    "index": 102
+  },
+  {
+    "id": "q990r112",
+    "phrase": "การศึกษาต่อปริญญาโทที่สหรัฐฯ ทำให้ฉันได้เรียนรู้ประสบการณ์ใหม่ๆ",
+    "transliteration": "kaan suek-saa dtor pri-nya tho thee sah-rat tham hai chan dai rian roo pra-sop-kaan mai-mai",
+    "translation": "Pursuing a master's degree in the USA gave me new experiences.",
+    "index": 103
+  },
+  {
+    "id": "s334t556",
+    "phrase": "โรงภาพยนตร์ในย่านใจกลางเมืองมักจะแสดงหนังต่างประเทศ",
+    "transliteration": "rong phaap-ya-non nai yaan jai klaang mueang mak ja sa-daeng nang dtang pra-thet",
+    "translation": "Cinemas in downtown areas often screen foreign films.",
+    "index": 104
+  },
+  {
+    "id": "u778v990",
+    "phrase": "การอ่านหนังสือเป็นวิธีที่ดีในการเพิ่มความรู้และความคิดสร้างสรรค์",
+    "transliteration": "kaan aan nang-sue pen wi-thi thee dee nai kaan pheum khwaam roo lae khwaam khit sang-sang",
+    "translation": "Reading books is a good way to increase knowledge and creativity.",
+    "index": 105
+  },
+  {
+    "id": "w112x334",
+    "phrase": "ฉันจะเดินทางไปประเทศญี่ปุ่นเพื่อศึกษาภาษาและวัฒนธรรม",
+    "transliteration": "chan ja deern thaang pai pra-thet Yipun pheua suek-saa pha-saa lae wat-tha-na-tham",
+    "translation": "I will travel to Japan to study the language and culture.",
+    "index": 106
+  },
+  {
+    "id": "y556z778",
+    "phrase": "การเรียนเปียโนช่วยในการพัฒนาความสามารถทางดนตรี",
+    "transliteration": "kaan rian piano chuay nai kaan pat-naa khwaam saa-maarng thaang don-tree",
+    "translation": "Learning the piano helps in developing musical abilities.",
+    "index": 107
+  },
+  {
+    "id": "a990b112",
+    "phrase": "การเข้าร่วมกิจกรรมชุมนุมส่งเสริมความมั่นใจและทักษะการสื่อสาร",
+    "transliteration": "kaan khao ruam git-kra-rom chum-num song serm khwaam man jai lae tak-sa kaan suea-saan",
+    "translation": "Participating in club activities enhances confidence and communication skills.",
+    "index": 108
+  },
+  {
+    "id": "c334d556",
+    "phrase": "ฉันชอบฟังเพลงเก่าๆเพราะอารมณ์ที่เรียบง่ายและน่ารัก",
+    "transliteration": "chan chawp fang pleeng gao-gao prao a-rom thee riaab ngaai lae naa rak",
+    "translation": "I like listening to old songs because of their simple and lovely mood.",
+    "index": 109
+  },
+  {
+    "id": "e778f990",
+    "phrase": "การเรียนรู้วิทยาศาสตร์ช่วยในการเข้าใจโลกที่เราอยู่",
+    "transliteration": "kaan rian roo wi-tha-ya-saas-tra chuay nai kaan khao jai lok thee rao yoo",
+    "translation": "Studying science helps in understanding the world we live in.",
+    "index": 110
+  },
+  {
+    "id": "g112h334",
+    "phrase": "การดูแลสุขภาพเป็นสิ่งสำคัญเพื่อให้มีชีวิตที่ดี",
+    "transliteration": "kaan du lae suk-kha-phaap pen sing sam-khan pheua hai mee chee-wit thee dee",
+    "translation": "Taking care of health is crucial for a good life.",
+    "index": 111
+  },
+  {
+    "id": "i556j778",
+    "phrase": "การเดินทางเป็นวิธีที่ช่วยขยายขอบเขตความรู้",
+    "transliteration": "kaan deern thaang pen wi-thi thee chuay kha-yai khob-khet khwaam roo",
+    "translation": "Traveling is a way to expand one's horizons.",
+    "index": 112
+  },
+  {
+    "id": "k990l112",
+    "phrase": "เทคโนโลยีดิจิทัลได้เปลี่ยนแปลงวิธีการทำธุรกิจ",
+    "transliteration": "tek-no-lo-yee di-jit-tal dai pleeang pleang wi-thi kaan tham thu-ra-git",
+    "translation": "Digital technology has transformed business methods.",
+    "index": 113
+  },
+  {
+    "id": "m334n556",
+    "phrase": "ฉันฝันที่จะสร้างธุรกิจเล็กๆในอนาคต",
+    "transliteration": "chan fan thee ja sang thu-ra-git lek-lek nai a-na-khot",
+    "translation": "I dream of starting a small business in the future.",
+    "index": 114
+  },
+  {
+    "id": "q112r334",
+    "phrase": "บรรยากาศในการประชุมธุรกิจมีความตึงเครียดแต่ก็เป็นท้าทาย",
+    "transliteration": "ban-ya-kaat nai kaan pra-chum thu-ra-git mee khwaam teung khriat dtae gor pen tha-thai",
+    "translation": "The atmosphere in business meetings is tense but also challenging.",
+    "index": 115
+  },
+  {
+    "id": "s556t778",
+    "phrase": "สวนสนุกในกรุงเทพฯ มีเครื่องเล่นที่ทั้งสนุกและน่าตื่นเต้น",
+    "transliteration": "suan sonuk nai krung-thep mee khrueang len thee thang sonuk lae naa teun-ten",
+    "translation": "The amusement park in Bangkok has attractions that are both fun and exciting.",
+    "index": 116
+  },
+  {
+    "id": "u990v112",
+    "phrase": "การเรียนรู้เกี่ยวกับประวัติศาสตร์ช่วยให้เราเข้าใจวัฒนธรรมต่างๆ",
+    "transliteration": "kaan rian roo giao gap pra-wat-saas-tra chuay hai rao khao jai wat-tha-na-tham dtang-dtang",
+    "translation": "Learning about history helps us understand various cultures.",
+    "index": 117
+  },
+  {
+    "id": "w334x556",
+    "phrase": "หลายครั้งการเดินทางมากกว่าเป็นการพักผ่อนคือการเรียนรู้",
+    "transliteration": "lai krang kaan deern thaang maak gwa pen kaan pak phawn keu kaan rian roo",
+    "translation": "Often, traveling is more about learning than relaxing.",
+    "index": 118
+  },
+  {
+    "id": "y778z990",
+    "phrase": "สร้างครอบครัวมีความสุขเป็นการสร้างความทรงจำที่ดี",
+    "transliteration": "sang khroap-khrua mee khwaam sook pen kaan sang khwaam song-jam thee dee",
+    "translation": "Building a happy family creates good memories.",
+    "index": 119
+  },
+  {
+    "id": "y112z223",
+    "phrase": "การตื่นเช้าแล้วดื่มน้ำเปล่าช่วยกระตุ้นระบบย่อย",
+    "transliteration": "kaan dtuen chao laeo deum naam plao chuay kra-toon ra-bap yoy",
+    "translation": "Waking up early and drinking water helps stimulate the digestive system.",
+    "index": 120
+  },
+  {
+    "id": "a334b445",
+    "phrase": "ฉันชอบเดินสายตามถนนหลังจากทำงานเพื่อผ่อนคลาย",
+    "transliteration": "chan chop deern saai taam tha-non lang jaak tham ngaan pheu phon klaai",
+    "translation": "I like to take a walk along the street after work to relax.",
+    "index": 121
+  },
+  {
+    "id": "c556d667",
+    "phrase": "การเปลี่ยนน้ำในแอควาเรียมทุกสัปดาห์เป็นสิ่งที่จำเป็น",
+    "transliteration": "kaan plian naam nai aek-wa-riem thuk sap-daa pen sing thee jam pen",
+    "translation": "Changing the water in the aquarium every week is essential.",
+    "index": 122
+  },
+  {
+    "id": "e778f889",
+    "phrase": "ฉันชอบฟังเพลงเก่าขณะที่ขับรถไปทำงาน",
+    "transliteration": "chan chop fang pleeng gao kha-na thee khap rot pai tham ngaan",
+    "translation": "I like to listen to old songs while driving to work.",
+    "index": 123
+  },
+  {
+    "id": "g990h001",
+    "phrase": "การเช็ดฝุ่นและกวาดบ้านทุกวันช่วยในการรักษาความสะอาด",
+    "transliteration": "kaan chet fun lae gwaat baan thuk wan chuay nai kaan rak-saa khwaam sa-aat",
+    "translation": "Dusting and sweeping the house daily helps maintain cleanliness.",
+    "index": 124
+  },
+  {
+    "id": "i112j223",
+    "phrase": "ฉันมักซื้อผักและผลไม้จากตลาดนัดใกล้บ้าน",
+    "transliteration": "chan mak sue phak lae phol-lamai jak ta-laad nad glai baan",
+    "translation": "I usually buy vegetables and fruits from the nearby market.",
+    "index": 125
+  },
+  {
+    "id": "k334l445",
+    "phrase": "การซ้อมโยคะทุกเช้าช่วยเพิ่มความยืดหยุ่นและความสบาย",
+    "transliteration": "kaan som yo-gaa thuk chao chuay pheum khwaam yeud yun lae khwaam sa-baai",
+    "translation": "Practicing yoga every morning enhances flexibility and comfort.",
+    "index": 126
+  },
+  {
+    "id": "m556n667",
+    "phrase": "การอ่านหนังสือก่อนนอนช่วยให้หลับง่ายขึ้น",
+    "transliteration": "kaan aan nang-sue gaun non chuay hai lap ngaai kheun",
+    "translation": "Reading a book before bedtime helps to fall asleep more easily.",
+    "index": 127
+  },
+  {
+    "id": "o778p889",
+    "phrase": "ฉันมักทำอาหารเจในวันอาทิตย์เพื่อสุขภาพ",
+    "transliteration": "chan mak tham aa-haan je nai wan aa-thit pheu suk-kha-paap",
+    "translation": "I often cook vegetarian food on Sundays for health.",
+    "index": 128
+  },
+  {
+    "id": "q990r001",
+    "phrase": "การรดน้ำต้นไม้แต่เช้าช่วยให้พืชโตเติบโตดี",
+    "transliteration": "kaan rot naam ton-mai tae chao chuay hai pheut dto teep dto dee",
+    "translation": "Watering plants early in the morning helps them grow well.",
+    "index": 129
+  },
+  {
+    "id": "s112t223",
+    "phrase": "การปลูกผักในสวนเล็กๆ ที่บ้านช่วยลดค่าใช้จ่ายในการซื้ออาหาร",
+    "transliteration": "kaan pluuk phak nai suan lek lek thee baan chuay lot khaa chai jaai nai kaan sue aa-haan",
+    "translation": "Growing vegetables in a small garden at home helps reduce food expenses.",
+    "index": 130
+  },
+  {
+    "id": "u334v445",
+    "phrase": "การกินข้าวเช้าเป็นมื้อที่สำคัญสำหรับการเริ่มต้นวันใหม่",
+    "transliteration": "kaan gin khaao chao pen meu thee sam-khan sam-rap kaan reerm dton wan mai",
+    "translation": "Having breakfast is an important meal to start a new day.",
+    "index": 131
+  },
+  {
+    "id": "w556x667",
+    "phrase": "ฉันมักทาครีมกันแดดก่อนออกจากบ้านเพื่อป้องกันรังสียูวี",
+    "transliteration": "chan mak thaa khreem gan daet gaun ook jaak baan pheu pong-gan rang-see yu-wi",
+    "translation": "I usually apply sunscreen before leaving home to protect against UV rays.",
+    "index": 132
+  },
+  {
+    "id": "y778z889",
+    "phrase": "การทำงานเกินไปโดยไม่พักผ่อนอาจทำให้ร่างกายเหนื่อย",
+    "transliteration": "kaan tham ngaan goen bpai doai mai pak phon aat tham hai raang-gaai neuay",
+    "translation": "Overworking without rest can make the body tired.",
+    "index": 133
+  },
+  {
+    "id": "a990b002",
+    "phrase": "ฉันชอบดื่มกาแฟแบล็กก่อนเริ่มงานเพื่อกระตุ้นสมอง",
+    "transliteration": "chan chop deum gaa-fae baelk gaun reerm ngaan pheu kra-toon sa-mong",
+    "translation": "I prefer drinking black coffee before starting work to stimulate the brain.",
+    "index": 134
+  },
+  {
+    "id": "c112d223",
+    "phrase": "การวางแผนสัปดาห์เป็นสิ่งที่ช่วยในการจัดการเวลา",
+    "transliteration": "kaan waang phaen sap-daa pen sing thee chuay nai kaan jat gaan welaa",
+    "translation": "Planning the week helps in time management.",
+    "index": 135
+  },
+  {
+    "id": "e334f445",
+    "phrase": "การปลูกต้นไม้ช่วยในการลดปริมาณคาร์บอนไดออกไซด์",
+    "transliteration": "kaan pluuk ton-mai chuay nai kaan lot pri-maan kaar-bon dai-ook-sai",
+    "translation": "Planting trees helps in reducing carbon dioxide levels.",
+    "index": 136
+  },
+  {
+    "id": "g556h667",
+    "phrase": "ฉันมักฟังวิทยุขณะทำงานที่บ้านเพื่อความบันเทิง",
+    "transliteration": "chan mak fang wi-tha-yoo kha-na tham ngaan thee baan pheu khwaam ban-teing",
+    "translation": "I often listen to the radio while working at home for entertainment.",
+    "index": 137
+  },
+  {
+    "id": "i778j889",
+    "phrase": "การซักผ้าสัปดาห์ละครั้งช่วยประหยัดน้ำและพลังงาน",
+    "transliteration": "kaan sak phaa sap-daa la khrang chuay pra-yat naam lae pha-lang-ngaan",
+    "translation": "Washing clothes once a week helps save water and energy.",
+    "index": 138
+  },
+  {
+    "id": "k990l002",
+    "phrase": "การตรวจเช็ครถประจำปีช่วยป้องกันปัญหาที่อาจเกิดขึ้น",
+    "transliteration": "kaan truat check rot pra-jam pee chuay pong-gan pan-haa thee aat geert kheun",
+    "translation": "An annual car check-up helps prevent potential problems.",
+    "index": 139
+  },
+  {
+    "id": "m112n234",
+    "phrase": "เมื่อฝนตก ฉันมักนำร่มออกมาเพื่อป้องกันไม่ให้ตัวเปียก",
+    "transliteration": "muea fon dtok, chan mak nam rom ook maa pheu pong-gan mai hai dtua piak",
+    "translation": "When it rains, I usually bring out an umbrella to prevent getting wet.",
+    "index": 140
+  },
+  {
+    "id": "o335p456",
+    "phrase": "การเรียงหนังสือและนิตยสารในชั้นหนังสือช่วยในการเข้าถึงง่ายขึ้น",
+    "transliteration": "kaan riang nang-sue lae nit-ta-ya-saan nai chan nang-sue chuay nai kaan kao theung ngaai kheun",
+    "translation": "Organizing books and magazines on shelves makes them easier to access.",
+    "index": 141
+  },
+  {
+    "id": "q557r678",
+    "phrase": "ฉันมักทำการบ้านในตอนเช้าเพราะอากาศเย็นสบาย",
+    "transliteration": "chan mak tham gaan baan nai dton chao pror aa-gaat yen sa-baai",
+    "translation": "I usually do house chores in the morning because the weather is cool and pleasant.",
+    "index": 142
+  },
+  {
+    "id": "s779t890",
+    "phrase": "การดูแลสวนเป็นการฝึกความอดทนและรักษาสภาพแวดล้อม",
+    "transliteration": "kaan duu lae suan pen kaan feuk khwaam ot thon lae rak-saa sa-phaap waed-lom",
+    "translation": "Taking care of the garden is an exercise in patience and environmental preservation.",
+    "index": 143
+  },
+  {
+    "id": "u991v002",
+    "phrase": "การจัดขยะแยกประเภทช่วยลดปัญหาสิ่งแวดล้อม",
+    "transliteration": "kaan jat khay yaek pra-pheut chuay lot pan-haa sing waed-lom",
+    "translation": "Sorting waste by type helps reduce environmental problems.",
+    "index": 144
+  },
+  {
+    "id": "w113x224",
+    "phrase": "ฉันชอบฟังรายการวิทยุขณะประกอบอาหารเย็น",
+    "transliteration": "chan chop fang raai-gaan wi-tha-yoo kha-na pra-kop aa-haan yen",
+    "translation": "I like to listen to the radio while preparing dinner.",
+    "index": 145
+  },
+  {
+    "id": "y335z446",
+    "phrase": "การเขียนบันทึกประจำวันช่วยฝึกความจำและสะท้อนความรู้สึก",
+    "transliteration": "kaan khiian ban-theuk pra-jam wan chuay feuk khwaam jam lae sa-thon khwaam ruu-seuk",
+    "translation": "Writing a daily journal helps train the memory and reflect on feelings.",
+    "index": 146
+  },
+  {
+    "id": "a557b668",
+    "phrase": "ฉันสักครั้งต้องการนวดเพื่อผ่อนคลายกล้ามเนื้อที่เจ็บปวด",
+    "transliteration": "chan sak khrang dtong-gaan nuad pheu phon klaai glaam neuay thee jep pwad",
+    "translation": "Sometimes, I need a massage to relieve sore muscles.",
+    "index": 147
+  },
+  {
+    "id": "c779d880",
+    "phrase": "การวางผักและผลไม้ในตู้เย็นตามเรียงลำดับช่วยในการเข้าถึง",
+    "transliteration": "kaan waang phak lae phol-lamai nai tuu yen taam riang lum-dub chuay nai kaan kao theung",
+    "translation": "Arranging vegetables and fruits in the refrigerator in order makes them easier to access.",
+    "index": 148
+  },
+  {
+    "id": "e991f002",
+    "phrase": "การหมักเนื้อที่บ้านเป็นเรื่องที่ต้องใช้ความรอบคอบและความอดทน",
+    "transliteration": "kaan mak neuay thee baan pen rueang thee dtong chai khwaam roap-khob lae khwaam ot thon",
+    "translation": "Marinating meat at home requires carefulness and patience.",
+    "index": 149
+  },
+  {
+    "id": "g113h235",
+    "phrase": "การรดน้ำต้นไม้ทุกวันช่วยให้พืชและต้นไม้ของฉันงามขึ้น",
+    "transliteration": "kaan rod naam ton-mai took wan chuay hai pheut lae ton-mai kong chan ngaam kheun",
+    "translation": "Watering the plants daily helps my plants and trees flourish.",
+    "index": 150
+  },
+  {
+    "id": "i336j457",
+    "phrase": "การอ่านหนังสือก่อนนอนช่วยให้ฉันมีฝันดีและนอนหลับเร็วขึ้น",
+    "transliteration": "kaan aan nang-sue gaun non chuay hai chan mee fan dee lae non lap reo kheun",
+    "translation": "Reading a book before bed helps me have good dreams and fall asleep faster.",
+    "index": 151
+  },
+  {
+    "id": "k558l679",
+    "phrase": "ฉันชอบซื้อผักที่ตลาดเกษตรเพราะสดและไม่มีสารเคมี",
+    "transliteration": "chan chop sue phak thee dtalaat ga-saet pror sod lae mai mee saan kha-mee",
+    "translation": "I prefer buying vegetables at the farmers' market because they are fresh and free from chemicals.",
+    "index": 152
+  },
+  {
+    "id": "m770n891",
+    "phrase": "การเดินเล่นในสวนสาธารณะช่วยในการผ่อนคลายความเครียด",
+    "transliteration": "kaan deern len nai suan saa-thaa-ran-naa chuay nai kaan phon klaai khwaam kriat",
+    "translation": "Walking in public parks helps to relieve stress.",
+    "index": 153
+  },
+  {
+    "id": "o992p013",
+    "phrase": "ฉันมักจะทำความสะอาดบ้านในวันหยุดเพื่อรักษาความสะอาด",
+    "transliteration": "chan mak ja tham khwaam sa-aad baan nai wan yut pheu rak-saa khwaam sa-aad",
+    "translation": "I usually clean the house on weekends to maintain cleanliness.",
+    "index": 154
+  },
+  {
+    "id": "q114r235",
+    "phrase": "การปลูกดอกไม้ช่วยให้บ้านดูสดใสและเพิ่มความสุข",
+    "transliteration": "kaan pluuk dok-mai chuay hai baan du sod-sai lae pheum khwaam suk",
+    "translation": "Planting flowers makes the house look vibrant and increases happiness.",
+    "index": 155
+  },
+  {
+    "id": "s336t457",
+    "phrase": "ฉันชอบเช็คอีเมลก่อนเริ่มงานเพื่อตรวจสอบงานและข่าวสาร",
+    "transliteration": "chan chop check e-mail gaun reerm ngaan pheu truat saawp ngaan lae khaao-saan",
+    "translation": "I like to check my emails before starting work to review tasks and updates.",
+    "index": 156
+  },
+  {
+    "id": "u558v679",
+    "phrase": "การกินอาหารสุขภาพช่วยป้องกันโรคและเพิ่มพลังงาน",
+    "transliteration": "kaan gin aa-haan suk-phaap chuay pong-gan rok lae pheum pha-lang-ngaan",
+    "translation": "Eating healthy food helps prevent diseases and boosts energy.",
+    "index": 157
+  },
+  {
+    "id": "w770x891",
+    "phrase": "การดื่มน้ำเปล่าช่วยในการยับยั้งความหิวและช่วยในการย่อยอาหาร",
+    "transliteration": "kaan deum naam plao chuay nai kaan yap-yang khwaam hiw lae chuay nai kaan yoi aa-haan",
+    "translation": "Drinking plain water helps curb hunger and aids in digestion.",
+    "index": 158
+  },
+  {
+    "id": "y992z013",
+    "phrase": "ฉันชอบวาดภาพเมื่อมีเวลาว่างเพื่อปลดปล่อยความรู้สึก",
+    "transliteration": "chan chop waad phaap muea mee welaa waang pheu plot-ploi khwaam ruu-seuk",
+    "translation": "I like to draw when I have free time to express my feelings.",
+    "index": 159
+  }
+]

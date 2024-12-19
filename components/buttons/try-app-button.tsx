@@ -6,7 +6,7 @@ function TryAppButton() {
   return (
     <div className="flex justify-center py-10">
       {" "}
-      <Link href="/app">
+      <Link href="/phrase">
         <Button size="lg" className="py-8 px-10">
           <span className="text-4xl">Try The App</span>
         </Button>
