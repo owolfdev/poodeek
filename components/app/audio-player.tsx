@@ -28,10 +28,10 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ currentAudioFile }) => {
         Your browser does not support the audio element.
       </audio>
 
-      <div className="flex gap-4 items-center pt-4 ">
+      <div className="flex gap-4 items-center pt-4">
         <div>Playback Speed: </div>
         <select
-          className="border py-2 px-4 rounded-md"
+          className="border py-2 px-4 rounded-md bg-white"
           onChange={handlePlaybackRateChange}
           defaultValue="1"
         >
