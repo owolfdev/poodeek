@@ -28,14 +28,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-// export async function generateStaticParams(): Promise<{ id: string }[]> {
-//   const loadPhrases = async () => {
-//     const phrases = await import("@/data/indexed-phrases.json");
-//     return phrases;
-//   };
-//   const phrases = await loadPhrases();
-//   return phrases.map((phrase) => ({ id: phrase.id.toString() }));
-// }
+export async function generateStaticParams() {
+  const loadPhrases = async () => {
+    const phrasesModule = await import("@/data/indexed-phrases.json");
+
+    // Access the default export explicitly
+    const phrases = phrasesModule.default;
+
+    console.log("Loaded phrases:", phrases);
+
+    // Ensure phrases is an array
+    if (!Array.isArray(phrases)) {
+      throw new Error("Invalid data format: Expected an array of phrases.");
+    }
+
+    return phrases;
+  };
+
+  const phrases = await loadPhrases();
+
+  // Map over the phrases array to generate params
+  return phrases.map((phrase: { id: string }) => ({
+    id: phrase.id,
+  }));
+}
 
 // Render the About page using the dynamically imported content
 export default async function Page({ params }: Props) {
