@@ -19,7 +19,7 @@
     "image": null,
     "draft": false,
     "relatedPosts": [],
-    "likes": 3
+    "likes": 4
   },
   {
     "slug": "introduction-to-thai-a-beginners-lesson",
@@ -42,5 +42,27 @@
     "draft": false,
     "relatedPosts": [],
     "likes": 12
+  },
+  {
+    "slug": "understanding-the-thai-word-gor-a-versatile-linguistic-tool",
+    "id": "8d83d03e-6c74-456c-8e2e-146d34f3b932",
+    "type": "blog",
+    "title": "Understanding the Thai Word Gor (ก็): A Versatile Linguistic Tool",
+    "author": "M. Prosper",
+    "publishDate": "2024-12-20",
+    "description": "Thai is a rich and nuanced language, full of words and expressions that can convey a wide range of meanings depending on context, tone, and even the speaker’s intention.",
+    "categories": [
+      "Language"
+    ],
+    "tags": [
+      "conjunction",
+      "particle",
+      "adverb"
+    ],
+    "modifiedDate": "2024-12-19T23:31:24.602Z",
+    "image": null,
+    "draft": false,
+    "relatedPosts": [],
+    "likes": 0
   }
 ]
