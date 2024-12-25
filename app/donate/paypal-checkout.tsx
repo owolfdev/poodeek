@@ -56,7 +56,7 @@ export default function App() {
                   `Thank you, ${payerName}! Your payment was successful.`
                 );
                 router.push(
-                  `/thank-you?payment=success&client=${payerName}&amount=${details?.purchase_units?.[0]?.amount?.value}`
+                  `/donate/thank-you?payment=success&client=${payerName}&amount=${details?.purchase_units?.[0]?.amount?.value}`
                 );
               })
               .catch((error) => {

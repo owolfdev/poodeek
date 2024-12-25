@@ -16,11 +16,14 @@ const ThankYouPage = async ({
   const amount = getFirstValue(params.amount) || "0.00";
 
   return (
-    <div className="max-w-lg mx-auto py-10 text-center">
-      <h1 className="text-3xl font-bold mb-4">Thank You!</h1>
-      <p className="text-lg mb-6">{`Payment Status: ${paymentStatus}`}</p>
-      <p className="text-lg mb-6">{`Client: ${clientName}`}</p>
-      <p className="text-lg mb-6">{`Amount Paid: $${amount}`}</p>
+    <div className="max-w-lg mx-auto py-10 text-center flex flex-col items-center justify-center gap-4 text-lg">
+      <div className="flex flex-col items-center justify-center mb-4">
+        <h1 className="text-6xl font-black mb-2">Thank You!</h1>
+        <p className="text-md">Your donation is appreciated!</p>
+      </div>
+      <p>{`Payment Status: ${paymentStatus}`}</p>
+      <p>{`Client: ${clientName}`}</p>
+      <p>{`Amount Paid: $${amount}`}</p>
     </div>
   );
 };
