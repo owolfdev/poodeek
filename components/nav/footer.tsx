@@ -15,6 +15,12 @@ function Footer() {
           <Link href="/contact">Contact</Link>
           {/* <Link href="/blog">Blog</Link> */}
           <Link href="/privacy">Privacy</Link>
+          <Link
+            href="/donate"
+            className="bg-yellow-300 px-3 py-1 rounded-full font-bold"
+          >
+            Donate
+          </Link>
         </nav>
       </div>
     </footer>

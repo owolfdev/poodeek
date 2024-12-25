@@ -76,3 +76,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.paypal-button-container iframe {
+  background-color: transparent !important; /* Ensure iframe respects transparency */
+  box-shadow: none !important; /* Remove shadows if present */
+}
