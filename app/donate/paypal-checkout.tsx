@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 export default function App() {
   const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
-  const [donationAmount, setDonationAmount] = useState<string>("1");
+  const [donationAmount, setDonationAmount] = useState<string>("5");
   const donationAmountRef = useRef<string>(donationAmount);
 
   const router = useRouter();
