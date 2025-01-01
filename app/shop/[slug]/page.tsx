@@ -42,8 +42,8 @@ async function ProductPage({ params, searchParams }: Props) {
   return (
     <div className="flex flex-col max-w-3xl w-full gap-8 pt-4 sm:pt-6">
       <h1 className="text-6xl font-black">{name}</h1>
-      <p className="text-sm text-gray-700">
-        This is in development, so it's not functional yet.
+      <p className="text-sm opacity-50">
+        This is in development, so it&apos;s not functional yet.
       </p>
       <Image
         alt={name}

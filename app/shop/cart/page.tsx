@@ -18,8 +18,8 @@ const CartPage: React.FC = () => {
   return (
     <div className="flex flex-col max-w-4xl mx-auto w-full gap-8 pt-6 sm:pt-10">
       <h1 className="text-5xl font-bold">Shopping Cart</h1>
-      <p className="text-sm text-gray-700">
-        This is in development, so it's not functional yet.
+      <p className="text-sm opacity-50">
+        This is in development, so it&apos;s not functional yet.
       </p>
 
       {cart.length === 0 ? (
@@ -105,8 +105,12 @@ const CartPage: React.FC = () => {
           {/* Grand Total and Checkout */}
           <div className="flex flex-col items-end gap-4 mt-6">
             <div className="text-xl font-bold">
-              Grand Total: ${grandTotal.toFixed(2)}
+              Total: ${grandTotal.toFixed(2)}
+              <div className="text-sm font-normal opacity-60">
+                Before taxes and shipping
+              </div>
             </div>
+
             <Button
               variant="default"
               className="px-6 py-3 bg-primary text-primary-foreground font-bold"

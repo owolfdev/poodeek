@@ -57,8 +57,8 @@ export default async function ShopPage() {
   return (
     <div className="flex flex-col max-w-3xl w-full gap-8 pt-6 sm:pt-10">
       <h1 className="text-6xl font-black">Our Products</h1>
-      <p className="text-sm text-gray-700">
-        This is in development, so it's not functional yet.
+      <p className="text-sm opacity-50">
+        This is in development, so it&apos;s not functional yet.
       </p>
       {isDevMode() && (
         <div className="flex gap-3">
