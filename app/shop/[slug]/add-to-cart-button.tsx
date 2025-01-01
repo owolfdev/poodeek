@@ -38,6 +38,8 @@ function AddToCartButton({
       toast({
         title: "Item added to cart",
         description: `${quantity}x ${sku} added to your cart.`,
+        variant: "default",
+        duration: 1500,
       });
 
       // Reset "Added!" state after 1.5 seconds
