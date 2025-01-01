@@ -133,13 +133,15 @@ const CartPage: React.FC = () => {
               </div>
             </div>
 
-            <Button
-              variant="default"
-              className="px-6 py-3 bg-primary text-primary-foreground font-bold"
-              aria-label="Proceed to checkout"
-            >
-              Proceed to Checkout
-            </Button>
+            <Link href="/shop/checkout">
+              <Button
+                variant="default"
+                className="px-6 py-3 bg-primary text-primary-foreground font-bold"
+                aria-label="Proceed to checkout"
+              >
+                Proceed to Checkout
+              </Button>
+            </Link>
             <Button
               onClick={clearCart}
               className="text-sm"
