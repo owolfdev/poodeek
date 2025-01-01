@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Orange T-shirt",
+    "slug": "t-shirt",
+    "price": 20,
+    "description": "This Unisex T-Shirt feels soft and light with just the right amount of stretch. It's comfortable and flattering for all."
+  },
+  {
+    "name": "Coffee Mug",
+    "slug": "mug",
+    "price": 10,
+    "description": "This sturdy 11oz mug is perfect for your morning coffee, afternoon tea, or whatever hot beverage you enjoy."
+  }
+]

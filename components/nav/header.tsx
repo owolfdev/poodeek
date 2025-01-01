@@ -5,6 +5,7 @@ import { AdminButtons } from "./admin-component";
 import { isDevMode } from "@/lib/utils/is-dev-mode";
 import Image from "next/image";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import CartIcon from "./cart-icon";
 
 function Header() {
   return (
@@ -15,6 +16,7 @@ function Header() {
           {isDevMode() && <ThemeSwitcher />}
           <AdminButtons />
           {isDevMode() && <AuthComponent />}
+          <CartIcon />
           <div className="">
             <Image
               src="/logos/app-logo.png"

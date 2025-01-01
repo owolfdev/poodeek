@@ -1,9 +1,3 @@
-// import DeployButton from "@/components/deploy-button";
-// import { EnvVarWarning } from "@/components/env-var-warning";
-// import HeaderAuth from "@/components/header-auth";
-// import { ThemeSwitcher } from "@/components/theme-switcher";
-// import { hasEnvVars } from "@/utils/supabase/check-env-vars";
-// import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "next-themes";
 import Header from "@/components/nav/header";
 import Footer from "@/components/nav/footer";
@@ -11,6 +5,8 @@ import Footer from "@/components/nav/footer";
 import "./globals.css";
 import { Inter, Source_Code_Pro } from "next/font/google";
 import CookieConsentComponent from "@/components/cookie-consent";
+import { CartProvider } from "@/context/CartContext";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 const sourceCodePro = Source_Code_Pro({ subsets: ["latin"] });
@@ -43,12 +39,16 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <main className="flex flex-col items-center justify-between px-6  sm:px-10 sm:py-8 min-h-[calc(100vh-13rem)]">
-            {children}
-            <CookieConsentComponent />
-          </main>
-          <Footer />
+          <CartProvider>
+            <Header />
+            <main className="flex flex-col items-center justify-between px-6  sm:px-10 sm:py-8 min-h-[calc(100vh-13rem)]">
+              {children}
+
+              <CookieConsentComponent />
+            </main>
+            <Footer />
+            <Toaster />
+          </CartProvider>
         </ThemeProvider>
       </body>
     </html>
