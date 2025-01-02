@@ -23,7 +23,7 @@ const CartPage: React.FC = () => {
   }, 0);
 
   return (
-    <div className="flex flex-col max-w-4xl mx-auto w-full gap-8 pt-6 sm:pt-10 px-4 sm:px-0">
+    <div className="flex flex-col max-w-4xl mx-auto w-full gap-8 pt-6 sm:pt-10 ">
       <h1 className="text-3xl sm:text-5xl font-bold text-center sm:text-left">
         Shopping Cart
       </h1>
@@ -58,67 +58,73 @@ const CartPage: React.FC = () => {
               return (
                 <li
                   key={item.sku}
-                  className="flex flex-wrap items-center gap-4 border-b pb-4"
+                  className="flex sm:flex-row flex-col sm:justify-between justify-start sm:items-center items-start gap-4 border-b pb-4"
                 >
-                  {/* Product Image */}
-                  <img
-                    src={`/images/shop/${slug}.jpg`}
-                    onError={(e) => {
-                      e.currentTarget.src = "/images/placeholder.jpg";
-                    }}
-                    alt={name}
-                    className="w-24 h-24 object-cover rounded"
-                  />
+                  <div className="flex items-center gap-4">
+                    {/* Product Image */}
+                    <img
+                      src={`/images/shop/${slug}.jpg`}
+                      onError={(e) => {
+                        e.currentTarget.src = "/images/placeholder.jpg";
+                      }}
+                      alt={name}
+                      className="w-24 h-24 object-cover rounded"
+                    />
 
-                  {/* Product Details */}
-                  <div className="flex-1">
-                    <h2 className="text-lg font-bold">{name}</h2>
-                    <p className="text-sm">{formatCurrency(variant_price)}</p>
-                    {size && <p className="text-sm">Size: {size}</p>}
-                  </div>
-
-                  {/* Quantity Controls */}
-                  <div className="flex items-center gap-2">
-                    <Button
-                      aria-label={`Decrease quantity of ${name}`}
-                      onClick={() =>
-                        updateCartItem(item.sku, Math.max(1, item.quantity - 1))
-                      }
-                      size="icon"
-                      variant="secondary"
-                    >
-                      -
-                    </Button>
-                    <div className="text-center bg-white px-4 py-2 rounded-md">
-                      {item.quantity}
+                    {/* Product Details */}
+                    <div className="flex-1">
+                      <h2 className="text-lg font-bold">{name}</h2>
+                      <p className="text-sm">{formatCurrency(variant_price)}</p>
+                      {size && <p className="text-sm">Size: {size}</p>}
                     </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    {/* Quantity Controls */}
+                    <div className="flex items-center gap-2">
+                      <Button
+                        aria-label={`Decrease quantity of ${name}`}
+                        onClick={() =>
+                          updateCartItem(
+                            item.sku,
+                            Math.max(1, item.quantity - 1)
+                          )
+                        }
+                        size="icon"
+                        variant="secondary"
+                      >
+                        -
+                      </Button>
+                      <div className="text-center bg-white px-4 py-2 rounded-md">
+                        {item.quantity}
+                      </div>
+                      <Button
+                        aria-label={`Increase quantity of ${name}`}
+                        onClick={() =>
+                          updateCartItem(item.sku, item.quantity + 1)
+                        }
+                        size="icon"
+                        variant="secondary"
+                      >
+                        +
+                      </Button>
+                    </div>
+
+                    {/* Subtotal */}
+                    <p className="w-24 text-right font-medium">
+                      {formatCurrency(subtotal)}
+                    </p>
+
+                    {/* Delete Button */}
                     <Button
-                      aria-label={`Increase quantity of ${name}`}
-                      onClick={() =>
-                        updateCartItem(item.sku, item.quantity + 1)
-                      }
+                      aria-label={`Remove ${name} from cart`}
+                      onClick={() => removeCartItem(item.sku)}
                       size="icon"
-                      variant="secondary"
+                      className="active:scale-95"
+                      variant="outline"
                     >
-                      +
+                      🗑️
                     </Button>
                   </div>
-
-                  {/* Subtotal */}
-                  <p className="w-24 text-right font-medium">
-                    {formatCurrency(subtotal)}
-                  </p>
-
-                  {/* Delete Button */}
-                  <Button
-                    aria-label={`Remove ${name} from cart`}
-                    onClick={() => removeCartItem(item.sku)}
-                    size="icon"
-                    className="active:scale-95"
-                    variant="outline"
-                  >
-                    🗑️
-                  </Button>
                 </li>
               );
             })}

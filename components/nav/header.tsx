@@ -13,9 +13,9 @@ function Header() {
       <div className="sm:px-12 px-6 flex items-center h-20 py-2  space-x-0 justify-between sm:space-x-0">
         <NavComponent />
         <div className="flex items-center gap-4">
-          {isDevMode() && <ThemeSwitcher />}
+          {/* {isDevMode() && <ThemeSwitcher />} */}
           <AdminButtons />
-          {isDevMode() && <AuthComponent />}
+          {/* {isDevMode() && <AuthComponent />} */}
           <CartIcon />
           <div className="">
             <Image
