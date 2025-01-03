@@ -3,56 +3,72 @@
     "sku": "T-SHIRT-S",
     "product_id": 1,
     "size": "S",
-    "color": null,
+    "color": "Orange",
     "stock_quantity": 50,
-    "variant_price": 20
+    "variant_price": 16.5,
+    "variant_id": 4126
   },
   {
     "sku": "T-SHIRT-M",
     "product_id": 1,
     "size": "M",
-    "color": null,
+    "color": "Orange",
     "stock_quantity": 40,
-    "variant_price": 20
+    "variant_price": 16.5,
+    "variant_id": 4127
   },
   {
     "sku": "T-SHIRT-L",
     "product_id": 1,
     "size": "L",
-    "color": null,
+    "color": "Orange",
     "stock_quantity": 30,
-    "variant_price": 20
+    "variant_price": 16.5,
+    "variant_id": 4128
   },
   {
     "sku": "T-SHIRT-XL",
     "product_id": 1,
     "size": "XL",
-    "color": null,
+    "color": "Orange",
     "stock_quantity": 20,
-    "variant_price": 20
+    "variant_price": 16.5,
+    "variant_id": 4129
   },
   {
     "sku": "T-SHIRT-2XL",
     "product_id": 1,
     "size": "2XL",
-    "color": null,
+    "color": "Orange",
     "stock_quantity": 10,
-    "variant_price": 20
+    "variant_price": 19.5,
+    "variant_id": 4130
   },
   {
     "sku": "T-SHIRT-3XL",
     "product_id": 1,
     "size": "3XL",
-    "color": null,
+    "color": "Orange",
     "stock_quantity": 5,
-    "variant_price": 20
+    "variant_price": 23.5,
+    "variant_id": 17210
+  },
+  {
+    "sku": "T-SHIRT-4XL",
+    "product_id": 1,
+    "size": "4XL",
+    "color": "Orange",
+    "stock_quantity": 2,
+    "variant_price": 26.0,
+    "variant_id": 17211
   },
   {
     "sku": "MUG-001",
     "product_id": 2,
-    "size": null,
-    "color": null,
+    "size": "11 oz",
+    "color": "White",
     "stock_quantity": 100,
-    "variant_price": 10
+    "variant_price": 7.5,
+    "variant_id": 1320
   }
 ]

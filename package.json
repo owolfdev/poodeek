@@ -31,6 +31,7 @@
     "@types/mdx": "^2.0.13",
     "@types/react-google-recaptcha": "^2.1.9",
     "autoprefixer": "10.4.17",
+    "axios": "^1.7.9",
     "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

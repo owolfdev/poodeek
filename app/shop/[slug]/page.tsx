@@ -4,8 +4,8 @@ import ProductOptions from "./options/product-options";
 import { Button } from "@/components/ui/button";
 import AddToCartButton from "./add-to-cart-button";
 import Link from "next/link";
-import products from "@/data/products/products.json"; // Import product metadata
-import variants from "@/data/products/variants.json"; // Import product variants
+import products from "@/data/products/products.json";
+import variants from "@/data/products/variants.json";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -13,7 +13,6 @@ type Props = {
 };
 
 async function ProductPage({ params, searchParams }: Props) {
-  // Await both params and searchParams
   const { slug } = await params;
   const { add = "false", size = "", quantity = "1" } = await searchParams;
 
@@ -21,23 +20,31 @@ async function ProductPage({ params, searchParams }: Props) {
   const product = products.find((p) => p.slug === slug);
 
   if (!product) {
-    return <p>Product not found</p>; // Handle case where the product doesn't exist
+    console.error("Product not found for slug:", slug);
+    return <p>Product not found</p>;
   }
 
   const { name, base_price, description } = product;
 
-  // Determine the SKU for the selected variant or default product
-  const sku = variants.find((variant) => {
-    if (variant.product_id === product.product_id) {
-      // For products with variants (e.g., T-shirts)
-      if (variant.size) {
-        return variant.size === size;
-      }
-      // For products without variants (e.g., mugs)
-      return true;
-    }
-    return false;
-  })?.sku;
+  // Find the selected variant
+  const selectedVariant = variants.find(
+    (variant) =>
+      variant.product_id === product.product_id &&
+      (!size || variant.size === size)
+  );
+
+  if (!selectedVariant) {
+    console.error("No variant found for product and size:", {
+      product_id: product.product_id,
+      size,
+      availableVariants: variants.filter(
+        (variant) => variant.product_id === product.product_id
+      ),
+    });
+  }
+
+  const sku = selectedVariant?.sku || ""; // Fallback to empty string if no valid variant is found
+  const variant_id = selectedVariant?.variant_id || null;
 
   return (
     <div className="flex flex-col max-w-3xl w-full gap-8 pt-4 sm:pt-6">
@@ -56,10 +63,11 @@ async function ProductPage({ params, searchParams }: Props) {
       <ProductOptions slug={slug} />
       <div className="flex gap-2">
         <AddToCartButton
-          sku={sku || ""}
+          sku={sku}
+          variant_id={variant_id}
           quantity={Number.parseInt(quantity, 10)}
+          add={add === "true"}
         />
-
         <Link href="/shop/cart">
           <Button variant="outline" className="active:scale-95">
             View cart

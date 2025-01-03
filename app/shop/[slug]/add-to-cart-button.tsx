@@ -7,16 +7,20 @@ import { useToast } from "@/hooks/use-toast";
 
 type CartItem = {
   sku: string;
+  variant_id: number | null;
   quantity: number;
-  size?: string;
 };
 
 function AddToCartButton({
   sku,
+  variant_id,
   quantity = 1,
+  add = false,
 }: {
   sku: string;
+  variant_id: number | null;
   quantity?: number;
+  add?: boolean;
 }) {
   const { addToCart } = useCart();
   const { toast } = useToast();
@@ -24,11 +28,26 @@ function AddToCartButton({
   const [isAdded, setIsAdded] = useState(false);
 
   const handleAddToCart = async () => {
+    if (!sku || !variant_id) {
+      console.error("Invalid add-to-cart attempt:", {
+        sku,
+        variant_id,
+        quantity,
+      });
+      toast({
+        title: "Invalid product selection",
+        description: "Please choose a valid size or variant.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsAdding(true);
 
     try {
       const newItem: CartItem = {
         sku,
+        variant_id,
         quantity,
       };
 
@@ -42,7 +61,6 @@ function AddToCartButton({
         duration: 1500,
       });
 
-      // Reset "Added!" state after 1.5 seconds
       setTimeout(() => setIsAdded(false), 1500);
     } catch (error) {
       console.error("Failed to add to cart", error);
@@ -58,7 +76,7 @@ function AddToCartButton({
 
   return (
     <Button
-      disabled={sku === ""}
+      disabled={!add}
       onClick={handleAddToCart}
       className="active:scale-95 min-w-40"
       aria-live="polite"
