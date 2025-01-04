@@ -6,6 +6,8 @@ import "./globals.css";
 import { Inter, Source_Code_Pro } from "next/font/google";
 import CookieConsentComponent from "@/components/cookie-consent";
 import { CartProvider } from "@/context/CartContext";
+import { ShippingProvider } from "@/context/ShippingContext";
+
 import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -40,14 +42,15 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <CartProvider>
-            <Header />
-            <main className="flex flex-col items-center justify-between px-6  sm:px-10 sm:py-8 min-h-[calc(100vh-13rem)]">
-              {children}
-
-              <CookieConsentComponent />
-            </main>
-            <Footer />
-            <Toaster />
+            <ShippingProvider>
+              <Header />
+              <main className="flex flex-col items-center justify-between px-6  sm:px-10 sm:py-8 min-h-[calc(100vh-13rem)]">
+                {children}
+                <CookieConsentComponent />
+              </main>
+              <Footer />
+              <Toaster />
+            </ShippingProvider>
           </CartProvider>
         </ThemeProvider>
       </body>

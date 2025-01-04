@@ -27,6 +27,8 @@ import variants from "@/data/products/variants.json";
 import products from "@/data/products/products.json";
 import { cn } from "@/lib/utils";
 import { getCountries, getShippingCost } from "./actions";
+import { useShipping } from "@/context/ShippingContext";
+import { useRouter } from "next/navigation";
 
 const shippingSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -68,6 +70,9 @@ const CheckoutPage: React.FC = () => {
     { value: string; label: string }[]
   >([]);
 
+  const router = useRouter();
+  const { shippingInfo, saveShippingInfo, clearShippingInfo } = useShipping();
+
   useEffect(() => {
     const fetchCountries = async () => {
       try {
@@ -81,13 +86,23 @@ const CheckoutPage: React.FC = () => {
     fetchCountries();
   }, []);
 
+  useEffect(() => {
+    if (shippingInfo?.country) {
+      setFormValue("country", shippingInfo.country); // Set React Hook Form value
+      setValue(shippingInfo.country); // Set the local state for the popover
+    }
+  }, [shippingInfo]);
+
   const {
     register,
     handleSubmit,
+    reset,
     setValue: setFormValue,
     formState: { errors },
+    getValues,
   } = useForm<ShippingForm>({
     resolver: zodResolver(shippingSchema),
+    defaultValues: shippingInfo || {},
   });
 
   const onSubmit = async (data: ShippingForm) => {
@@ -138,6 +153,23 @@ const CheckoutPage: React.FC = () => {
     setGrandTotal(total + (shippingCost || 0));
   }, [shippingCost, cart]);
 
+  const handleClearShipping = () => {
+    clearShippingInfo();
+    reset();
+    setValue("");
+  };
+
+  const handleSaveShipping = () => {
+    const formValues = getValues(); // Manually retrieve current form values
+    const result = shippingSchema.safeParse(formValues);
+    if (result.success) {
+      saveShippingInfo(result.data);
+      console.log("Shipping information saved:", result.data);
+    } else {
+      console.error("Invalid shipping information:", result.error.format());
+    }
+  };
+
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -147,6 +179,9 @@ const CheckoutPage: React.FC = () => {
   return (
     <div className="flex flex-col max-w-3xl w-full gap-8 pt-6 sm:pt-10">
       <h1 className="text-3xl font-bold mb-6">Checkout</h1>
+      <p className="text-sm opacity-50 text-center sm:text-left">
+        This is in development, so it&apos;s not functional yet.
+      </p>
 
       <div className="border-b pb-4 mb-6">
         <h2 className="text-xl font-bold">Order Summary</h2>
@@ -177,52 +212,55 @@ const CheckoutPage: React.FC = () => {
 
       <form onSubmit={handleSubmit(onSubmit)} className="mb-6 min-w-full">
         <h2 className="text-2xl font-bold mb-4">Shipping Information</h2>
+
         <div className="flex flex-col gap-4">
           <Input
             {...register("name")}
             placeholder="Full Name"
             className="w-full"
           />
-          <p className="text-sm ">{errors.name?.message}</p>
+          <p className="text-sm">{errors.name?.message}</p>
           <Input
             {...register("email")}
             placeholder="Email Address"
             className="w-full"
           />
-          <p className="text-sm ">{errors.email?.message}</p>
+          <p className="text-sm">{errors.email?.message}</p>
           <Input
             {...register("phone")}
             placeholder="Phone Number"
             className="w-full"
           />
-          <p className="text-sm ">{errors.phone?.message}</p>
+          <p className="text-sm">{errors.phone?.message}</p>
           <Input
             {...register("address")}
             placeholder="Street Address"
             className="w-full"
           />
-          <p className="text-sm ">{errors.address?.message}</p>
+          <p className="text-sm">{errors.address?.message}</p>
           <Input {...register("address2")} placeholder="Apartment/Suite" />
+          <p className="text-sm">{errors.address2?.message}</p>
           <Input {...register("city")} placeholder="City" className="w-full" />
-          <p className="text-sm ">{errors.city?.message}</p>
+          <p className="text-sm">{errors.city?.message}</p>
           <Input
             {...register("state")}
             placeholder="State/Province"
             className="w-full"
           />
-          <p className="text-sm ">{errors.state?.message}</p>
+          <p className="text-sm">{errors.state?.message}</p>
           <Input
             {...register("zip")}
             placeholder="ZIP/Postal Code"
             className="w-full"
           />
-          <p className="text-sm ">{errors.zip?.message}</p>
+          <p className="text-sm">{errors.zip?.message}</p>
           <div>
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <Button variant="outline" className="w-full justify-between">
                   {value
-                    ? countries.find((c) => c.value === value)?.label
+                    ? countries.find((c) => c.value === value)?.label ||
+                      "Select Country..."
                     : "Select Country..."}
                   <ChevronsUpDown className="opacity-50" />
                 </Button>
@@ -237,14 +275,9 @@ const CheckoutPage: React.FC = () => {
                         <CommandItem
                           key={country.value}
                           value={country.label}
-                          onSelect={(label) => {
-                            const selected = countries.find(
-                              (c) => c.label === label
-                            );
-                            if (selected) {
-                              setValue(selected.value);
-                              setFormValue("country", selected.value);
-                            }
+                          onSelect={() => {
+                            setValue(country.value);
+                            setFormValue("country", country.value);
                             setOpen(false);
                           }}
                         >
@@ -267,9 +300,30 @@ const CheckoutPage: React.FC = () => {
             <p className="text-sm text-red-500">{errors.country?.message}</p>
           </div>
         </div>
-        <Button type="submit" className="mt-4 w-full">
-          Calculate Shipping
-        </Button>
+
+        <div className="flex flex-col gap-2 pt-4">
+          <Button type="submit" size="lg" className="mt-4 w-full text-lg">
+            Calculate Shipping
+          </Button>
+          <div className="flex justify-between gap-4">
+            <Button
+              variant="ghost"
+              type="button"
+              className="mt-2 py-3"
+              onClick={handleClearShipping}
+            >
+              Clear Shipping Information
+            </Button>
+            <Button
+              variant="ghost"
+              type="button"
+              className="mt-2 py-3"
+              onClick={handleSaveShipping}
+            >
+              Save Shipping Information
+            </Button>
+          </div>
+        </div>
       </form>
 
       {shippingOptions.length > 0 && (
@@ -302,13 +356,13 @@ const CheckoutPage: React.FC = () => {
           <p className="text-2xl font-bold">{formatCurrency(grandTotal)}</p>
         )}
       </div>
-      {/* Payment Mock */}
       <div className="border-t pt-6">
         <Button
           onClick={() => {
-            // Log all order information
-            console.log("Order Details:");
+            // Log all order and shipping information
+            console.log("Order Summary:");
             console.log("Cart Items:", cart);
+            console.log("Shipping Information:", shippingInfo);
             console.log(
               "Selected Shipping Option:",
               shippingOptions.find(
@@ -318,22 +372,12 @@ const CheckoutPage: React.FC = () => {
             console.log("Shipping Cost:", shippingCost);
             console.log("Grand Total:", grandTotal);
 
-            // Mock payment success
-            alert(`Payment successful! Order Details:
-        - Cart Items: ${JSON.stringify(cart, null, 2)}
-        - Selected Shipping Option: ${JSON.stringify(
-          shippingOptions.find(
-            (option) => option.rate === selectedShippingRate
-          ),
-          null,
-          2
-        )}
-        - Shipping Cost: ${shippingCost ? `$${shippingCost.toFixed(2)}` : "Not calculated"}
-        - Grand Total: $${grandTotal.toFixed(2)}
-      `);
+            // Mock order processing (you can replace this with real payment logic later)
+            alert("Order placed successfully! Check the console for details.");
 
-            // Clear the cart
+            // Clear the cart and navigate to the thank-you page
             clearCart();
+            router.push("/shop/thank-you");
           }}
           className="w-full bg-blue-600 text-white py-3"
           disabled={shippingCost === null}

@@ -5,7 +5,8 @@ import OpenInCursor from "@/components/page/open-page-in-cursor-button";
 import { isDevMode } from "@/lib/utils/is-dev-mode";
 import Image from "next/image";
 import Link from "next/link";
-import products from "@/data/products/products.json"; // Import the JSON file
+import products from "@/data/products/products.json"; // Import products data
+import variants from "@/data/products/variants.json"; // Import variants data
 
 interface MdxModule {
   default: React.ComponentType;
@@ -44,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// Render the About page using the dynamically imported content
+// Render the Shop page using the dynamically imported content
 export default async function ShopPage() {
   const mdxModule = await loadMdxFile();
 
@@ -68,23 +69,39 @@ export default async function ShopPage() {
       )}
       <div className="flex flex-col sm:flex-row gap-8">
         {products && products.length > 0 ? (
-          products.map((product) => (
-            <Link key={product.slug} href={`/shop/${product.slug}`}>
-              <div className="flex flex-col gap-4">
-                <h2 className="text-4xl font-bold">{product.name}</h2>
-                <Image
-                  alt={product.name}
-                  src={`/images/shop/${product.slug}.jpg`}
-                  width={300}
-                  height={300}
-                />
-                <p className="text-xl font-bold">
-                  Price: ${product.base_price}
-                </p>
-                <p className="text-sm max-w-[300px]">{product.description}</p>
-              </div>
-            </Link>
-          ))
+          products.map((product) => {
+            // Filter variants related to the current product
+            const productVariants = variants.filter(
+              (variant) => variant.product_id === product.product_id
+            );
+
+            // Calculate min and max prices for the product
+            const prices = productVariants.map(
+              (variant) => variant.variant_price
+            );
+            const minPrice = Math.min(...prices);
+            const maxPrice = Math.max(...prices);
+
+            return (
+              <Link key={product.slug} href={`/shop/${product.slug}`}>
+                <div className="flex flex-col gap-4">
+                  <h2 className="text-4xl font-bold">{product.name}</h2>
+                  <Image
+                    alt={product.name}
+                    src={`/images/shop/${product.slug}.jpg`}
+                    width={300}
+                    height={300}
+                  />
+                  <p className="text-xl font-bold">
+                    {minPrice === maxPrice
+                      ? `Price: $${minPrice}` // Display single price for single variant
+                      : `Price: $${minPrice} - $${maxPrice}`}{" "}
+                  </p>
+                  <p className="text-sm max-w-[300px]">{product.description}</p>
+                </div>
+              </Link>
+            );
+          })
         ) : (
           <p>No products available at the moment.</p>
         )}
