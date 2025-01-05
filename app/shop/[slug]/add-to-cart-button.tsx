@@ -28,15 +28,11 @@ function AddToCartButton({
   const [isAdded, setIsAdded] = useState(false);
 
   const handleAddToCart = async () => {
-    if (!sku || !variant_id) {
-      console.error("Invalid add-to-cart attempt:", {
-        sku,
-        variant_id,
-        quantity,
-      });
+    if (!add) {
       toast({
         title: "Invalid product selection",
-        description: "Please choose a valid size or variant.",
+        description:
+          "Please select a valid size or variant to add to your cart.",
         variant: "destructive",
       });
       return;
@@ -76,11 +72,11 @@ function AddToCartButton({
 
   return (
     <Button
-      disabled={!add}
+      disabled={!add || isAdding}
       onClick={handleAddToCart}
       className="active:scale-95 min-w-40"
       aria-live="polite"
-      aria-disabled={isAdding}
+      aria-disabled={!add || isAdding}
     >
       {isAdding ? "Adding..." : isAdded ? "✓ Added" : "Add to Cart"}
     </Button>
