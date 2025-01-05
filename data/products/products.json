@@ -3,14 +3,14 @@
     "product_id": 1,
     "name": "T-shirt",
     "slug": "t-shirt",
-    "base_price": 20,
+    "base_price": 0,
     "description": "Unisex T-Shirt with just the right amount of stretch. It's comfortable and flattering for all. Black and White print on Orange color shirt. Available in S, M, L, XL, XXL, and XXXL."
   },
   {
     "product_id": 2,
     "name": "Coffee Mug",
     "slug": "mug",
-    "base_price": 10,
+    "base_price": 0,
     "description": "This sturdy 11oz mug is perfect for your morning coffee, afternoon tea, or whatever hot beverage you enjoy."
   }
 ]

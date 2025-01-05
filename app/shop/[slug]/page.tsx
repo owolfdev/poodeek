@@ -7,14 +7,21 @@ import Link from "next/link";
 import products from "@/data/products/products.json";
 import variants from "@/data/products/variants.json";
 
+// Utility function to extract the first value from a parameter
+function getFirstValue(param: string | string[] | undefined): string {
+  return Array.isArray(param) ? param[0] : param || "";
+}
+
 type Props = {
   params: { slug: string };
-  searchParams: { add?: string; size?: string; quantity?: string };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-function ProductPage({ params, searchParams }: Props) {
-  const { slug } = params;
-  const { size = "", quantity = "1" } = searchParams;
+async function ProductPage({ params, searchParams }: Props) {
+  const resolvedSearchParams = await searchParams;
+  const slug = params.slug;
+  const size = getFirstValue(resolvedSearchParams.size);
+  const quantity = Number(getFirstValue(resolvedSearchParams.quantity)) || 1;
 
   const product = products.find((p) => p.slug === slug);
   if (!product) return <p>Product not found</p>;
@@ -46,14 +53,14 @@ function ProductPage({ params, searchParams }: Props) {
       <ProductOptions
         slug={slug}
         initialSize={size}
-        initialQuantity={Number.parseInt(quantity, 10)}
+        initialQuantity={quantity}
         variants={productVariants}
       />
       <div className="flex gap-2">
         <AddToCartButton
           sku={selectedVariant?.sku || ""}
           variant_id={selectedVariant?.variant_id || null}
-          quantity={Number.parseInt(quantity, 10)}
+          quantity={quantity}
           add={isAddToCartEnabled}
         />
         <Link href="/shop/cart">
