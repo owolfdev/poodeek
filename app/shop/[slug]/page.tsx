@@ -13,13 +13,15 @@ function getFirstValue(param: string | string[] | undefined): string {
 }
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 async function ProductPage({ params, searchParams }: Props) {
+  const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
-  const slug = params.slug;
+
+  const slug = resolvedParams.slug;
   const size = getFirstValue(resolvedSearchParams.size);
   const quantity = Number(getFirstValue(resolvedSearchParams.quantity)) || 1;
 
