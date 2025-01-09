@@ -29,6 +29,7 @@ import { cn } from "@/lib/utils";
 import { getCountries, getShippingCost } from "./actions";
 import { useShipping } from "@/context/ShippingContext";
 import { useRouter } from "next/navigation";
+import { saveOrder } from "./actions";
 
 const shippingSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -65,6 +66,7 @@ const CheckoutPage: React.FC = () => {
     string | null
   >(null);
   const [shippingCost, setShippingCost] = useState<number | null>(null);
+  const [subtotal, setSubtotal] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
   const [countries, setCountries] = useState<
     { value: string; label: string }[]
@@ -88,8 +90,8 @@ const CheckoutPage: React.FC = () => {
 
   useEffect(() => {
     if (shippingInfo?.country) {
-      setFormValue("country", shippingInfo.country); // Set React Hook Form value
-      setValue(shippingInfo.country); // Set the local state for the popover
+      setFormValue("country", shippingInfo.country);
+      setValue(shippingInfo.country);
     }
   }, [shippingInfo]);
 
@@ -134,11 +136,43 @@ const CheckoutPage: React.FC = () => {
         cartWithVariants
       );
 
+      const selectedShipping = shippingCostResponse[0];
       setShippingOptions(shippingCostResponse);
-      setSelectedShippingRate(shippingCostResponse[0]?.rate || null);
-      setShippingCost(Number.parseFloat(shippingCostResponse[0]?.rate || "0"));
+      setSelectedShippingRate(selectedShipping?.rate || null);
+      setShippingCost(Number.parseFloat(selectedShipping?.rate || "0"));
+
+      // Save the order
+      await saveOrder({
+        cart_items: cartWithVariants.map((item) => ({
+          variant_id: item.variant_id,
+          quantity: item.quantity,
+          name:
+            variants.find((v) => v.variant_id === item.variant_id)?.sku || "",
+          price:
+            variants.find((v) => v.variant_id === item.variant_id)
+              ?.variant_price || 0,
+        })),
+        shipping_info: {
+          name: data.name,
+          address1: data.address,
+          address2: data.address2,
+          city: data.city,
+          state_code: data.state,
+          country_code: data.country,
+          zip: data.zip,
+          email: data.email || "",
+          phone: data.phone,
+        },
+        selected_shipping: selectedShipping,
+        shipping_cost: Number.parseFloat(selectedShipping?.rate || "0"),
+        grand_total:
+          subtotal + Number.parseFloat(selectedShipping?.rate || "0"),
+        currency: "USD",
+      });
+
+      console.log("Order saved successfully");
     } catch (error) {
-      console.error("Error calculating shipping:", error);
+      console.error("Error calculating or saving order:", error);
     }
   };
 
@@ -150,6 +184,7 @@ const CheckoutPage: React.FC = () => {
           item.quantity,
       0
     );
+    setSubtotal(total);
     setGrandTotal(total + (shippingCost || 0));
   }, [shippingCost, cart]);
 
@@ -160,11 +195,10 @@ const CheckoutPage: React.FC = () => {
   };
 
   const handleSaveShipping = () => {
-    const formValues = getValues(); // Manually retrieve current form values
+    const formValues = getValues();
     const result = shippingSchema.safeParse(formValues);
     if (result.success) {
       saveShippingInfo(result.data);
-      console.log("Shipping information saved:", result.data);
     } else {
       console.error("Invalid shipping information:", result.error.format());
     }
@@ -179,12 +213,8 @@ const CheckoutPage: React.FC = () => {
   return (
     <div className="flex flex-col max-w-3xl w-full gap-8 pt-6 sm:pt-10">
       <h1 className="text-3xl font-bold mb-6">Checkout</h1>
-      <p className="text-sm opacity-50 text-center sm:text-left">
-        This is in development, so it&apos;s not functional yet.
-      </p>
-
       <div className="border-b pb-4 mb-6">
-        <h2 className="text-xl font-bold">Order Summary</h2>
+        <h2 className="text-xl font-bold mb-4">Order Summary</h2>
         {cart.map((item) => {
           const variant = variants.find((v) => v.sku === item.sku);
           const product = products.find(
@@ -202,12 +232,30 @@ const CheckoutPage: React.FC = () => {
             </div>
           );
         })}
-        <p className="text-right font-bold mt-4">
-          Total: {formatCurrency(grandTotal)}{" "}
-          {shippingCost === null
-            ? "(excluding shipping)"
-            : "(including shipping)"}
-        </p>
+        <div className="mt-4 border-t pt-4">
+          <p className="flex justify-between">
+            <span className="font-bold">Subtotal:</span>
+            <span>{formatCurrency(subtotal)}</span>
+          </p>
+          <p className="flex justify-between">
+            <span className="font-bold">Shipping:</span>
+            <span>
+              {shippingCost !== null
+                ? formatCurrency(shippingCost)
+                : "Calculate shipping"}
+            </span>
+          </p>
+          <p className="flex justify-between text-lg font-bold mt-2">
+            <span>Grand Total:</span>
+            {shippingCost === null ? (
+              <p className="">
+                Please calculate shipping cost to get the total.
+              </p>
+            ) : (
+              <p className="text-2xl font-bold">{formatCurrency(grandTotal)}</p>
+            )}
+          </p>
+        </div>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="mb-6 min-w-full">
@@ -356,35 +404,20 @@ const CheckoutPage: React.FC = () => {
           <p className="text-2xl font-bold">{formatCurrency(grandTotal)}</p>
         )}
       </div>
-      <div className="border-t pt-6">
-        <Button
-          onClick={() => {
-            // Log all order and shipping information
-            console.log("Order Summary:");
-            console.log("Cart Items:", cart);
-            console.log("Shipping Information:", shippingInfo);
-            console.log(
-              "Selected Shipping Option:",
-              shippingOptions.find(
-                (option) => option.rate === selectedShippingRate
-              )
-            );
-            console.log("Shipping Cost:", shippingCost);
-            console.log("Grand Total:", grandTotal);
 
-            // Mock order processing (you can replace this with real payment logic later)
-            alert("Order placed successfully! Check the console for details.");
-
-            // Clear the cart and navigate to the thank-you page
-            clearCart();
-            router.push("/shop/thank-you");
-          }}
-          className="w-full bg-blue-600 text-white py-3"
-          disabled={shippingCost === null}
-        >
-          Pay Now (Mock)
-        </Button>
-      </div>
+      <Button
+        onClick={handleSubmit(async (data) => {
+          // const result = await onSubmit(data); // Ensure the form submission happens
+          // console.log(result);
+          const orderId = data;
+          clearCart();
+          router.push(`/shop/thank-you?id=${orderId}`);
+        })}
+        className="w-full bg-blue-600 text-white py-3"
+        disabled={shippingCost === null}
+      >
+        Pay Now (Mock)
+      </Button>
     </div>
   );
 };

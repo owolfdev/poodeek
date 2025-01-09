@@ -37,7 +37,14 @@ async function ProductPage({ params, searchParams }: Props) {
       ? productVariants[0] // Single variant (e.g., mug)
       : productVariants.find((v) => v.size === size); // Multiple variants (e.g., t-shirt)
 
-  const price = selectedVariant?.variant_price || product.base_price;
+  // Calculate price range
+  const minPrice = Math.min(...productVariants.map((v) => v.variant_price));
+  const maxPrice = Math.max(...productVariants.map((v) => v.variant_price));
+
+  // Display price
+  const price = selectedVariant
+    ? `$${selectedVariant.variant_price.toFixed(2)}`
+    : `$${minPrice.toFixed(2)} - $${maxPrice.toFixed(2)}`;
 
   const isAddToCartEnabled = !!selectedVariant;
 
@@ -51,7 +58,7 @@ async function ProductPage({ params, searchParams }: Props) {
         height={400}
       />
       <p className="text-xl">{description}</p>
-      <p className="text-2xl font-bold">Price: ${price.toFixed(2)} each</p>
+      <p className="text-2xl font-bold">Price: {price} each</p>
       <ProductOptions
         slug={slug}
         initialSize={size}
