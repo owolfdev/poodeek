@@ -195,7 +195,9 @@ const CheckoutPage: React.FC = () => {
           currency: "USD",
         });
 
-        clearCart();
+        setTimeout(() => {
+          clearCart();
+        }, 1000);
 
         router.push(`/shop/thank-you?id=${orderId}`);
 
@@ -248,7 +250,7 @@ const CheckoutPage: React.FC = () => {
   const handlePayNow = (data: ShippingForm) => onSubmit(data, "pay");
 
   return (
-    <div className="flex flex-col max-w-3xl w-full gap-8 pt-6 sm:pt-10">
+    <div className="flex flex-col max-w-3xl w-full gap-8 pt-6 sm:pt-10 ">
       <h1 className="text-3xl font-bold mb-6">Checkout</h1>
       <div className="border-b pb-4 mb-6">
         <h2 className="text-xl font-bold mb-4">Order Summary</h2>
@@ -431,6 +433,7 @@ const CheckoutPage: React.FC = () => {
               <label>
                 <input
                   type="radio"
+                  className="mr-2"
                   name="shippingOption"
                   value={option.rate}
                   onChange={() => {

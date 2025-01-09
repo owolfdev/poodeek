@@ -77,13 +77,13 @@ export default async function ThankYouPage({
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-4">Thank You for Your Order!</h1>
+    <div className="flex flex-col max-w-3xl w-full gap-6 pt-6 sm:pt-10 pb-10">
+      <h1 className="text-3xl font-bold">Thank You for Your Order!</h1>
       <p>Your order has been successfully placed. Below are the details:</p>
 
       {/* Order Summary */}
-      <div className="my-8">
-        <h2 className="text-xl font-bold">Order Summary</h2>
+      <div className="">
+        <h2 className="text-2xl font-bold mb-2">Order Summary</h2>
         <p>
           <strong>Order ID:</strong> {id}
         </p>
@@ -96,8 +96,8 @@ export default async function ThankYouPage({
       </div>
 
       {/* Items Ordered */}
-      <div className="my-8">
-        <h2 className="text-xl font-bold">Items Ordered</h2>
+      <div className="">
+        <h2 className="text-2xl font-bold mb-2">Items Ordered</h2>
         <ul className="list-disc pl-6">
           {items.map((item) => (
             <li key={item.variant_id}>
@@ -108,8 +108,8 @@ export default async function ThankYouPage({
       </div>
 
       {/* Shipping Information */}
-      <div className="my-8">
-        <h2 className="text-xl font-bold">Shipping Information</h2>
+      <div className="">
+        <h2 className="text-2xl font-bold mb-2">Shipping Information</h2>
         <p>
           <strong>Name:</strong> {shipping.name}
         </p>
@@ -126,8 +126,8 @@ export default async function ThankYouPage({
       </div>
 
       {/* Shipping Details */}
-      <div className="my-8">
-        <h2 className="text-xl font-bold">Shipping Details</h2>
+      <div className="">
+        <h2 className="text-2xl font-bold mb-2">Shipping Details</h2>
         <p>
           <strong>Method:</strong> {shippingDetails.name}
         </p>
