@@ -72,6 +72,15 @@ const CheckoutPage: React.FC = () => {
     { value: string; label: string }[]
   >([]);
 
+  const [selectedShipping, setSelectedShipping] = useState<{
+    id: string;
+    name: string;
+    rate: string;
+    currency: string;
+    minDeliveryDate: string;
+    maxDeliveryDate: string;
+  } | null>(null);
+
   const router = useRouter();
   const { shippingInfo, saveShippingInfo, clearShippingInfo } = useShipping();
 
@@ -107,72 +116,95 @@ const CheckoutPage: React.FC = () => {
     defaultValues: shippingInfo || {},
   });
 
-  const onSubmit = async (data: ShippingForm) => {
-    try {
-      const cartWithVariants = cart
-        .map((item) => {
-          const variant = variants.find((v) => v.sku === item.sku);
-          if (!variant) {
-            console.error(`Variant not found for SKU: ${item.sku}`);
-            return null;
-          }
-          return {
-            variant_id: variant.variant_id,
-            quantity: item.quantity,
-          };
-        })
-        .filter(
-          (item): item is { variant_id: number; quantity: number } =>
-            item !== null
-        );
+  const onSubmit = async (data: ShippingForm, mode: "calculate" | "pay") => {
+    console.log("mode", mode);
 
-      if (cartWithVariants.length === 0) {
-        throw new Error("Cart is empty or contains invalid items.");
-      }
+    const cartWithVariants = cart
+      .map((item) => {
+        const variant = variants.find((v) => v.sku === item.sku);
+        if (!variant) {
+          console.error(`Variant not found for SKU: ${item.sku}`);
+          return null;
+        }
+        return {
+          variant_id: variant.variant_id,
+          quantity: item.quantity,
+        };
+      })
+      .filter(
+        (item): item is { variant_id: number; quantity: number } =>
+          item !== null
+      );
 
+    if (cartWithVariants.length === 0) {
+      throw new Error("Cart is empty or contains invalid items.");
+    }
+
+    if (mode === "calculate") {
       const shippingCostResponse = await getShippingCost(
         data.country,
         data.state,
         cartWithVariants
       );
 
-      const selectedShipping = shippingCostResponse[0];
+      // setSelectedShipping(shippingCostResponse[0]);
       setShippingOptions(shippingCostResponse);
       setSelectedShippingRate(selectedShipping?.rate || null);
       setShippingCost(Number.parseFloat(selectedShipping?.rate || "0"));
+    }
 
-      // Save the order
-      await saveOrder({
-        cart_items: cartWithVariants.map((item) => ({
-          variant_id: item.variant_id,
-          quantity: item.quantity,
-          name:
-            variants.find((v) => v.variant_id === item.variant_id)?.sku || "",
-          price:
-            variants.find((v) => v.variant_id === item.variant_id)
-              ?.variant_price || 0,
-        })),
-        shipping_info: {
-          name: data.name,
-          address1: data.address,
-          address2: data.address2,
-          city: data.city,
-          state_code: data.state,
-          country_code: data.country,
-          zip: data.zip,
-          email: data.email || "",
-          phone: data.phone,
-        },
-        selected_shipping: selectedShipping,
-        shipping_cost: Number.parseFloat(selectedShipping?.rate || "0"),
-        grand_total:
-          subtotal + Number.parseFloat(selectedShipping?.rate || "0"),
-        currency: "USD",
-      });
+    if (mode === "pay") {
+      try {
+        // Save the order
+        const orderId = await saveOrder({
+          cart_items: cartWithVariants.map((item) => ({
+            variant_id: item.variant_id,
+            quantity: item.quantity,
+            name:
+              variants.find((v) => v.variant_id === item.variant_id)?.sku || "",
+            price:
+              variants.find((v) => v.variant_id === item.variant_id)
+                ?.variant_price || 0,
+          })),
+          shipping_info: {
+            name: data.name,
+            address1: data.address,
+            address2: data.address2,
+            city: data.city,
+            state_code: data.state,
+            country_code: data.country,
+            zip: data.zip,
+            email: data.email || "",
+            phone: data.phone,
+          },
+          selected_shipping: {
+            id: selectedShipping?.id || "",
+            name: selectedShipping?.name || "",
+            rate: Number.parseFloat(selectedShipping?.rate || "0"),
+            currency: selectedShipping?.currency || "USD",
+            minDeliveryDays: Number.parseInt(
+              selectedShipping?.minDeliveryDate || "0"
+            ),
+            maxDeliveryDays: Number.parseInt(
+              selectedShipping?.maxDeliveryDate || "0"
+            ),
+          },
+          shipping_cost: Number.parseFloat(selectedShipping?.rate || "0"),
+          grand_total:
+            subtotal + Number.parseFloat(selectedShipping?.rate || "0"),
+          currency: "USD",
+        });
 
-      console.log("Order saved successfully");
-    } catch (error) {
-      console.error("Error calculating or saving order:", error);
+        clearCart();
+
+        router.push(`/shop/thank-you?id=${orderId}`);
+
+        // console.log("data", data);
+
+        console.log("Order saved successfully");
+      } catch (error) {
+        console.error("Error calculating or saving order:", error);
+      }
     }
   };
 
@@ -210,6 +242,11 @@ const CheckoutPage: React.FC = () => {
       currency: "USD",
     }).format(value);
 
+  // Wrapper functions for buttons
+  const handleCalculateShipping = (data: ShippingForm) =>
+    onSubmit(data, "calculate");
+  const handlePayNow = (data: ShippingForm) => onSubmit(data, "pay");
+
   return (
     <div className="flex flex-col max-w-3xl w-full gap-8 pt-6 sm:pt-10">
       <h1 className="text-3xl font-bold mb-6">Checkout</h1>
@@ -240,9 +277,11 @@ const CheckoutPage: React.FC = () => {
           <p className="flex justify-between">
             <span className="font-bold">Shipping:</span>
             <span>
-              {shippingCost !== null
-                ? formatCurrency(shippingCost)
-                : "Calculate shipping"}
+              {shippingCost === null
+                ? "Calculate Shipping"
+                : selectedShipping !== null
+                  ? formatCurrency(shippingCost)
+                  : "Select Shipping Option"}
             </span>
           </p>
           <p className="flex justify-between text-lg font-bold mt-2">
@@ -257,8 +296,7 @@ const CheckoutPage: React.FC = () => {
           </p>
         </div>
       </div>
-
-      <form onSubmit={handleSubmit(onSubmit)} className="mb-6 min-w-full">
+      <form className="mb-6 min-w-full">
         <h2 className="text-2xl font-bold mb-4">Shipping Information</h2>
 
         <div className="flex flex-col gap-4">
@@ -350,10 +388,14 @@ const CheckoutPage: React.FC = () => {
         </div>
 
         <div className="flex flex-col gap-2 pt-4">
-          <Button type="submit" size="lg" className="mt-4 w-full text-lg">
+          <Button
+            onClick={handleSubmit(handleCalculateShipping)}
+            size="lg"
+            className="mt-4 w-full text-lg"
+          >
             Calculate Shipping
           </Button>
-          <div className="flex justify-between gap-4">
+          <div className="flex sm:flex-row flex-col gap-4 justify-between">
             <Button
               variant="ghost"
               type="button"
@@ -373,10 +415,17 @@ const CheckoutPage: React.FC = () => {
           </div>
         </div>
       </form>
-
       {shippingOptions.length > 0 && (
         <div className="border-t pt-6">
           <h2 className="text-xl font-bold mb-4">Shipping Options</h2>
+
+          <div className="pb-4">
+            {shippingCost === null
+              ? "Calculate Shipping"
+              : selectedShipping !== null
+                ? formatCurrency(shippingCost)
+                : "Select Shipping Option"}
+          </div>
           {shippingOptions.map((option) => (
             <div key={option.id} className="mb-4">
               <label>
@@ -384,9 +433,10 @@ const CheckoutPage: React.FC = () => {
                   type="radio"
                   name="shippingOption"
                   value={option.rate}
-                  onChange={() =>
-                    setShippingCost(Number.parseFloat(option.rate || "0"))
-                  }
+                  onChange={() => {
+                    setShippingCost(Number.parseFloat(option.rate || "0"));
+                    setSelectedShipping(option);
+                  }}
                 />
                 {`${option.name} - ${formatCurrency(
                   Number.parseFloat(option.rate)
@@ -397,26 +447,24 @@ const CheckoutPage: React.FC = () => {
         </div>
       )}
       <div className="border-t pt-6">
-        <h2 className="text-xl font-bold mb-4">Grand Total</h2>
+        {shippingCost !== null && selectedShipping !== null && (
+          <h2 className="text-xl font-bold mb-4">Grand Total</h2>
+        )}
+
         {shippingCost === null ? (
-          <p className="">Please calculate shipping cost to get the total.</p>
+          <p>Please calculate shipping cost to get the total.</p>
+        ) : selectedShipping === null ? (
+          <p>Select Shipping Option.</p>
         ) : (
           <p className="text-2xl font-bold">{formatCurrency(grandTotal)}</p>
         )}
       </div>
-
       <Button
-        onClick={handleSubmit(async (data) => {
-          // const result = await onSubmit(data); // Ensure the form submission happens
-          // console.log(result);
-          const orderId = data;
-          clearCart();
-          router.push(`/shop/thank-you?id=${orderId}`);
-        })}
+        onClick={handleSubmit(handlePayNow)}
         className="w-full bg-blue-600 text-white py-3"
-        disabled={shippingCost === null}
+        disabled={!selectedShipping}
       >
-        Pay Now (Mock)
+        Pay Now
       </Button>
     </div>
   );
