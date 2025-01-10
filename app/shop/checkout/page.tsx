@@ -30,6 +30,7 @@ import { getCountries, getShippingCost } from "./actions";
 import { useShipping } from "@/context/ShippingContext";
 import { useRouter } from "next/navigation";
 import { saveOrder } from "./actions";
+import { useMemo } from "react";
 
 const shippingSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -195,9 +196,7 @@ const CheckoutPage: React.FC = () => {
           currency: "USD",
         });
 
-        setTimeout(() => {
-          clearCart();
-        }, 1000);
+        clearCart();
 
         router.push(`/shop/thank-you?id=${orderId}`);
 
