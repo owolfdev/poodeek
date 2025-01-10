@@ -85,7 +85,7 @@ export default async function ThankYouPage({
       <div className="">
         <h2 className="text-2xl font-bold mb-2">Order Summary</h2>
         <p>
-          <strong>Order ID:</strong> {id}
+          <strong>Order ID:</strong> {id.slice(-12)}
         </p>
         <p>
           <strong>Order Date:</strong> {new Date(created_at).toLocaleString()}
@@ -134,12 +134,6 @@ export default async function ThankYouPage({
         <p>
           <strong>Rate:</strong>{" "}
           {`${shippingDetails.currency} ${shippingDetails.rate}`}
-        </p>
-        <p>
-          <strong>Estimated Delivery:</strong>{" "}
-          {`${new Date(shippingDetails.minDeliveryDate).toLocaleDateString()} - ${new Date(
-            shippingDetails.maxDeliveryDate
-          ).toLocaleDateString()}`}
         </p>
       </div>
     </div>
