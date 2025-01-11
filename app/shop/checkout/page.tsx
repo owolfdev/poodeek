@@ -31,6 +31,7 @@ import { useShipping } from "@/context/ShippingContext";
 import { useRouter } from "next/navigation";
 import { saveOrder } from "./actions";
 import { useMemo } from "react";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const shippingSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -218,7 +219,7 @@ const CheckoutPage: React.FC = () => {
       0
     );
     setSubtotal(total);
-    setGrandTotal(total + (shippingCost || 0));
+    setGrandTotal(total + (shippingCost || 0)); // Update grand total
   }, [shippingCost, cart]);
 
   const handleClearShipping = () => {
@@ -247,6 +248,13 @@ const CheckoutPage: React.FC = () => {
   const handleCalculateShipping = (data: ShippingForm) =>
     onSubmit(data, "calculate");
   const handlePayNow = (data: ShippingForm) => onSubmit(data, "pay");
+
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const onPayPalApprove = async (data: any, actions: any) => {
+    console.log("data", data);
+    console.log("actions", actions);
+    // return "ok";
+  };
 
   return (
     <div className="flex flex-col max-w-3xl w-full gap-8 pt-6 sm:pt-10 ">
@@ -468,6 +476,40 @@ const CheckoutPage: React.FC = () => {
       >
         Pay Now
       </Button>
+      {/* PayPal Buttons */}
+      <div>{shippingCost}</div>
+      <PayPalScriptProvider
+        options={{
+          clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "",
+          currency: "USD",
+        }}
+      >
+        <PayPalButtons
+          createOrder={(data, actions) => {
+            // const totalAmount = (subtotal + (shippingCost || 0)).toFixed(2);
+            const totalAmount = grandTotal.toFixed(2);
+
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    currency_code: "USD",
+                    value: totalAmount, // Use recalculated total
+                  },
+                },
+              ],
+              intent: "CAPTURE",
+            });
+          }}
+          onApprove={onPayPalApprove}
+          onError={(error) => console.error("PayPal Error:", error)}
+        />
+      </PayPalScriptProvider>
+      <div>
+        <button type="button" onClick={(e) => onPayPalApprove(grandTotal, {})}>
+          Pay Now Test
+        </button>
+      </div>
     </div>
   );
 };
