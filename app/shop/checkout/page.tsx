@@ -249,12 +249,11 @@ const CheckoutPage: React.FC = () => {
     onSubmit(data, "calculate");
   const handlePayNow = (data: ShippingForm) => onSubmit(data, "pay");
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const onPayPalApprove = async (data: any, actions: any) => {
-    console.log("data", data);
-    console.log("actions", actions);
-    // return "ok";
-  };
+  // const onPayPalApprove = async (data: any, actions: any) => {
+  //   console.log("data", data);
+  //   console.log("actions", actions);
+  //   // return "ok";
+  // };
 
   return (
     <div className="flex flex-col max-w-3xl w-full gap-8 pt-6 sm:pt-10 ">
@@ -478,7 +477,7 @@ const CheckoutPage: React.FC = () => {
       </Button>
       {/* PayPal Buttons */}
       <div>{shippingCost}</div>
-      <PayPalScriptProvider
+      {/* <PayPalScriptProvider
         options={{
           clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "",
           currency: "USD",
@@ -504,12 +503,12 @@ const CheckoutPage: React.FC = () => {
           onApprove={onPayPalApprove}
           onError={(error) => console.error("PayPal Error:", error)}
         />
-      </PayPalScriptProvider>
-      <div>
+      </PayPalScriptProvider> */}
+      {/* <div>
         <button type="button" onClick={(e) => onPayPalApprove(grandTotal, {})}>
           Pay Now Test
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
