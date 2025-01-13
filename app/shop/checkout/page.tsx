@@ -34,6 +34,39 @@ import { useMemo } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useRef } from "react";
 
+type PayPalApproveData = {
+  orderID: string; // Always required
+  payerID?: string | null; // Optional to match PayPal's type
+};
+
+type PayPalApproveActions = {
+  order: {
+    capture: () => Promise<{
+      id?: string;
+      status?: string;
+      purchase_units?: Array<{
+        amount: {
+          currency_code: string;
+          value: string;
+        };
+      }>;
+      // Use a more specific type instead of any
+      [key: string]: unknown;
+    }>;
+  };
+};
+
+type PayPalCaptureDetails = {
+  id: string; // Order ID
+  status: string; // Order status, e.g., "COMPLETED"
+  purchase_units: Array<{
+    amount: {
+      currency_code: string;
+      value: string;
+    };
+  }>;
+};
+
 const shippingSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address").optional(),
@@ -264,15 +297,15 @@ const CheckoutPage: React.FC = () => {
     onSubmit(data, "calculate");
   const handlePayNow = (data: ShippingForm) => onSubmit(data, "pay");
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const onPayPalApprove = async (data: any, actions: any) => {
+  const onPayPalApprove = async (
+    data: PayPalApproveData,
+    actions: PayPalApproveActions
+  ) => {
     try {
-      // Capture the PayPal order
       const details = await actions.order.capture();
       console.log("PayPal Order Details:", details);
 
-      // Use the working "Pay Now" logic
-      const formValues = getValues(); // Retrieve form values for shipping info
+      const formValues = getValues();
       const cartWithVariants = cart
         .map((item) => {
           const variant = variants.find((v) => v.sku === item.sku);
@@ -350,7 +383,24 @@ const CheckoutPage: React.FC = () => {
           intent: "CAPTURE",
         });
       }}
-      onApprove={onPayPalApprove}
+      onApprove={async (data, actions) => {
+        if (!actions.order) return;
+        const order = await actions.order.capture();
+        await onPayPalApprove(data, {
+          order: {
+            capture: async () => ({
+              id: order.id,
+              status: order.status,
+              purchase_units: order.purchase_units?.map((unit) => ({
+                amount: {
+                  currency_code: unit.amount?.currency_code || "USD",
+                  value: unit.amount?.value || "0",
+                },
+              })),
+            }),
+          },
+        });
+      }}
       onError={(error) => console.error("PayPal Error:", error)}
     />
   );
