@@ -127,6 +127,7 @@ export default async function ThankYouPage({
 
       {/* Shipping Details */}
       <div className="">
+        {/* {JSON.stringify(shippingDetails)} */}
         <h2 className="text-2xl font-bold mb-2">Shipping Details</h2>
         <p>
           <strong>Method:</strong> {shippingDetails.name}

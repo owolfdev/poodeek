@@ -32,6 +32,7 @@ import { useRouter } from "next/navigation";
 import { saveOrder } from "./actions";
 import { useMemo } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { useRef } from "react";
 
 const shippingSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -85,6 +86,8 @@ const CheckoutPage: React.FC = () => {
 
   const router = useRouter();
   const { shippingInfo, saveShippingInfo, clearShippingInfo } = useShipping();
+  const grandTotalRef = useRef(grandTotal);
+  const selectedShippingRef = useRef(selectedShipping);
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -106,6 +109,18 @@ const CheckoutPage: React.FC = () => {
     }
   }, [shippingInfo]);
 
+  useEffect(() => {
+    console.log("Selected Shipping State Updated:", selectedShipping);
+  }, [selectedShipping]);
+
+  useEffect(() => {
+    selectedShippingRef.current = selectedShipping;
+  }, [selectedShipping]);
+
+  useEffect(() => {
+    grandTotalRef.current = grandTotal;
+  }, [grandTotal]);
+
   const {
     register,
     handleSubmit,
@@ -119,7 +134,7 @@ const CheckoutPage: React.FC = () => {
   });
 
   const onSubmit = async (data: ShippingForm, mode: "calculate" | "pay") => {
-    console.log("mode", mode);
+    // console.log("mode", mode);
 
     const cartWithVariants = cart
       .map((item) => {
@@ -249,11 +264,96 @@ const CheckoutPage: React.FC = () => {
     onSubmit(data, "calculate");
   const handlePayNow = (data: ShippingForm) => onSubmit(data, "pay");
 
-  // const onPayPalApprove = async (data: any, actions: any) => {
-  //   console.log("data", data);
-  //   console.log("actions", actions);
-  //   // return "ok";
-  // };
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const onPayPalApprove = async (data: any, actions: any) => {
+    try {
+      // Capture the PayPal order
+      const details = await actions.order.capture();
+      console.log("PayPal Order Details:", details);
+
+      // Use the working "Pay Now" logic
+      const formValues = getValues(); // Retrieve form values for shipping info
+      const cartWithVariants = cart
+        .map((item) => {
+          const variant = variants.find((v) => v.sku === item.sku);
+          if (!variant) return null;
+          return {
+            variant_id: variant.variant_id,
+            quantity: item.quantity,
+          };
+        })
+        .filter(Boolean);
+
+      const orderData = {
+        cart_items: cartWithVariants.map((item) => ({
+          variant_id: item?.variant_id || 0,
+          quantity: item?.quantity || 0,
+          name:
+            variants.find((v) => v.variant_id === item?.variant_id)?.sku || "",
+          price:
+            variants.find((v) => v.variant_id === item?.variant_id)
+              ?.variant_price || 0,
+        })),
+        shipping_info: {
+          name: formValues.name,
+          address1: formValues.address,
+          address2: formValues.address2 || "",
+          city: formValues.city,
+          state_code: formValues.state,
+          country_code: formValues.country,
+          zip: formValues.zip,
+          email: formValues.email || "",
+          phone: formValues.phone || "",
+        },
+        selected_shipping: {
+          id: selectedShippingRef.current?.id || "unknown_shipping_method",
+          name: selectedShippingRef.current?.name || "No Name",
+          rate: Number.parseFloat(selectedShippingRef.current?.rate || "0"),
+          currency: selectedShippingRef.current?.currency || "USD",
+          minDeliveryDays: Number.parseInt(
+            selectedShippingRef.current?.minDeliveryDate || "0"
+          ),
+          maxDeliveryDays: Number.parseInt(
+            selectedShippingRef.current?.maxDeliveryDate || "0"
+          ),
+        },
+        shipping_cost: Number.parseFloat(selectedShipping?.rate || "0"),
+        grand_total: grandTotalRef.current,
+        currency: "USD",
+      };
+
+      console.log("Order Data to Save:", orderData);
+
+      const orderId = await saveOrder(orderData);
+      clearCart();
+      router.push(`/shop/thank-you?id=${orderId}`);
+    } catch (error) {
+      console.error("Error during PayPal approval:", error);
+    }
+  };
+
+  const payPalButton = (
+    <PayPalButtons
+      createOrder={(data, actions) => {
+        const totalAmount = grandTotalRef.current.toFixed(2); // Use the ref value
+        // console.log("Grand Total for PayPal:", totalAmount);
+
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                currency_code: "USD",
+                value: totalAmount,
+              },
+            },
+          ],
+          intent: "CAPTURE",
+        });
+      }}
+      onApprove={onPayPalApprove}
+      onError={(error) => console.error("PayPal Error:", error)}
+    />
+  );
 
   return (
     <div className="flex flex-col max-w-3xl w-full gap-8 pt-6 sm:pt-10 ">
@@ -476,39 +576,15 @@ const CheckoutPage: React.FC = () => {
         Pay Now
       </Button>
       {/* PayPal Buttons */}
-      <div>{shippingCost}</div>
-      {/* <PayPalScriptProvider
+      <div>Shipping Cost: {shippingCost}</div>
+      <PayPalScriptProvider
         options={{
           clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "",
           currency: "USD",
         }}
       >
-        <PayPalButtons
-          createOrder={(data, actions) => {
-            // const totalAmount = (subtotal + (shippingCost || 0)).toFixed(2);
-            const totalAmount = grandTotal.toFixed(2);
-
-            return actions.order.create({
-              purchase_units: [
-                {
-                  amount: {
-                    currency_code: "USD",
-                    value: totalAmount, // Use recalculated total
-                  },
-                },
-              ],
-              intent: "CAPTURE",
-            });
-          }}
-          onApprove={onPayPalApprove}
-          onError={(error) => console.error("PayPal Error:", error)}
-        />
-      </PayPalScriptProvider> */}
-      {/* <div>
-        <button type="button" onClick={(e) => onPayPalApprove(grandTotal, {})}>
-          Pay Now Test
-        </button>
-      </div> */}
+        {payPalButton}
+      </PayPalScriptProvider>
     </div>
   );
 };
