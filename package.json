@@ -41,7 +41,7 @@
     "geist": "^1.2.1",
     "lodash": "^4.17.21",
     "lucide-react": "^0.436.0",
-    "next": "15.0.3",
+    "next": "^15.1.4",
     "next-sitemap": "^4.2.3",
     "next-themes": "^0.3.0",
     "prettier": "^3.3.3",
@@ -58,6 +58,7 @@
     "rehype-highlight": "^7.0.1",
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.0",
+    "resend": "^4.1.1",
     "tailwind-highlightjs": "^2.0.1",
     "uuid": "^11.0.2",
     "zod": "^3.23.8"

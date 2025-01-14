@@ -28,7 +28,9 @@ export default async function ThankYouPage({
       currency,
       cart_items,
       shipping_info,
-      selected_shipping
+      selected_shipping,
+      status,
+      notes
     `
     )
     .eq("id", id)
@@ -47,6 +49,8 @@ export default async function ThankYouPage({
     cart_items,
     shipping_info,
     selected_shipping,
+    status,
+    notes,
   } = order;
 
   // Parse JSONB fields
@@ -85,7 +89,7 @@ export default async function ThankYouPage({
 
       {/* Order Summary */}
       <div className="">
-        <h2 className="text-2xl font-bold mb-2">Order Summary</h2>
+        <h2 className="text-2xl font-bold mb-2">Order Info:</h2>
         <p>
           <strong>Order ID:</strong> {id.slice(-12)}
         </p>
@@ -95,34 +99,9 @@ export default async function ThankYouPage({
         </p>
       </div>
 
-      {/* Items Ordered */}
-      <div className="">
-        <h2 className="text-2xl font-bold mb-2">Items Ordered</h2>
-        <ul className="list-disc pl-6">
-          {items.map((item) => (
-            <li key={item.variant_id}>
-              {item.name} x {item.quantity} - {`${currency} ${item.price}`}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Shipping Details */}
-      <div className="">
-        {/* {JSON.stringify(shippingDetails)} */}
-        <h2 className="text-2xl font-bold mb-2">Shipping Details</h2>
-        <p>
-          <strong>Method:</strong> {shippingDetails.name}
-        </p>
-        <p>
-          <strong>Rate:</strong>{" "}
-          {`${shippingDetails.currency} ${shippingDetails.rate}`}
-        </p>
-      </div>
-
       {/* Shipping Information */}
       <div className="">
-        <h2 className="text-2xl font-bold mb-2">Shipping Information</h2>
+        <h2 className="text-lg font-bold mb-2">Shipping To:</h2>
         <p>
           <strong>Name:</strong> {shipping.name}
         </p>
@@ -138,10 +117,50 @@ export default async function ThankYouPage({
         </p>
       </div>
 
+      {/* Items Ordered */}
+      <div className="">
+        <h2 className="text-2xl font-bold mb-2">Items Ordered:</h2>
+        <ul className="list-disc pl-6">
+          {items.map((item) => (
+            <li key={item.variant_id}>
+              {item.name} x {item.quantity} -{" "}
+              {`${currency} ${item.price.toFixed(2)}`}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Shipping Details */}
+      <div className="">
+        {/* {JSON.stringify(shippingDetails)} */}
+        <h2 className="text-2xl font-bold mb-2">Shipping:</h2>
+        <p>
+          <strong>Method:</strong> {shippingDetails.name}
+        </p>
+        <p>
+          <strong>Rate:</strong>{" "}
+          {`${shippingDetails.currency} ${shippingDetails.rate}`}
+        </p>
+      </div>
+
       <p className="text-2xl">
         <strong>Grand Total:</strong>{" "}
-        {`${currency} ${currencySymbol}${grand_total}`}
+        {`${currency} ${currencySymbol}${grand_total.toFixed(2)}`}
       </p>
+
+      <div className="flex flex-col gap-3">
+        <h2 className="text-2xl font-bold mb-2">Order Status:</h2>
+        <p>
+          <strong>Status:</strong>{" "}
+          {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+        </p>
+      </div>
+      {notes && (
+        <div className="flex flex-col gap-3">
+          <h2 className="text-2xl font-bold mb-2">Notes:</h2>
+          <p>{notes}</p>
+        </div>
+      )}
     </div>
   );
 }

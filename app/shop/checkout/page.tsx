@@ -34,6 +34,8 @@ import { useMemo } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useRef } from "react";
 
+import { sendEmail, generateEmailTemplate } from "./actions";
+
 type PayPalApproveData = {
   orderID: string; // Always required
   payerID?: string | null; // Optional to match PayPal's type
@@ -303,7 +305,6 @@ const CheckoutPage: React.FC = () => {
   ) => {
     try {
       const details = await actions.order.capture();
-      console.log("PayPal Order Details:", details);
 
       const formValues = getValues();
       const cartWithVariants = cart
@@ -318,6 +319,9 @@ const CheckoutPage: React.FC = () => {
         .filter(Boolean);
 
       const orderData = {
+        created_at: new Date().toISOString(),
+        grand_total: grandTotalRef.current,
+        currency: "USD",
         cart_items: cartWithVariants.map((item) => ({
           variant_id: item?.variant_id || 0,
           quantity: item?.quantity || 0,
@@ -351,13 +355,37 @@ const CheckoutPage: React.FC = () => {
           ),
         },
         shipping_cost: Number.parseFloat(selectedShipping?.rate || "0"),
-        grand_total: grandTotalRef.current,
-        currency: "USD",
+        status: "completed",
+        notes: "",
       };
 
-      console.log("Order Data to Save:", orderData);
+      const orderResponse = await saveOrder(orderData);
 
-      const orderId = await saveOrder(orderData);
+      // Ensure `orderId` is extracted correctly
+      const orderId = orderResponse[0]?.id;
+
+      if (!orderId) {
+        throw new Error("Invalid order ID received.");
+      }
+
+      const emailBody = generateEmailTemplate({
+        ...orderData,
+        id: orderId,
+        selected_shipping: {
+          name: selectedShippingRef.current?.name || "No Name",
+          rate: selectedShippingRef.current?.rate || "0",
+          currency: selectedShippingRef.current?.currency || "USD",
+          minDeliveryDate: selectedShippingRef.current?.minDeliveryDate || "0",
+          maxDeliveryDate: selectedShippingRef.current?.maxDeliveryDate || "0",
+        },
+      });
+
+      await sendEmail({
+        to: formValues.email || "",
+        subject: "Thank You for Your Purchase!",
+        message: await emailBody,
+      });
+
       clearCart();
       router.push(`/shop/thank-you?id=${orderId}`);
     } catch (error) {
@@ -366,44 +394,47 @@ const CheckoutPage: React.FC = () => {
   };
 
   const payPalButton = selectedShipping ? (
-    <PayPalButtons
-      createOrder={(data, actions) => {
-        const totalAmount = grandTotalRef.current.toFixed(2); // Use the ref value
-        // console.log("Grand Total for PayPal:", totalAmount);
+    <div>
+      <h1 className="text-xl font-bold pb-3">Proceed to Payment</h1>
+      <PayPalButtons
+        createOrder={(data, actions) => {
+          const totalAmount = grandTotalRef.current.toFixed(2); // Use the ref value
+          // console.log("Grand Total for PayPal:", totalAmount);
 
-        return actions.order.create({
-          purchase_units: [
-            {
-              amount: {
-                currency_code: "USD",
-                value: totalAmount,
-              },
-            },
-          ],
-          intent: "CAPTURE",
-        });
-      }}
-      onApprove={async (data, actions) => {
-        if (!actions.order) return;
-        const order = await actions.order.capture();
-        await onPayPalApprove(data, {
-          order: {
-            capture: async () => ({
-              id: order.id,
-              status: order.status,
-              purchase_units: order.purchase_units?.map((unit) => ({
+          return actions.order.create({
+            purchase_units: [
+              {
                 amount: {
-                  currency_code: unit.amount?.currency_code || "USD",
-                  value: unit.amount?.value || "0",
+                  currency_code: "USD",
+                  value: totalAmount,
                 },
-              })),
-            }),
-          },
-        });
-      }}
-      onError={(error) => console.error("PayPal Error:", error)}
-      className="rounded-lg bg-white p-8"
-    />
+              },
+            ],
+            intent: "CAPTURE",
+          });
+        }}
+        onApprove={async (data, actions) => {
+          if (!actions.order) return;
+          const order = await actions.order.capture();
+          await onPayPalApprove(data, {
+            order: {
+              capture: async () => ({
+                id: order.id,
+                status: order.status,
+                purchase_units: order.purchase_units?.map((unit) => ({
+                  amount: {
+                    currency_code: unit.amount?.currency_code || "USD",
+                    value: unit.amount?.value || "0",
+                  },
+                })),
+              }),
+            },
+          });
+        }}
+        onError={(error) => console.error("PayPal Error:", error)}
+        className="rounded-lg bg-white p-8"
+      />
+    </div>
   ) : (
     <div
       style={{
