@@ -76,10 +76,12 @@ export default async function ThankYouPage({
     maxDeliveryDate: string;
   };
 
+  const currencySymbol = currency === "USD" ? "$" : "€";
+
   return (
     <div className="flex flex-col max-w-3xl w-full gap-6 pt-6 sm:pt-10 pb-10">
-      <h1 className="text-3xl font-bold">Thank You for Your Order!</h1>
-      <p>Your order has been successfully placed. Below are the details:</p>
+      <h1 className="text-6xl font-bold">Thank You for Your Order!</h1>
+      <p>Your order has been successfully placed.</p>
 
       {/* Order Summary */}
       <div className="">
@@ -88,10 +90,8 @@ export default async function ThankYouPage({
           <strong>Order ID:</strong> {id.slice(-12)}
         </p>
         <p>
-          <strong>Order Date:</strong> {new Date(created_at).toLocaleString()}
-        </p>
-        <p>
-          <strong>Total Amount:</strong> {`${currency} ${grand_total}`}
+          <strong>Order Date:</strong>{" "}
+          {new Date(`${created_at}Z`).toLocaleString()}
         </p>
       </div>
 
@@ -105,6 +105,19 @@ export default async function ThankYouPage({
             </li>
           ))}
         </ul>
+      </div>
+
+      {/* Shipping Details */}
+      <div className="">
+        {/* {JSON.stringify(shippingDetails)} */}
+        <h2 className="text-2xl font-bold mb-2">Shipping Details</h2>
+        <p>
+          <strong>Method:</strong> {shippingDetails.name}
+        </p>
+        <p>
+          <strong>Rate:</strong>{" "}
+          {`${shippingDetails.currency} ${shippingDetails.rate}`}
+        </p>
       </div>
 
       {/* Shipping Information */}
@@ -125,18 +138,10 @@ export default async function ThankYouPage({
         </p>
       </div>
 
-      {/* Shipping Details */}
-      <div className="">
-        {/* {JSON.stringify(shippingDetails)} */}
-        <h2 className="text-2xl font-bold mb-2">Shipping Details</h2>
-        <p>
-          <strong>Method:</strong> {shippingDetails.name}
-        </p>
-        <p>
-          <strong>Rate:</strong>{" "}
-          {`${shippingDetails.currency} ${shippingDetails.rate}`}
-        </p>
-      </div>
+      <p className="text-2xl">
+        <strong>Grand Total:</strong>{" "}
+        {`${currency} ${currencySymbol}${grand_total}`}
+      </p>
     </div>
   );
 }

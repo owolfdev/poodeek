@@ -365,7 +365,7 @@ const CheckoutPage: React.FC = () => {
     }
   };
 
-  const payPalButton = (
+  const payPalButton = selectedShipping ? (
     <PayPalButtons
       createOrder={(data, actions) => {
         const totalAmount = grandTotalRef.current.toFixed(2); // Use the ref value
@@ -402,7 +402,23 @@ const CheckoutPage: React.FC = () => {
         });
       }}
       onError={(error) => console.error("PayPal Error:", error)}
+      className="rounded-lg bg-white p-8"
     />
+  ) : (
+    <div
+      style={{
+        textAlign: "center",
+        padding: "16px",
+        backgroundColor: "#f5f5f5",
+        borderRadius: "8px",
+        border: "1px solid #ddd",
+      }}
+    >
+      <h3 className="text-3xl font-black text-blue-600 pb-3">
+        Pay with Credit Card or PayPal
+      </h3>
+      <p>Select a shipping options to enable payment.</p>
+    </div>
   );
 
   return (
@@ -454,7 +470,7 @@ const CheckoutPage: React.FC = () => {
           </p>
         </div>
       </div>
-      <form className="mb-6 min-w-full">
+      <form className="min-w-full">
         <h2 className="text-2xl font-bold mb-4">Shipping Information</h2>
 
         <div className="flex flex-col gap-4">
@@ -545,36 +561,37 @@ const CheckoutPage: React.FC = () => {
           </div>
         </div>
 
+        <div className="flex sm:flex-row flex-col gap-4 justify-between">
+          <Button
+            variant="ghost"
+            type="button"
+            className="mt-2 py-3"
+            onClick={handleClearShipping}
+          >
+            Clear Shipping Information
+          </Button>
+          <Button
+            variant="ghost"
+            type="button"
+            className="mt-2 py-3"
+            onClick={handleSaveShipping}
+          >
+            Save Shipping Information
+          </Button>
+        </div>
+
         <div className="flex flex-col gap-2 pt-4">
           <Button
             onClick={handleSubmit(handleCalculateShipping)}
             size="lg"
-            className="mt-4 w-full text-lg"
+            className="mt-4 w-full text-xl h-12"
           >
             Calculate Shipping
           </Button>
-          <div className="flex sm:flex-row flex-col gap-4 justify-between">
-            <Button
-              variant="ghost"
-              type="button"
-              className="mt-2 py-3"
-              onClick={handleClearShipping}
-            >
-              Clear Shipping Information
-            </Button>
-            <Button
-              variant="ghost"
-              type="button"
-              className="mt-2 py-3"
-              onClick={handleSaveShipping}
-            >
-              Save Shipping Information
-            </Button>
-          </div>
         </div>
       </form>
       {shippingOptions.length > 0 && (
-        <div className="border-t pt-6">
+        <div className=" pt-6">
           <h2 className="text-xl font-bold mb-4">Shipping Options</h2>
 
           <div className="pb-4">
@@ -605,28 +622,28 @@ const CheckoutPage: React.FC = () => {
           ))}
         </div>
       )}
-      <div className="border-t pt-6">
-        {shippingCost !== null && selectedShipping !== null && (
-          <h2 className="text-xl font-bold mb-4">Grand Total</h2>
-        )}
 
-        {shippingCost === null ? (
-          <p>Please calculate shipping cost to get the total.</p>
-        ) : selectedShipping === null ? (
-          <p>Select Shipping Option.</p>
-        ) : (
-          <p className="text-2xl font-bold">{formatCurrency(grandTotal)}</p>
-        )}
+      <div>
+        <div>Subtotal: {subtotal}</div>
+        <div>Shipping Cost: {shippingCost || "Pending Calculation"}</div>
+        <div className="pt-6">
+          {shippingCost !== null && selectedShipping !== null && (
+            <h2 className="text-xl font-bold mb-4">Grand Total</h2>
+          )}
+
+          {shippingCost === null ? (
+            <p className="text-xl font-bold">
+              Please calculate shipping cost to get the total.
+            </p>
+          ) : selectedShipping === null ? (
+            <p>Select Shipping Option.</p>
+          ) : (
+            <p className="text-2xl font-bold">{formatCurrency(grandTotal)}</p>
+          )}
+        </div>
       </div>
-      <Button
-        onClick={handleSubmit(handlePayNow)}
-        className="w-full bg-blue-600 text-white py-3"
-        disabled={!selectedShipping}
-      >
-        Pay Now
-      </Button>
-      {/* PayPal Buttons */}
-      <div>Shipping Cost: {shippingCost}</div>
+
+      {/* PayPal */}
       <PayPalScriptProvider
         options={{
           clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "",
