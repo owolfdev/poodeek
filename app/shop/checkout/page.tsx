@@ -34,7 +34,7 @@ import { useMemo } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useRef } from "react";
 
-import { sendEmail, generateEmailTemplate } from "./actions";
+import { sendOrderEmail } from "./actions";
 
 type PayPalApproveData = {
   orderID: string; // Always required
@@ -318,6 +318,7 @@ const CheckoutPage: React.FC = () => {
         })
         .filter(Boolean);
 
+      // Save the order
       const orderData = {
         created_at: new Date().toISOString(),
         grand_total: grandTotalRef.current,
@@ -361,30 +362,13 @@ const CheckoutPage: React.FC = () => {
 
       const orderResponse = await saveOrder(orderData);
 
-      // Ensure `orderId` is extracted correctly
       const orderId = orderResponse[0]?.id;
-
       if (!orderId) {
         throw new Error("Invalid order ID received.");
       }
 
-      const emailBody = generateEmailTemplate({
-        ...orderData,
-        id: orderId,
-        selected_shipping: {
-          name: selectedShippingRef.current?.name || "No Name",
-          rate: selectedShippingRef.current?.rate || "0",
-          currency: selectedShippingRef.current?.currency || "USD",
-          minDeliveryDate: selectedShippingRef.current?.minDeliveryDate || "0",
-          maxDeliveryDate: selectedShippingRef.current?.maxDeliveryDate || "0",
-        },
-      });
-
-      await sendEmail({
-        to: formValues.email || "",
-        subject: "Thank You for Your Purchase!",
-        message: await emailBody,
-      });
+      // Send email after order is saved and verified
+      await sendOrderEmail(orderId);
 
       clearCart();
       router.push(`/shop/thank-you?id=${orderId}`);

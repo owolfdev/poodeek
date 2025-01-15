@@ -157,11 +157,13 @@ export async function sendEmail({
   message: string;
 }) {
   try {
+    console.log("Sending email to:", to);
     const emailResponse = await resend.emails.send({
-      from: "Your Store <wolf@owolf.com>",
+      from: "Poodeek! Merch Store <wolf@owolf.com>",
       to: [to],
       subject,
       html: `<p>${message}</p>`,
+      replyTo: "owolfdev@gmail.com",
     });
 
     return { success: true, data: emailResponse };
@@ -252,7 +254,7 @@ export async function generateEmailTemplate(order: {
       <p>Your order has been successfully placed.</p>
       
       <h2>Order Info:</h2>
-      <p><strong>Order ID:</strong> ${id.slice(-12)}</p>
+      <p><strong>Order ID:</strong> ${id}</p>
       <p><strong>Order Date:</strong> ${new Date(`${created_at}Z`).toLocaleString()}</p>
       
       <h2>Shipping To:</h2>
@@ -283,8 +285,58 @@ export async function generateEmailTemplate(order: {
       <p><strong>Status:</strong> ${
         status.charAt(0).toUpperCase() + status.slice(1)
       }</p>
+
+      <h2>Check Your Order Status:</h2>
+      <p>
+        You can view the status of your order at any time by visiting the link below:
+      </p>
+      <a href="https://poodeek.vercel.app/shop/order-status/${id}" style="color: blue; text-decoration: underline;">
+        https://poodeek.vercel.app/shop/order-status/${id}
+      </a>
       
       ${notes ? `<h2>Notes:</h2><p>${notes}</p>` : ""}
     </div>
   `;
+}
+
+export async function sendOrderEmail(orderId: string) {
+  const supabase = createClient();
+
+  // Fetch the complete order details
+  const { data: order, error } = await (
+    await supabase
+  )
+    .from("orders_for_language_app_merch")
+    .select(
+      `
+      id,
+      created_at,
+      grand_total,
+      currency,
+      cart_items,
+      shipping_info,
+      selected_shipping,
+      status,
+      notes
+    `
+    )
+    .eq("id", orderId)
+    .single();
+
+  if (error || !order) {
+    console.error("Error fetching order for email:", error);
+    throw new Error("Order not found for email generation");
+  }
+
+  // Prepare email content
+  const emailBody = await generateEmailTemplate(order);
+
+  // Send the email
+  await sendEmail({
+    to: order.shipping_info.email,
+    subject: "Thank You for Your Purchase!",
+    message: emailBody,
+  });
+
+  console.log("Email sent successfully for order:", orderId);
 }

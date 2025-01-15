@@ -1,26 +1,27 @@
 import { createClient } from "@/utils/supabase/server";
 import { notFound } from "next/navigation";
-import Link from "next/link"; // Import Link for client-side navigation
 
-export default async function ThankYouPage({
-  searchParams,
+export default async function OrderStatusPage({
+  params,
 }: {
-  searchParams: Promise<{ [key: string]: string | undefined }>;
+  params: Promise<{ id: string }>;
 }) {
-  // Resolve searchParams to access the order ID
-  const { id } = await searchParams;
+  // Resolve the dynamic `id` parameter (await the promise)
+  const { id } = await params;
 
   if (!id) {
-    console.error("Order ID missing in searchParams");
+    console.error("Order ID missing in params");
     return notFound(); // Redirect to 404 if no ID is provided
   }
 
   // Create Supabase client
-  const supabase = await createClient();
+  const supabase = createClient();
 
   // Fetch order details from Supabase
-  const { data: order, error } = await supabase
-    .from("orders_for_language_app_merch") // Table name
+  const { data: order, error } = await (
+    await supabase
+  )
+    .from("orders_for_language_app_merch")
     .select(
       `
       id,
@@ -85,8 +86,8 @@ export default async function ThankYouPage({
 
   return (
     <div className="flex flex-col max-w-3xl w-full gap-6 pt-6 sm:pt-10 pb-10">
-      <h1 className="text-6xl font-bold">Thank You for Your Order!</h1>
-      <p>Your order has been successfully placed.</p>
+      <h1 className="text-6xl font-bold">Order Status</h1>
+      <p>View the details and current status of your order.</p>
 
       {/* Order Summary */}
       <div className="">
@@ -133,7 +134,6 @@ export default async function ThankYouPage({
 
       {/* Shipping Details */}
       <div className="">
-        {/* {JSON.stringify(shippingDetails)} */}
         <h2 className="text-2xl font-bold mb-2">Shipping:</h2>
         <p>
           <strong>Method:</strong> {shippingDetails.name}
@@ -149,19 +149,13 @@ export default async function ThankYouPage({
         {`${currency} ${currencySymbol}${grand_total.toFixed(2)}`}
       </p>
 
+      {/* Order Status */}
       <div className="flex flex-col gap-3">
         <h2 className="text-2xl font-bold mb-2">Order Status:</h2>
         <p>
           <strong>Status:</strong>{" "}
-          {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+          {status.charAt(0).toUpperCase() + status.slice(1)}
         </p>
-        <p>
-          You can check the status of your order at any time by visiting the
-          following link:
-        </p>
-        <Link href={`/shop/order-status/${id}`} className="underline">
-          {`https://poodeek.vercel.app/shop/order-status/${id}`}
-        </Link>
       </div>
 
       {notes && (
