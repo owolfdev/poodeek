@@ -4,37 +4,15 @@ import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic"; // Ensure dynamic rendering
 
-async function updateOrderInSupabase(
-  id: string,
-  updatedFields: { status?: string; notes?: string }
-) {
-  const supabase = await createClient();
-  const { error } = await supabase
-    .from("orders_for_language_app_merch")
-    .update(updatedFields)
-    .eq("id", id);
+type Props = {
+  params: Promise<{ id: string }>;
+};
 
-  if (error) {
-    console.error("Error updating order:", error);
-    throw new Error("Failed to update order in Supabase.");
-  }
-}
-
-export default async function OrderAdminPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const { id } = params;
-
-  if (!id) {
-    console.error("Order ID missing in params");
-    return notFound(); // Redirect to 404 if no ID is provided
-  }
-
-  // Fetch the order details from Supabase
-  const supabase = await createClient();
-  const { data: order, error } = await supabase
+async function fetchOrder(id: string) {
+  const supabase = createClient();
+  const { data: order, error } = await (
+    await supabase
+  )
     .from("orders_for_language_app_merch")
     .select(
       `
@@ -54,20 +32,51 @@ export default async function OrderAdminPage({
 
   if (error || !order) {
     console.error("Error fetching order:", error);
+    return null;
+  }
+  return order;
+}
+
+async function updateOrderInSupabase(
+  id: string,
+  updatedFields: { status?: string; notes?: string }
+) {
+  const supabase = createClient();
+  const { error } = await (await supabase)
+    .from("orders_for_language_app_merch")
+    .update(updatedFields)
+    .eq("id", id);
+
+  if (error) {
+    console.error("Error updating order:", error);
+    throw new Error("Failed to update order in Supabase.");
+  }
+}
+
+export default async function OrderAdminPage({ params }: Props) {
+  const { id } = await params;
+
+  if (!id) {
+    return notFound(); // Redirect to 404 if no ID is provided
+  }
+
+  const order = await fetchOrder(id);
+
+  if (!order) {
     return notFound(); // Redirect to 404 if order not found
   }
 
-  // Server action for form submission
   async function handleUpdateOrder(data: FormData) {
-    "use server"; // Mark this function as a server action
+    "use server"; // Server action
     const updatedStatus = data.get("status") as string;
     const updatedNotes = data.get("notes") as string;
+
     await updateOrderInSupabase(id, {
       status: updatedStatus,
       notes: updatedNotes,
     });
 
-    revalidatePath(`/shop/orders-admin/${id}`); // Revalidate the page to show updates
+    revalidatePath(`/shop/orders-admin/${id}`); // Revalidate the page
   }
 
   const {
