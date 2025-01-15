@@ -5,12 +5,14 @@ import { notFound } from "next/navigation";
 export const dynamic = "force-dynamic"; // Ensure dynamic rendering
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string }>; // params is now a Promise
 };
 
 async function fetchOrder(id: string) {
-  const supabase = await createClient();
-  const { data: order, error } = await supabase
+  const supabase = createClient();
+  const { data: order, error } = await (
+    await supabase
+  )
     .from("orders_for_language_app_merch")
     .select(
       `
@@ -39,8 +41,8 @@ async function updateOrderInSupabase(
   id: string,
   updatedFields: { status?: string; notes?: string }
 ) {
-  const supabase = await createClient();
-  const { error } = await supabase
+  const supabase = createClient();
+  const { error } = await (await supabase)
     .from("orders_for_language_app_merch")
     .update(updatedFields)
     .eq("id", id);
@@ -52,7 +54,7 @@ async function updateOrderInSupabase(
 }
 
 export default async function OrderAdminPage({ params }: Props) {
-  const { id } = await params;
+  const { id } = await params; // Resolve params promise to get the `id`
 
   if (!id) {
     return notFound(); // Redirect to 404 if no ID is provided
