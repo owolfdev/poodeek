@@ -1,6 +1,17 @@
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
 
 export const dynamic = "force-dynamic"; // Ensure dynamic rendering
 
@@ -9,10 +20,8 @@ type Props = {
 };
 
 async function fetchOrder(id: string) {
-  const supabase = createClient();
-  const { data: order, error } = await (
-    await supabase
-  )
+  const supabase = await createClient();
+  const { data: order, error } = await supabase
     .from("orders_for_language_app_merch")
     .select(
       `
@@ -37,12 +46,25 @@ async function fetchOrder(id: string) {
   return order;
 }
 
+async function deleteOrderFromSupabase(id: string) {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("orders_for_language_app_merch")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    console.error("Error deleting order:", error);
+    throw new Error("Failed to delete order in Supabase.");
+  }
+}
+
 async function updateOrderInSupabase(
   id: string,
   updatedFields: { status?: string; notes?: string }
 ) {
-  const supabase = createClient();
-  const { error } = await (await supabase)
+  const supabase = await createClient();
+  const { error } = await supabase
     .from("orders_for_language_app_merch")
     .update(updatedFields)
     .eq("id", id);
@@ -77,6 +99,13 @@ export default async function OrderAdminPage({ params }: Props) {
     });
 
     revalidatePath(`/shop/orders-admin/${id}`); // Revalidate the page
+  }
+
+  async function handleDeleteOrder() {
+    "use server"; // Server action
+    await deleteOrderFromSupabase(id);
+    revalidatePath("/shop/orders-admin"); // Refresh the orders list
+    redirect("/admin"); // Redirect to the orders list page
   }
 
   const {
@@ -119,7 +148,7 @@ export default async function OrderAdminPage({ params }: Props) {
 
   return (
     <div className="flex flex-col max-w-3xl w-full gap-6 pt-6 sm:pt-10 pb-10">
-      <h1 className="text-6xl font-bold">Order Status</h1>
+      <h1 className="text-6xl font-bold">Order Admin</h1>
       <p>View the details and current status of your order.</p>
 
       {/* Order Summary */}
@@ -159,16 +188,18 @@ export default async function OrderAdminPage({ params }: Props) {
           {items.map((item) => (
             <li key={item.variant_id}>
               {item.name} x {item.quantity} -{" "}
-              {`${currency} ${item.price.toFixed(2)}`}
+              {`${currencySymbol}${item.price.toFixed(2)}`}
             </li>
           ))}
         </ul>
       </div>
 
-      {/* sub total */}
+      {/* Sub Total */}
       <p>
         <strong>Sub Total:</strong>{" "}
-        {`${currencySymbol}${cart_items.reduce((acc: number, item: { price: number; quantity: number }) => acc + item.price * item.quantity, 0).toFixed(2)}`}
+        {`${currencySymbol}${items
+          .reduce((acc, item) => acc + item.price * item.quantity, 0)
+          .toFixed(2)}`}
       </p>
 
       {/* Shipping Details */}
@@ -228,6 +259,34 @@ export default async function OrderAdminPage({ params }: Props) {
           Update Order
         </button>
       </form>
+
+      {/* Delete Order Button with Dialog */}
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="destructive">Delete Order</Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogDescription>
+              This action cannot be undone. Deleting this order will remove it
+              permanently.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button type="button" variant="secondary">
+                Cancel
+              </Button>
+            </DialogClose>
+            <form action={handleDeleteOrder} method="post">
+              <Button type="submit" variant="destructive">
+                Confirm Delete
+              </Button>
+            </form>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
