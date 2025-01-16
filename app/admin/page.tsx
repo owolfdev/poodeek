@@ -3,6 +3,7 @@ import { isDevMode } from "@/lib/utils/is-dev-mode";
 import CachePostsButton from "@/components/admin/cache-posts-button";
 import OpenCategoriesInCursor from "./open-categories-in-cursor";
 import OpenAuthorsInCursor from "./open-authors-in-cursor";
+import DataTableForOrders from "./data-table-for-orders";
 
 export default function Administration() {
   if (!isDevMode()) {
@@ -30,6 +31,7 @@ export default function Administration() {
         <CachePostsButton />
       </div>
       <DataTable />
+      <DataTableForOrders />
     </div>
   );
 }

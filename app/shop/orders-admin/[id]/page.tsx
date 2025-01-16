@@ -119,11 +119,11 @@ export default async function OrderAdminPage({ params }: Props) {
 
   return (
     <div className="flex flex-col max-w-3xl w-full gap-6 pt-6 sm:pt-10 pb-10">
-      <h1 className="text-4xl font-bold">Order Admin</h1>
-      <p>Update the status and notes for this order.</p>
+      <h1 className="text-6xl font-bold">Order Status</h1>
+      <p>View the details and current status of your order.</p>
 
       {/* Order Summary */}
-      <div>
+      <div className="">
         <h2 className="text-2xl font-bold mb-2">Order Info:</h2>
         <p>
           <strong>Order ID:</strong> {id}
@@ -132,27 +132,10 @@ export default async function OrderAdminPage({ params }: Props) {
           <strong>Order Date:</strong>{" "}
           {new Date(`${created_at}Z`).toLocaleString()}
         </p>
-        <p>
-          <strong>Grand Total:</strong>{" "}
-          {`${currencySymbol}${grand_total.toFixed(2)}`}
-        </p>
       </div>
 
-      {/* Items Ordered */}
-      <div>
-        <h2 className="text-2xl font-bold mb-2">Items Ordered:</h2>
-        <ul className="list-disc pl-6">
-          {items.map((item) => (
-            <li key={item.variant_id}>
-              {item.name} x {item.quantity} -{" "}
-              {`${currencySymbol}${item.price.toFixed(2)}`}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Shipping Info */}
-      <div>
+      {/* Shipping Information */}
+      <div className="">
         <h2 className="text-lg font-bold mb-2">Shipping To:</h2>
         <p>
           <strong>Name:</strong> {shipping.name}
@@ -168,6 +151,42 @@ export default async function OrderAdminPage({ params }: Props) {
           <strong>Phone:</strong> {shipping.phone}
         </p>
       </div>
+
+      {/* Items Ordered */}
+      <div className="">
+        <h2 className="text-2xl font-bold mb-2">Items Ordered:</h2>
+        <ul className="list-disc pl-6">
+          {items.map((item) => (
+            <li key={item.variant_id}>
+              {item.name} x {item.quantity} -{" "}
+              {`${currency} ${item.price.toFixed(2)}`}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* sub total */}
+      <p>
+        <strong>Sub Total:</strong>{" "}
+        {`${currencySymbol}${cart_items.reduce((acc: number, item: { price: number; quantity: number }) => acc + item.price * item.quantity, 0).toFixed(2)}`}
+      </p>
+
+      {/* Shipping Details */}
+      <div className="">
+        <h2 className="text-2xl font-bold mb-2">Shipping:</h2>
+        <p>
+          <strong>Method:</strong> {shippingDetails.name}
+        </p>
+        <p>
+          <strong>Rate:</strong>{" "}
+          {`${shippingDetails.currency} ${shippingDetails.rate}`}
+        </p>
+      </div>
+
+      <p className="text-2xl">
+        <strong>Grand Total:</strong>{" "}
+        {`${currency} ${currencySymbol}${grand_total.toFixed(2)}`}
+      </p>
 
       {/* Editable Fields */}
       <form

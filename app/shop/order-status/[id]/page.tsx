@@ -132,6 +132,12 @@ export default async function OrderStatusPage({
         </ul>
       </div>
 
+      {/* sub total */}
+      <p>
+        <strong>Sub Total:</strong>{" "}
+        {`${currencySymbol}${cart_items.reduce((acc: number, item: { price: number; quantity: number }) => acc + item.price * item.quantity, 0).toFixed(2)}`}
+      </p>
+
       {/* Shipping Details */}
       <div className="">
         <h2 className="text-2xl font-bold mb-2">Shipping:</h2>
