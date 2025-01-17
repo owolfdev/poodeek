@@ -263,7 +263,12 @@ export default async function OrderAdminPage({ params }: Props) {
       {/* Delete Order Button with Dialog */}
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="destructive">Delete Order</Button>
+          <Button
+            variant="outline"
+            className="bg-red-500 hover:bg-red-600 text-white hover:text-white"
+          >
+            Delete Order
+          </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
