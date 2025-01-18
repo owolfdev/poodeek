@@ -1,4 +1,4 @@
-// File: /app/api/orders/route.js
+// File: /app/api/orders/route.ts
 
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
@@ -15,16 +15,34 @@ const notion = new Client({ auth: process.env.NOTION_API_KEY });
 // Define Notion database ID
 const notionDatabaseId = "17ea80717b31818fba0bdb99f27f90de";
 
+// Define a type for Notion orders
+type NotionOrder = {
+  id: string; // The Notion page ID
+  properties: {
+    id?: { title: { text: { content: string } }[] };
+    origin?: { rich_text: { text: { content: string } }[] };
+    cart_items?: { rich_text: { text: { content: string } }[] };
+    created_at?: { date: { start: string } };
+    currency?: { select: { name: string } };
+    grand_total?: { number: number };
+    notes?: { rich_text: { text: { content: string } }[] };
+    selected_shipping?: { rich_text: { text: { content: string } }[] };
+    shipping_cost?: { number: number };
+    shipping_info?: { rich_text: { text: { content: string } }[] };
+    status?: { select: { name: string } };
+  };
+};
+
 export async function GET() {
   try {
     // Fetch orders from Supabase
-    const { data: supabaseOrders, error } = await supabase
+    const { data: supabaseOrders, error: supabaseError } = await supabase
       .from("orders_for_language_app_merch")
       .select("*")
       .order("created_at", { ascending: false });
 
-    if (error) {
-      console.error("Supabase error:", error);
+    if (supabaseError) {
+      console.error("Supabase error:", supabaseError);
       return NextResponse.json(
         { error: "Failed to fetch orders from Supabase" },
         { status: 500 }
@@ -32,26 +50,29 @@ export async function GET() {
     }
 
     // Fetch all existing Notion records
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    let notionOrders: any[] = [];
-    let cursor = undefined;
+    let notionOrders: NotionOrder[] = [];
+    let cursor: string | undefined = undefined;
+
     do {
       const response = await notion.databases.query({
         database_id: notionDatabaseId,
         start_cursor: cursor,
       });
-      notionOrders = [...notionOrders, ...response.results];
-      cursor = response.next_cursor;
+      notionOrders = [...notionOrders, ...(response.results as NotionOrder[])];
+      cursor = response.next_cursor ?? undefined;
     } while (cursor);
 
-    // Extract Notion Order IDs
-    const notionOrderMap = notionOrders.reduce((map, notionOrder) => {
-      const orderId = notionOrder.properties.id?.title?.[0]?.text?.content;
-      if (orderId) {
-        map[orderId] = notionOrder;
-      }
-      return map;
-    }, {});
+    // Create a map of Notion orders by their ID
+    const notionOrderMap: Record<string, NotionOrder> = notionOrders.reduce(
+      (map, notionOrder) => {
+        const orderId = notionOrder.properties.id?.title?.[0]?.text?.content;
+        if (orderId) {
+          map[orderId] = notionOrder;
+        }
+        return map;
+      },
+      {} as Record<string, NotionOrder>
+    );
 
     // Sync: Add or update orders in Notion
     for (const order of supabaseOrders) {
@@ -101,8 +122,6 @@ export async function GET() {
             },
           },
         });
-      } else {
-        // Optionally update existing order if needed
       }
     }
 
@@ -110,10 +129,11 @@ export async function GET() {
     const supabaseOrderIds = new Set(
       supabaseOrders.map((order) => order.id.toString())
     );
+
     for (const [orderId, notionOrder] of Object.entries(notionOrderMap)) {
       if (!supabaseOrderIds.has(orderId)) {
         await notion.pages.update({
-          page_id: (notionOrder as { id: string }).id,
+          page_id: notionOrder.id,
           archived: true,
         });
       }
