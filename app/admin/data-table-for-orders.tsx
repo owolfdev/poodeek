@@ -13,7 +13,6 @@ import {
   getSortedRowModel,
   useReactTable,
   type FilterFn,
-  type Updater,
 } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,7 +27,7 @@ import {
 
 import { ArrowUpDown } from "lucide-react";
 import { getOrders } from "./actions";
-import Link from "next/link"; // Import Link component
+import Link from "next/link";
 
 type Order = {
   id: string;
@@ -51,7 +50,6 @@ export default function OrdersTable() {
   const [rowSelection, setRowSelection] = React.useState({});
 
   React.useEffect(() => {
-    // Fetch orders data (use your `getOrders` function here)
     const fetchOrders = async () => {
       try {
         const orders = await getOrders();
@@ -64,22 +62,30 @@ export default function OrdersTable() {
     fetchOrders();
   }, []);
 
-  const columns = React.useMemo(
+  const globalFilterFn: FilterFn<Order> = (row, columnIds, filterValue) => {
+    const lowercasedFilter = filterValue.toLowerCase();
+    return (
+      row.original.id.toLowerCase().includes(lowercasedFilter) ||
+      row.original.customer_name.toLowerCase().includes(lowercasedFilter)
+    );
+  };
+
+  const columns = React.useMemo<ColumnDef<Order>[]>(
     () => [
       {
         accessorKey: "id",
         header: "Order ID",
-
-        cell: ({ row }: { row: { original: Order } }) => (
+        cell: ({ row }) => (
           <Link target="_blank" href={`/shop/orders-admin/${row.original.id}`}>
             <span>{row.original.id}</span>
           </Link>
         ),
+        filterFn: "includesString",
       },
       {
         accessorKey: "created_at",
         header: "Date",
-        cell: ({ row }: { row: { original: Order } }) => (
+        cell: ({ row }) => (
           <span>
             {new Date(row.original.created_at).toLocaleDateString("en-GB", {
               day: "2-digit",
@@ -92,14 +98,13 @@ export default function OrdersTable() {
       {
         accessorKey: "customer_name",
         header: "Customer Name",
-        cell: ({ row }: { row: { original: Order } }) => (
-          <span>{row.original.customer_name}</span>
-        ),
+        cell: ({ row }) => <span>{row.original.customer_name}</span>,
+        filterFn: "includesString",
       },
       {
         accessorKey: "grand_total",
         header: "Total",
-        cell: ({ row }: { row: { original: Order } }) => (
+        cell: ({ row }) => (
           <span>
             {row.original.currency} {row.original.grand_total.toFixed(2)}
           </span>
@@ -108,7 +113,7 @@ export default function OrdersTable() {
       {
         accessorKey: "status",
         header: "Status",
-        cell: ({ row }: { row: { original: Order } }) => (
+        cell: ({ row }) => (
           <span className="capitalize">{row.original.status}</span>
         ),
       },
@@ -116,39 +121,27 @@ export default function OrdersTable() {
     []
   );
 
-  const globalFilterFn = (
-    row: { original: { id: string; customer_name: string } },
-    columnIds: unknown,
-    filterValue: string
-  ) => {
-    const { id, customer_name } = row.original;
-
-    return (
-      id.toLowerCase().includes(filterValue.toLowerCase()) ||
-      customer_name.toLowerCase().includes(filterValue.toLowerCase())
-    );
-  };
-
   const table = useReactTable({
     data,
     columns,
+    globalFilterFn: globalFilterFn,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
+    onColumnVisibilityChange: setColumnVisibility,
+    onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: getSelection,
-    globalFilterFn: globalFilterFn,
     state: {
+      globalFilter,
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
     },
     initialState: {
-      sorting: [{ id: "publishDate", desc: true }], // Default sorting by 'publishDate' in descending order
+      sorting: [{ id: "created_at", desc: true }], // Default sorting by 'created_at'
       pagination: {
         pageSize: 10,
       },
@@ -191,15 +184,26 @@ export default function OrdersTable() {
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
+            {table.getRowModel().rows.length > 0 ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="text-center">
+                  No results found.
+                </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </div>
@@ -243,11 +247,4 @@ export default function OrdersTable() {
       </div>
     </div>
   );
-}
-function setColumnFilters(updaterOrValue: Updater<ColumnFiltersState>): void {
-  throw new Error("Function not implemented.");
-}
-
-function setColumnVisibility(updaterOrValue: Updater<VisibilityState>): void {
-  throw new Error("Function not implemented.");
 }
