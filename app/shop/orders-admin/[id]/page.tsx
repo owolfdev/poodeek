@@ -98,13 +98,13 @@ export default async function OrderAdminPage({ params }: Props) {
       notes: updatedNotes,
     });
 
-    revalidatePath(`/shop/orders-admin/${id}`); // Revalidate the page
+    redirect("/admin"); // Redirect to the orders list page
   }
 
   async function handleDeleteOrder() {
     "use server"; // Server action
     await deleteOrderFromSupabase(id);
-    revalidatePath("/shop/orders-admin"); // Refresh the orders list
+    revalidatePath("/admin"); // Refresh the orders list
     redirect("/admin"); // Redirect to the orders list page
   }
 

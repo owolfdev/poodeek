@@ -31,6 +31,7 @@ export default function Administration() {
         <CachePostsButton />
       </div>
       <DataTable />
+      <div className="text-xl font-bold pt-6">Manage Orders</div>
       <DataTableForOrders />
     </div>
   );

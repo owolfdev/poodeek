@@ -274,7 +274,7 @@ export function DataTable() {
     initialState: {
       sorting: [{ id: "publishDate", desc: true }], // Default sorting by 'publishDate' in descending order
       pagination: {
-        pageSize: 15,
+        pageSize: 10,
       },
     },
   });

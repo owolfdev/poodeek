@@ -2,11 +2,18 @@
 
 import * as React from "react";
 import {
-  useReactTable,
+  type ColumnDef,
+  type ColumnFiltersState,
+  type SortingState,
+  type VisibilityState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
   getSortedRowModel,
-  type SortingState,
+  useReactTable,
+  type FilterFn,
+  type Updater,
 } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,6 +25,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
 import { ArrowUpDown } from "lucide-react";
 import { getOrders } from "./actions";
 import Link from "next/link"; // Import Link component
@@ -35,16 +43,24 @@ export default function OrdersTable() {
   const [data, setData] = React.useState<Order[]>([]);
   const [globalFilter, setGlobalFilter] = React.useState<string>("");
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = React.useState({});
 
   React.useEffect(() => {
-    async function fetchOrders() {
+    // Fetch orders data (use your `getOrders` function here)
+    const fetchOrders = async () => {
       try {
         const orders = await getOrders();
         setData(orders);
       } catch (error) {
         console.error("Error fetching orders:", error);
       }
-    }
+    };
+
     fetchOrders();
   }, []);
 
@@ -100,19 +116,43 @@ export default function OrdersTable() {
     []
   );
 
+  const globalFilterFn = (
+    row: { original: { id: string; customer_name: string } },
+    columnIds: unknown,
+    filterValue: string
+  ) => {
+    const { id, customer_name } = row.original;
+
+    return (
+      id.toLowerCase().includes(filterValue.toLowerCase()) ||
+      customer_name.toLowerCase().includes(filterValue.toLowerCase())
+    );
+  };
+
   const table = useReactTable({
     data,
     columns,
-    state: { sorting, globalFilter },
     onSortingChange: setSorting,
-    globalFilterFn: (row, columnId, filterValue) => {
-      const value = row.getValue(columnId);
-      return typeof value === "string"
-        ? value.toLowerCase().includes(filterValue.toLowerCase())
-        : false;
-    },
+    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    onRowSelectionChange: getSelection,
+    globalFilterFn: globalFilterFn,
+    state: {
+      sorting,
+      columnFilters,
+      columnVisibility,
+      rowSelection,
+    },
+    initialState: {
+      sorting: [{ id: "publishDate", desc: true }], // Default sorting by 'publishDate' in descending order
+      pagination: {
+        pageSize: 10,
+      },
+    },
   });
 
   return (
@@ -124,7 +164,7 @@ export default function OrdersTable() {
           onChange={(e) => setGlobalFilter(e.target.value)}
         />
       </div>
-      <p className="text-xs mb-2">Click on Order ID to open order in Shopify</p>
+      <p className="text-xs mb-2">Click on Order ID to view order details.</p>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -163,6 +203,51 @@ export default function OrdersTable() {
           </TableBody>
         </Table>
       </div>
+      <div className="flex items-center justify-between py-4">
+        <div>
+          <Button
+            variant="outline"
+            onClick={() => table.setPageIndex(0)}
+            disabled={!table.getCanPreviousPage()}
+          >
+            First
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+            disabled={!table.getCanNextPage()}
+          >
+            Last
+          </Button>
+        </div>
+        <div>
+          <span>
+            Page {table.getState().pagination.pageIndex + 1} of{" "}
+            {table.getPageCount()}
+          </span>
+        </div>
+      </div>
     </div>
   );
+}
+function setColumnFilters(updaterOrValue: Updater<ColumnFiltersState>): void {
+  throw new Error("Function not implemented.");
+}
+
+function setColumnVisibility(updaterOrValue: Updater<VisibilityState>): void {
+  throw new Error("Function not implemented.");
 }
