@@ -76,7 +76,9 @@ export async function GET() {
 
     // Sync: Add or update orders in Notion
     for (const order of supabaseOrders) {
-      if (!notionOrderMap[order.id.toString()]) {
+      const notionOrder = notionOrderMap[order.id.toString()];
+
+      if (!notionOrder) {
         // Add new order to Notion
         await notion.pages.create({
           parent: { database_id: notionDatabaseId },
@@ -122,6 +124,35 @@ export async function GET() {
             },
           },
         });
+      } else {
+        // Check for updates
+        const hasChanges =
+          notionOrder.properties.status?.select?.name !== order.status ||
+          notionOrder.properties.grand_total?.number !== order.grand_total ||
+          JSON.stringify(
+            notionOrder.properties.cart_items?.rich_text?.[0]?.text?.content
+          ) !== JSON.stringify(order.cart_items);
+
+        if (hasChanges) {
+          // Update existing order in Notion
+          await notion.pages.update({
+            page_id: notionOrder.id,
+            properties: {
+              status: { select: { name: order.status || "pending" } },
+              grand_total: { number: order.grand_total || 0 },
+              cart_items: {
+                rich_text: [
+                  { text: { content: JSON.stringify(order.cart_items) } },
+                ],
+              },
+              shipping_info: {
+                rich_text: [
+                  { text: { content: JSON.stringify(order.shipping_info) } },
+                ],
+              },
+            },
+          });
+        }
       }
     }
 
