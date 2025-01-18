@@ -28,7 +28,7 @@ const CartPage: React.FC = () => {
         Shopping Cart
       </h1>
       <p className="text-sm opacity-50 text-center sm:text-left">
-        This is in development, so it&apos;s not functional yet.
+        {/* This is in development, so it&apos;s not functional yet. */}
       </p>
 
       {cart.length === 0 ? (
