@@ -140,7 +140,6 @@ export function ContactForm() {
               placeholder="Subject"
               required
               className="text-lg"
-              value="Poodeek!Language Learning App"
             />
             {formErrors.subject && (
               <div className="text-red-500 text-sm mt-1">
