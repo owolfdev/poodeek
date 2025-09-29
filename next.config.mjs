@@ -2,6 +2,7 @@ import createMDX from "@next/mdx";
 import remarkGfm from "remark-gfm";
 import remarkFrontmatter from "remark-frontmatter";
 import rehypeHighlight from "rehype-highlight";
+import withPWA from "@ducanh2912/next-pwa";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -18,5 +19,17 @@ const withMDX = createMDX({
   },
 });
 
+const withPWAConfig = withPWA({
+  dest: "public",
+  cacheOnFrontEndNav: true,
+  aggressiveFrontEndNavCaching: true,
+  reloadOnOnline: true,
+  swcMinify: true,
+  disable: process.env.NODE_ENV === "development",
+  workboxOptions: {
+    disableDevLogs: true,
+  },
+});
+
 // Merge MDX config with Next.js config
-export default withMDX(nextConfig);
+export default withPWAConfig(withMDX(nextConfig));

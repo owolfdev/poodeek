@@ -17,6 +17,8 @@ function Footer() {
             {/* <Link href="/blog">Blog</Link> */}
             <Link href="/privacy">Privacy</Link>
           </div>
+          {/* Donate button temporarily disabled due to PayPal React 19 compatibility issues */}
+          {/* 
           <div className="sm:pb-0 pb-8">
             <Link
               href="/donate"
@@ -25,6 +27,7 @@ function Footer() {
               Donate
             </Link>
           </div>
+          */}
         </nav>
       </div>
     </footer>

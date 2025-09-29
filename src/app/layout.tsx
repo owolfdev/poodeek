@@ -19,8 +19,22 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Poodeek!",
-  description: "Thai phrase repetition app",
+  title: "PoodEek - Language Learning",
+  description:
+    "Learn languages with PoodEek - your language learning companion",
+  manifest: "/manifest.json",
+  themeColor: "#f55751",
+  viewport:
+    "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "PoodEek",
+  },
+  icons: {
+    icon: "/icons/favicon-196.png",
+    apple: "/icons/apple-icon-180.png",
+  },
 };
 
 export default function RootLayout({
