@@ -1,10 +1,15 @@
-const textToSpeech = require("@google-cloud/text-to-speech");
-const fs = require("fs");
-const util = require("util");
-const path = require("path");
-require("dotenv").config();
+import textToSpeech from "@google-cloud/text-to-speech";
+import fs from "fs";
+import path from "path";
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
 
-const phrases = require("../data/phrases.json");
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const phrases = JSON.parse(fs.readFileSync(path.join(__dirname, "../data/phrases.json"), "utf8"));
 
 const google_credentials_content = process.env.GOOGLE_CREDENTIALS_CONTENT;
 const credentials = JSON.parse(google_credentials_content);

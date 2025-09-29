@@ -1,8 +1,5 @@
-const textToSpeech = require("@google-cloud/text-to-speech");
-const fs = require("fs");
-const util = require("util");
-const path = require("path");
-// const { createClient } = require("@supabase/supabase-js");
+import textToSpeech from "@google-cloud/text-to-speech";
+// import { createClient } from "@supabase/supabase-js";
 // const supabase = createClient(
 //   process.env.NEXT_PUBLIC_SUPABASE_URL,
 //   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY

@@ -1,7 +1,7 @@
-const fs = require("node:fs");
+import fs from "node:fs";
 
 // Read data from JSON file
-const data = JSON.parse(fs.readFileSync("./phrases.json", "utf8"));
+const data = JSON.parse(fs.readFileSync("./src/data/phrases.json", "utf8"));
 
 // Add index to each object in the array
 const dataWithIndex = data.map((item, index) => ({
@@ -13,7 +13,7 @@ console.log(dataWithIndex);
 
 // Write the new data to a JSON file
 fs.writeFileSync(
-  "./indexed-phrases.json",
+  "./src/data/indexed-phrases.json",
   JSON.stringify(dataWithIndex, null, 2)
 );
 

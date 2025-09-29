@@ -49,7 +49,7 @@ async function fetchLikesCount(postId) {
 
 export async function generatePostsCache() {
   console.log("Generating posts cache...");
-  const postsDirectory = path.join(process.cwd(), "content/posts");
+  const postsDirectory = path.join(process.cwd(), "src/content/posts");
   const fileNames = fs
     .readdirSync(postsDirectory)
     .filter(
