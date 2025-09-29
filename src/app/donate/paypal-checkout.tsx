@@ -1,10 +1,11 @@
 "use client";
 
-import {
-  PayPalButtons,
-  PayPalScriptProvider,
-  type ReactPayPalScriptOptions,
-} from "@paypal/react-paypal-js";
+// PayPal temporarily disabled due to React 19 compatibility issues
+// import {
+//   PayPalButtons,
+//   PayPalScriptProvider,
+//   type ReactPayPalScriptOptions,
+// } from "@paypal/react-paypal-js";
 import { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 
@@ -21,10 +22,11 @@ export default function App() {
     donationAmountRef.current = donationAmount; // Ensure the ref is updated
   }, [donationAmount]);
 
-  const initialOptions: ReactPayPalScriptOptions = {
-    clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "",
-    currency: "USD",
-  };
+  // PayPal temporarily disabled due to React 19 compatibility issues
+  // const initialOptions: ReactPayPalScriptOptions = {
+  //   clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "",
+  //   currency: "USD",
+  // };
 
   return (
     <div className="bg-white p-6 rounded-lg w-full flex flex-col gap-4">
@@ -42,6 +44,17 @@ export default function App() {
           }
         />
       </div>
+      {/* PayPal temporarily disabled due to React 19 compatibility issues */}
+      <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
+        <p className="font-bold">PayPal Donations Temporarily Unavailable</p>
+        <p className="text-sm">
+          We&apos;re upgrading our payment system to support the latest React
+          version. PayPal donations will be available again soon.
+        </p>
+      </div>
+
+      {/* PayPal Script Provider and Buttons commented out */}
+      {/* 
       <PayPalScriptProvider options={initialOptions}>
         <PayPalButtons
           style={{
@@ -96,6 +109,7 @@ export default function App() {
           }}
         />
       </PayPalScriptProvider>
+      */}
       {paymentStatus && (
         <div
           style={{

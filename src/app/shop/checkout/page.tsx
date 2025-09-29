@@ -31,43 +31,45 @@ import { useShipping } from "@/context/ShippingContext";
 import { useRouter } from "next/navigation";
 import { saveOrder } from "./actions";
 import { useMemo } from "react";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+// PayPal temporarily disabled due to React 19 compatibility issues
+// import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useRef } from "react";
 
 import { sendOrderEmail } from "./actions";
 
-type PayPalApproveData = {
-  orderID: string; // Always required
-  payerID?: string | null; // Optional to match PayPal's type
-};
+// PayPal temporarily disabled due to React 19 compatibility issues
+// type PayPalApproveData = {
+//   orderID: string; // Always required
+//   payerID?: string | null; // Optional to match PayPal's type
+// };
 
-type PayPalApproveActions = {
-  order: {
-    capture: () => Promise<{
-      id?: string;
-      status?: string;
-      purchase_units?: Array<{
-        amount: {
-          currency_code: string;
-          value: string;
-        };
-      }>;
-      // Use a more specific type instead of any
-      [key: string]: unknown;
-    }>;
-  };
-};
+// type PayPalApproveActions = {
+//   order: {
+//     capture: () => Promise<{
+//       id?: string;
+//       status?: string;
+//       purchase_units?: Array<{
+//         amount: {
+//           currency_code: string;
+//           value: string;
+//         };
+//       }>;
+//       // Use a more specific type instead of any
+//       [key: string]: unknown;
+//     }>;
+//   };
+// };
 
-type PayPalCaptureDetails = {
-  id: string; // Order ID
-  status: string; // Order status, e.g., "COMPLETED"
-  purchase_units: Array<{
-    amount: {
-      currency_code: string;
-      value: string;
-    };
-  }>;
-};
+// type PayPalCaptureDetails = {
+//   id: string; // Order ID
+//   status: string; // Order status, e.g., "COMPLETED"
+//   purchase_units: Array<{
+//     amount: {
+//       currency_code: string;
+//       value: string;
+//     };
+//   }>;
+// };
 
 const shippingSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -299,140 +301,93 @@ const CheckoutPage: React.FC = () => {
     onSubmit(data, "calculate");
   const handlePayNow = (data: ShippingForm) => onSubmit(data, "pay");
 
-  const onPayPalApprove = async (
-    data: PayPalApproveData,
-    actions: PayPalApproveActions
-  ) => {
-    try {
-      const details = await actions.order.capture();
+  // PayPal temporarily disabled due to React 19 compatibility issues
+  // const onPayPalApprove = async (
+  //   data: PayPalApproveData,
+  //   actions: PayPalApproveActions
+  // ) => {
+  //   try {
+  //     const details = await actions.order.capture();
 
-      const formValues = getValues();
-      const cartWithVariants = cart
-        .map((item) => {
-          const variant = variants.find((v) => v.sku === item.sku);
-          if (!variant) return null;
-          return {
-            variant_id: variant.variant_id,
-            quantity: item.quantity,
-          };
-        })
-        .filter(Boolean);
+  //     const formValues = getValues();
+  //     const cartWithVariants = cart
+  //       .map((item) => {
+  //         const variant = variants.find((v) => v.sku === item.sku);
+  //         if (!variant) return null;
+  //         return {
+  //           variant_id: variant.variant_id,
+  //           quantity: item.quantity,
+  //         };
+  //       })
+  //       .filter(Boolean);
 
-      // Save the order
-      const orderData = {
-        created_at: new Date().toISOString(),
-        grand_total: grandTotalRef.current,
-        currency: "USD",
-        cart_items: cartWithVariants.map((item) => ({
-          variant_id: item?.variant_id || 0,
-          quantity: item?.quantity || 0,
-          name:
-            variants.find((v) => v.variant_id === item?.variant_id)?.sku || "",
-          price:
-            variants.find((v) => v.variant_id === item?.variant_id)
-              ?.variant_price || 0,
-        })),
-        shipping_info: {
-          name: formValues.name,
-          address1: formValues.address,
-          address2: formValues.address2 || "",
-          city: formValues.city,
-          state_code: formValues.state,
-          country_code: formValues.country,
-          zip: formValues.zip,
-          email: formValues.email || "",
-          phone: formValues.phone || "",
-        },
-        selected_shipping: {
-          id: selectedShippingRef.current?.id || "unknown_shipping_method",
-          name: selectedShippingRef.current?.name || "No Name",
-          rate: Number.parseFloat(selectedShippingRef.current?.rate || "0"),
-          currency: selectedShippingRef.current?.currency || "USD",
-          minDeliveryDays: Number.parseInt(
-            selectedShippingRef.current?.minDeliveryDate || "0"
-          ),
-          maxDeliveryDays: Number.parseInt(
-            selectedShippingRef.current?.maxDeliveryDate || "0"
-          ),
-        },
-        shipping_cost: Number.parseFloat(selectedShipping?.rate || "0"),
-        status: "completed",
-        notes: "",
-      };
+  //     // Save the order
+  //     const orderData = {
+  //       created_at: new Date().toISOString(),
+  //       grand_total: grandTotalRef.current,
+  //       currency: "USD",
+  //       cart_items: cartWithVariants.map((item) => ({
+  //         variant_id: item?.variant_id || 0,
+  //         quantity: item?.quantity || 0,
+  //         name:
+  //           variants.find((v) => v.variant_id === item?.variant_id)?.sku || "",
+  //         price:
+  //           variants.find((v) => v.variant_id === item?.variant_id)
+  //             ?.variant_price || 0,
+  //       })),
+  //       shipping_info: {
+  //         name: formValues.name,
+  //         address1: formValues.address,
+  //         address2: formValues.address2 || "",
+  //         city: formValues.city,
+  //         state_code: formValues.state,
+  //         country_code: formValues.country,
+  //         zip: formValues.zip,
+  //         email: formValues.email || "",
+  //         phone: formValues.phone || "",
+  //       },
+  //       selected_shipping: {
+  //         id: selectedShippingRef.current?.id || "unknown_shipping_method",
+  //         name: selectedShippingRef.current?.name || "No Name",
+  //         rate: Number.parseFloat(selectedShippingRef.current?.rate || "0"),
+  //         currency: selectedShippingRef.current?.currency || "USD",
+  //         minDeliveryDays: Number.parseInt(
+  //           selectedShippingRef.current?.minDeliveryDate || "0"
+  //         ),
+  //         maxDeliveryDays: Number.parseInt(
+  //           selectedShippingRef.current?.maxDeliveryDate || "0"
+  //         ),
+  //       },
+  //       shipping_cost: Number.parseFloat(selectedShipping?.rate || "0"),
+  //       status: "completed",
+  //       notes: "",
+  //     };
 
-      const orderResponse = await saveOrder(orderData);
+  //     const orderResponse = await saveOrder(orderData);
 
-      const orderId = orderResponse[0]?.id;
-      if (!orderId) {
-        throw new Error("Invalid order ID received.");
-      }
+  //     const orderId = orderResponse[0]?.id;
+  //     if (!orderId) {
+  //       throw new Error("Invalid order ID received.");
+  //     }
 
-      // Send email after order is saved and verified
-      await sendOrderEmail(orderId);
+  //     // Send email after order is saved and verified
+  //     await sendOrderEmail(orderId);
 
-      clearCart();
-      router.push(`/shop/thank-you?id=${orderId}`);
-    } catch (error) {
-      console.error("Error during PayPal approval:", error);
-    }
-  };
+  //     clearCart();
+  //     router.push(`/shop/thank-you?id=${orderId}`);
+  //   } catch (error) {
+  //     console.error("Error during PayPal approval:", error);
+  //   }
+  // };
 
-  const payPalButton = selectedShipping ? (
-    <div>
-      <h1 className="text-xl font-bold pb-3">Proceed to Payment</h1>
-      <PayPalButtons
-        createOrder={(data, actions) => {
-          const totalAmount = grandTotalRef.current.toFixed(2); // Use the ref value
-          // console.log("Grand Total for PayPal:", totalAmount);
-
-          return actions.order.create({
-            purchase_units: [
-              {
-                amount: {
-                  currency_code: "USD",
-                  value: totalAmount,
-                },
-              },
-            ],
-            intent: "CAPTURE",
-          });
-        }}
-        onApprove={async (data, actions) => {
-          if (!actions.order) return;
-          const order = await actions.order.capture();
-          await onPayPalApprove(data, {
-            order: {
-              capture: async () => ({
-                id: order.id,
-                status: order.status,
-                purchase_units: order.purchase_units?.map((unit) => ({
-                  amount: {
-                    currency_code: unit.amount?.currency_code || "USD",
-                    value: unit.amount?.value || "0",
-                  },
-                })),
-              }),
-            },
-          });
-        }}
-        onError={(error) => console.error("PayPal Error:", error)}
-        className="rounded-lg bg-white p-8"
-      />
-    </div>
-  ) : (
-    <div
-      style={{
-        textAlign: "center",
-        padding: "16px",
-        backgroundColor: "#f5f5f5",
-        borderRadius: "8px",
-        border: "1px solid #ddd",
-      }}
-    >
-      <h3 className="text-3xl font-black text-blue-600 pb-3">
-        Pay with Credit Card or PayPal
-      </h3>
-      <p>Select a shipping options to enable payment.</p>
+  // PayPal temporarily disabled due to React 19 compatibility issues
+  const payPalButton = (
+    <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
+      <p className="font-bold">PayPal Payments Temporarily Unavailable</p>
+      <p className="text-sm">
+        We&apos;re upgrading our payment system to support the latest React
+        version. PayPal payments will be available again soon.
+      </p>
     </div>
   );
 
@@ -658,7 +613,9 @@ const CheckoutPage: React.FC = () => {
         </div>
       </div>
 
-      {/* PayPal */}
+      {/* PayPal temporarily disabled due to React 19 compatibility issues */}
+      {payPalButton}
+      {/* 
       <PayPalScriptProvider
         options={{
           clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "",
@@ -667,6 +624,7 @@ const CheckoutPage: React.FC = () => {
       >
         {payPalButton}
       </PayPalScriptProvider>
+      */}
     </div>
   );
 };
